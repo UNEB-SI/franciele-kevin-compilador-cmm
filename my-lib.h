@@ -87,3 +87,19 @@ char LT[1000][100];
 #define C_NovaLinha '\n';
 #define C_Tab '\t';
 #define C_Espaco '\b';
+
+
+
+bool ehLetra(char caracter){
+    if(
+        (caracter >= 65 && caracter <= 90) ||
+        (caracter >= 97 && caracter <= 122)
+    ) return true;
+    return false;
+}
+
+bool ehDigito(char caracter){
+    if(caracter >= 48 && caracter <= 57)
+        return true;
+    return false;
+}

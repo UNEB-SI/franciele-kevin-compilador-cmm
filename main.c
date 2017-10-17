@@ -1,55 +1,166 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <stdbool.h>
 #include "my-lib.h"
 
 void main(){
-    // printf("Hello World!\n");
-
-    // printf("\nSINAIS\n");
-    // printf("SN_abreChaves -> %s\n",SN_TABLE[SN_abreChaves] );
-    // printf("SN_fechaChaves -> %s\n",SN_TABLE[SN_fechaChaves] );
-    // printf("SN_abreParenteses -> %s\n",SN_TABLE[SN_abreParenteses] );
-    // printf("SN_fechaParenteses -> %s\n",SN_TABLE[SN_fechaParenteses] );
-    // printf("SN_pontoEVirgula -> %s\n",SN_TABLE[SN_pontoEVirgula] );
-    // printf("SN_divisao -> %s\n",SN_TABLE[SN_divisao] );
-    // printf("SN_mutiplicacao -> %s\n",SN_TABLE[SN_mutiplicacao] );
-    // printf("SN_soma -> %s\n",SN_TABLE[SN_soma] );
-    // printf("SN_subtracao -> %s\n",SN_TABLE[SN_subtracao] );
-    // printf("SN_virgula -> %s\n",SN_TABLE[SN_virgula] );
-    // printf("SN_maiorQue -> %s\n",SN_TABLE[SN_maiorQue] );
-    // printf("SN_maiorIgualQue -> %s\n",SN_TABLE[SN_maiorIgualQue] );
-    // printf("SN_menorQue -> %s\n",SN_TABLE[SN_menorQue] );
-    // printf("SN_menorIgualQue -> %s\n",SN_TABLE[SN_menorIgualQue] );
-    // printf("SN_negacao -> %s\n",SN_TABLE[SN_negacao] );
-    // printf("SN_difente -> %s\n",SN_TABLE[SN_difente] );
-    // printf("SN_atribuicao -> %s\n",SN_TABLE[SN_atribuicao] );
-    // printf("SN_igualdade -> %s\n",SN_TABLE[SN_igualdade] );
-    // printf("SN_ouCondicional -> %s\n",SN_TABLE[SN_ouCondicional] );
-    // printf("SN_eCondiciona -> %s\n",SN_TABLE[SN_eCondicional] );
-
-    // printf("\nPALAVRAS RESERVADAS\n");
-    // printf("inteiro -> %s\n",PR_TABLE[inteiro]);
-    // printf("real -> %s\n",PR_TABLE[real]);
-    // printf("booleano -> %s\n",PR_TABLE[booleano]);
-    // printf("caracter -> %s\n",PR_TABLE[caracter]);
-    // printf("retorne -> %s\n",PR_TABLE[retorne]);
-    // printf("semretorno -> %s\n",PR_TABLE[semretorno]);
-    // printf("semparam -> %s\n",PR_TABLE[semparam]);
-    // printf("se -> %s\n",PR_TABLE[se]);
-    // printf("para -> %s\n",PR_TABLE[para]);
-    // printf("enquanto -> %s\n",PR_TABLE[enquanto]);
-    // printf("principal -> %s\n",PR_TABLE[principal]);
-
-    printf("\nLeitura de arquivo\n");
-
     FILE *fp;
     char c;
     fp = fopen("sample.cmm","r");
-    while( (c = fgetc(fp)) != EOF )
-        printf("%c",c);
-
+    int estado = 0;
+    while( (c = fgetc(fp)) != EOF ){
+        // printf("%c",c);
+        swich(estado){
+            case 0:
+                
+                break;
+            case 1:
+                
+                break;
+            case 2:
+                
+                break;
+            case 3:
+                
+                break;
+            case 4:
+                
+                break;
+            case 5:
+                
+                break;
+            case 6:
+                
+                break;
+            case 7:
+                
+                break;
+            case 8:
+                
+                break;
+            case 9:
+                
+                break;
+            case 10:
+                
+                break;
+            case 11:
+                
+                break;
+            case 12:
+                
+                break;
+            case 13:
+                
+                break;
+            case 14:
+                
+                break;
+            case 15:
+                
+                break;
+            case 16:
+                
+                break;
+            case 17:
+                
+                break;
+            case 18:
+                
+                break;
+            case 19:
+                
+                break;
+            case 20:
+                
+                break;
+            case 21:
+                
+                break;
+            case 22:
+                
+                break;
+            case 23:
+                
+                break;
+            case 24:
+                
+                break;
+            case 25:
+                
+                break;
+            case 26:
+                
+                break;
+            case 27:
+                
+                break;
+            case 28:
+                
+                break;
+            case 29:
+                
+                break;
+            case 30:
+                
+                break;
+            case 31:
+                
+                break;
+            case 32:
+                
+                break;
+            case 33:
+                
+                break;
+            case 34:
+                
+                break;
+            case 35:
+                
+                break;
+            case 36:
+                
+                break;
+            case 37:
+                
+                break;
+            case 38:
+                
+                break;
+            case 39:
+                
+                break;
+            case 40:
+                
+                break;
+            case 41:
+                
+                break;
+            case 42:
+                
+                break;
+            case 43:
+                
+                break;
+            case 44:
+                
+                break;
+            case 45:
+                
+                break;
+            case 46:
+                
+                break;
+            case default:
+                printf("ESTADO INVALIDO, VERIFICAR CODIGO!");
+                exit(1);
+        }
+    }
+        
     fclose(fp);
+
 }
 
 
