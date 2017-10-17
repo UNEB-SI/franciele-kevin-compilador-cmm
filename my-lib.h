@@ -81,7 +81,7 @@ float CT_R_TABLE[100];
 char CT_C_TABLE[100];
 
 // Literais
-char LT[][100];
+char LT[1000][100];
 
 // Outros
 #define C_NovaLinha '\n';
