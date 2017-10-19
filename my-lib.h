@@ -1,6 +1,6 @@
 // IDs
 char ID_TABLE[1000][100];
-
+int ID_TABLE_TOPO=0;
 // Palavras reservadas
 enum PR{
     inteiro=0,
@@ -13,7 +13,7 @@ enum PR{
     se,
     para,
     enquanto,
-    principal,
+    principal
 };
 char PR_TABLE[][50]={
     "inteiro",
@@ -76,9 +76,9 @@ char SN_TABLE[][50]={
 };
 
 // Constantes
-int CT_I_TABLE[100];
-float CT_R_TABLE[100];
-char CT_C_TABLE[100];
+int CT_I_TABLE[100]; // inteiro
+float CT_R_TABLE[100]; //real
+char CT_C_TABLE[100]; //caracter
 
 // Literais
 char LT[1000][100];
@@ -88,6 +88,31 @@ char LT[1000][100];
 #define C_Tab '\t';
 #define C_Espaco '\b';
 
+
+enum categoria{
+    CAT_id,
+    CAT_palavraReservada,
+    CAT_sinais,
+    CAT_constanteInteira,
+    CAT_constanteReal,
+    CAT_constanteCaracter,
+    CAT_literal
+};
+
+char tabela_categoria[][100]={
+    "Id",
+    "Palavra Reservada",
+    "Sinais",
+    "Constante Inteira",
+    "Constante Real",
+    "Constante Caracter",
+    "Literal" 
+};
+
+typedef struct token{
+    int categoria; // qual categoria é 
+    int codigo; // codigo 
+}token;
 
 
 bool ehLetra(char caracter){
@@ -102,4 +127,37 @@ bool ehDigito(char caracter){
     if(caracter >= 48 && caracter <= 57)
         return true;
     return false;
+}
+
+
+// terminar isso aqui
+// imprimir de acordo com a categoria
+void mostraToken(token token){
+    switch(token.categoria){
+        case CAT_id:
+            printf("<TOKEN: ID, %s>\n",ID_TABLE[token.codigo]);
+            break;
+        case CAT_palavraReservada:
+            printf("<TOKEN: PALAVRA RESERVADA, %s>\n",PR_TABLE[token.codigo]);
+            break;
+        case CAT_sinais:
+            printf("<TOKEN: SINAIS, %s>\n",SN_TABLE[token.codigo]);
+            break;
+        case CAT_constanteInteira:
+            printf("<TOKEN: CONSTANTE INTEIRA, %d>\n",CT_I_TABLE[token.codigo]);
+            break;
+        case CAT_constanteReal:
+            printf("<TOKEN: CONSTANTE REAL, %f>\n",CT_R_TABLE[token.codigo]);
+            break;
+        case CAT_constanteCaracter:
+            printf("<TOKEN: CONSTANTE CARACTER, %c>\n",CT_C_TABLE[token.codigo]);
+            break;
+        case CAT_literal:
+            printf("<TOKEN: LITERAL, %s>\n",LT[token.codigo]);
+            break;
+        default:
+            printf("<TOKEN INVALIDO>\n");
+            break;
+    }
+    
 }
