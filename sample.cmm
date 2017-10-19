@@ -1,44 +1,35 @@
-{}();//inteiro variavel/;
-/* comentario hehehe */
+/*************************/
 
-3121314
-
-
-5.4598a6
-
-"string"
-
-'d'
-
->=
->
-<=
-<
-
-!
-!=
-+
-*
--
-
-&&
-||
-
-Franciele portugal idiota a
-
-quantos
-tolkens
-eu
-quiser
-/*asldk*/
-a54
-
-
-
-/* comentario
-
+/* Comentario
 
 
 */
 
+
+
+semretorno
+caracter
+inteiro
+real
+booleano
+semparam
+se
+senao
+enquanto
+para
+retorne
+
+ 
+
++  -  *  /  ;  ,  < <= > >=  ==  !=  =  ||  &&  ( ) { } [ ]
+
 teste
+cont
+cont2 cont3
+
+1 2.3 'c' '\n' '\0' "c" "Teste de literal"
+
+'a'
+
+/*-------------------------------------------------------*/
+
