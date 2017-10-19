@@ -27,7 +27,7 @@ teste
 cont
 cont2 cont3
 
-1 2.3 'c' '\n' '\0' "c" "Teste de literal"
+1 2.3 'c' '\n' '\0' '\t' "c" "Teste de literal"
 
 'a'
 

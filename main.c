@@ -15,7 +15,7 @@ void main(){
         //printf("%c",charEntrada);
         //printf("estado atual %d\tlendo char '%c'\n",estado,charEntrada);
         switch(estado){
-            case 0:
+            case 0: //INICIAL
                 // abre chaves
                 if(charEntrada== '{') estado = 1;
                 // fecha chaves
@@ -72,7 +72,7 @@ void main(){
                 // maior ou maior e igual
                 if(charEntrada== '\n' || charEntrada== '\t' ||charEntrada== '\b') estado = 0;
                 break;
-            case 1:
+            case 1: //FINAL
                 temptoken.categoria = CAT_sinais;
                 temptoken.codigo = SN_abreChaves;
                 mostraToken(temptoken);
@@ -80,7 +80,7 @@ void main(){
                 ungetc(charEntrada, fp);
                 estado = 0;
                 break;
-            case 2:
+            case 2: //FINAL
                 temptoken.categoria = CAT_sinais;
                 temptoken.codigo = SN_fechaChaves;
                 mostraToken(temptoken);
@@ -88,7 +88,7 @@ void main(){
                 ungetc(charEntrada, fp);
                 estado = 0;
                 break;
-            case 3:
+            case 3: //FINAL
                 temptoken.categoria = CAT_sinais;
                 temptoken.codigo = SN_abreParenteses;
                 mostraToken(temptoken);
@@ -96,7 +96,7 @@ void main(){
                 ungetc(charEntrada, fp);
                 estado = 0;
                 break;
-            case 4:
+            case 4: //FINAL
                 temptoken.categoria = CAT_sinais;
                 temptoken.codigo = SN_fechaParenteses;
                 mostraToken(temptoken);
@@ -104,7 +104,7 @@ void main(){
                 ungetc(charEntrada, fp);
                 estado = 0;
                 break;
-            case 5:
+            case 5: //FINAL
                 temptoken.categoria = CAT_sinais;
                 temptoken.codigo = SN_pontoEVirgula;
                 mostraToken(temptoken);
@@ -122,7 +122,7 @@ void main(){
                     estado = 7;
                 }
                 break;
-            case 7:
+            case 7: //FINAL
                 temptoken.categoria = CAT_sinais;
                 temptoken.codigo = SN_divisao;
                 mostraToken(temptoken);
@@ -153,7 +153,7 @@ void main(){
                     estado = 9;
                 }
                 break;
-            case 11:
+            case 11: //FINAL
                 // temptoken.categoria = CAT_sinais;
                 // temptoken.codigo = SN_divisao;
                 // mostraToken(temptoken);
@@ -180,7 +180,7 @@ void main(){
                     estado = 14;
                 }
                 break;
-            case 14:
+            case 14: //FINAL
                 strcpy(ID_TABLE[ ID_TABLE_TOPO ],buffer);
                 buffer[0] = '\0';                
                 temptoken.categoria = CAT_id;
@@ -203,7 +203,7 @@ void main(){
                     estado = 16;
                 }
                 break;
-            case 16:
+            case 16: //FINAL
                 printf("<TOKEN: CI, %s>\n",buffer);
                 buffer[0] = '\0';                
                 // fseek(fp,-1, SEEK_CUR);
@@ -225,7 +225,7 @@ void main(){
                     estado = 19;
                 }
                 break;
-            case 19:
+            case 19: //FINAL
                 printf("<TOKEN: CR, %s>\n",buffer);
                 buffer[0] = '\0';                
                 // fseek(fp,-1, SEEK_CUR);
@@ -246,7 +246,7 @@ void main(){
                     estado = 21;                    
                 }
                 break;
-            case 22:
+            case 22: //FINAL
                 printf("<TOKEN: LT, \"%s\">\n",buffer);
                 buffer[0] = '\0';                
                 // fseek(fp,-1, SEEK_CUR);
@@ -254,7 +254,9 @@ void main(){
                 estado = 0;
                 break;
             case 23:
-                if(charEntrada != '\\' && charEntrada != '\''){
+                if(charEntrada == '\\'){
+                    estado = 47;
+                }else if( charEntrada != '\''){
                     sprintf(buffer,"%s%c",buffer,charEntrada);
                     estado = 24;
                 }
@@ -264,7 +266,7 @@ void main(){
                     estado = 25;
                 }
                 break;
-            case 25:
+            case 25: //FINAL
                 printf("<TOKEN: CC, '%s'>\n",buffer);
                 buffer[0] = '\0';                
                 // fseek(fp,-1, SEEK_CUR);
@@ -279,7 +281,7 @@ void main(){
                     estado = 28;
                 }
                 break;
-            case 27:
+            case 27: //FINAL
                 temptoken.categoria = CAT_sinais;
                 temptoken.codigo = SN_maiorIgualQue;
                 mostraToken(temptoken);
@@ -287,7 +289,7 @@ void main(){
                 ungetc(charEntrada, fp);
                 estado = 0;
                 break;
-            case 28:
+            case 28: //FINAL
                 temptoken.categoria = CAT_sinais;
                 temptoken.codigo = SN_maiorQue;
                 mostraToken(temptoken);
@@ -303,7 +305,7 @@ void main(){
                     estado = 31;
                 }
                 break;
-            case 30:
+            case 30: //FINAL
                 temptoken.categoria = CAT_sinais;
                 temptoken.codigo = SN_menorIgualQue;
                 mostraToken(temptoken);
@@ -311,7 +313,7 @@ void main(){
                 ungetc(charEntrada, fp);
                 estado = 0;
                 break;
-            case 31:
+            case 31: //FINAL
                 temptoken.categoria = CAT_sinais;
                 temptoken.codigo = SN_menorQue;
                 mostraToken(temptoken);
@@ -327,7 +329,7 @@ void main(){
                     estado = 34;
                 }
                 break;
-            case 33:
+            case 33: //FINAL
                 temptoken.categoria = CAT_sinais;
                 temptoken.codigo = SN_difente;
                 mostraToken(temptoken);
@@ -335,7 +337,7 @@ void main(){
                 ungetc(charEntrada, fp);
                 estado = 0;
                 break;
-            case 34:
+            case 34: //FINAL
                 temptoken.categoria = CAT_sinais;
                 temptoken.codigo = SN_negacao;
                 mostraToken(temptoken);
@@ -351,7 +353,7 @@ void main(){
                     estado = 37;
                 }
                 break;
-            case 36:
+            case 36: //FINAL
                 temptoken.categoria = CAT_sinais;
                 temptoken.codigo = SN_igualdade;
                 mostraToken(temptoken);
@@ -359,7 +361,7 @@ void main(){
                 ungetc(charEntrada, fp);
                 estado = 0;
                 break;
-            case 37:
+            case 37: //FINAL
                 temptoken.categoria = CAT_sinais;
                 temptoken.codigo = SN_atribuicao;
                 mostraToken(temptoken);
@@ -367,7 +369,7 @@ void main(){
                 ungetc(charEntrada, fp);
                 estado = 0;
                 break;
-            case 38:
+            case 38: //FINAL
                 temptoken.categoria = CAT_sinais;
                 temptoken.codigo = SN_soma;
                 mostraToken(temptoken);
@@ -375,7 +377,7 @@ void main(){
                 ungetc(charEntrada, fp);
                 estado = 0;
                 break;
-            case 39:
+            case 39: //FINAL
                 temptoken.categoria = CAT_sinais;
                 temptoken.codigo = SN_subtracao;
                 mostraToken(temptoken);
@@ -383,7 +385,7 @@ void main(){
                 ungetc(charEntrada, fp);
                 estado = 0;
                 break;
-            case 40:
+            case 40: //FINAL
                 temptoken.categoria = CAT_sinais;
                 temptoken.codigo = SN_mutiplicacao;
                 mostraToken(temptoken);
@@ -391,7 +393,7 @@ void main(){
                 ungetc(charEntrada, fp);
                 estado = 0;
                 break;
-            case 41:
+            case 41: //FINAL
                 temptoken.categoria = CAT_sinais;
                 temptoken.codigo = SN_virgula;
                 mostraToken(temptoken);
@@ -407,7 +409,7 @@ void main(){
                     estado = 44;
                 }
                 break;
-            case 44:
+            case 44: //FINAL
                 temptoken.categoria = CAT_sinais;
                 temptoken.codigo = SN_ouCondicional;
                 mostraToken(temptoken);
@@ -420,7 +422,7 @@ void main(){
                     estado = 46;
                 }
                 break;
-            case 46:
+            case 46: //FINAL
                 temptoken.categoria = CAT_sinais;
                 temptoken.codigo = SN_eCondicional;
                 mostraToken(temptoken);
@@ -428,6 +430,55 @@ void main(){
                 ungetc(charEntrada, fp);
                 estado = 0;
                 break;
+            case 47:
+                if(charEntrada == 'n'){
+                    sprintf(buffer,"%s%c",buffer,'\n');
+                    estado = 48;
+                }else if(charEntrada == 't'){
+                    sprintf(buffer,"%s%c",buffer,'\t');
+                    estado = 49;
+                }else if(charEntrada == '0'){
+                    sprintf(buffer,"%s%c",buffer,'\0');
+                    estado = 50;
+                }
+                break;
+            case 48:
+                if(charEntrada=='\''){
+                    estado = 25;
+                }
+                break;
+            case 49:
+                if(charEntrada=='\''){
+                    estado = 25;
+                }
+                break;
+            case 50:
+                if(charEntrada=='\''){
+                    estado = 25;
+                }
+                break;
+            case 51: //FINAL
+                printf("<TOKEN: CC, '%s'>\n",buffer);
+                buffer[0] = '\0';                
+                // fseek(fp,-1, SEEK_CUR);
+                ungetc(charEntrada, fp);
+                estado = 0;
+                break;
+            case 52: //FINAL
+                printf("<TOKEN: CC, '%s'>\n",buffer);
+                buffer[0] = '\0';                
+                // fseek(fp,-1, SEEK_CUR);
+                ungetc(charEntrada, fp);
+                estado = 0;
+                break;
+            case 53: //FINAL
+                printf("<TOKEN: CC, '%s'>\n",buffer);
+                buffer[0] = '\0';                
+                // fseek(fp,-1, SEEK_CUR);
+                ungetc(charEntrada, fp);
+                estado = 0;
+                break;
+            
             default:
                 printf("ESTADO INVALIDO, VERIFICAR CODIGO!");
                 exit(1);
