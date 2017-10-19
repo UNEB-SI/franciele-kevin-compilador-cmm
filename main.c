@@ -19,58 +19,59 @@ void main(){
                 // abre chaves
                 if(charEntrada== '{') estado = 1;
                 // fecha chaves
-                if(charEntrada== '}') estado = 2;
+                else if(charEntrada== '}') estado = 2;
                 // abre parenteses
-                if(charEntrada== '(') estado = 3;
+                else if(charEntrada== '(') estado = 3;
                 // fecha parenteses
-                if(charEntrada== ')') estado = 4;
+                else if(charEntrada== ')') estado = 4;
                 // ponto e virgula
-                if(charEntrada== ';') estado = 5;
+                else if(charEntrada== ';') estado = 5;
                 // divisão ou comentario
-                if(charEntrada== '/') estado = 6;
+                else if(charEntrada== '/') estado = 6;
                 // palavra reservada ou ID
-                if(ehLetra(charEntrada)){
+                else if(ehLetra(charEntrada)){
                     ungetc(charEntrada, fp);
                     estado = 12;
                 }
                 // numero inteiro ou real
-                if(ehDigito(charEntrada)){
+                else if(ehDigito(charEntrada)){
                     ungetc(charEntrada, fp);
                     estado = 15;
                 }
                 // Cadeia de caracteres
-                if(charEntrada== '"') estado = 20;
+                else if(charEntrada== '"') estado = 20;
                 // caracter
-                if(charEntrada== '\'') estado = 23;
+                else if(charEntrada== '\'') estado = 23;
                 // maior ou maior e igual
-                if(charEntrada== '>') estado = 26;
+                else if(charEntrada== '>') estado = 26;
                 // menor ou menor e igual
-                if(charEntrada== '<') estado = 29;
+                else if(charEntrada== '<') estado = 29;
                 // negação ou diferente
-                if(charEntrada== '!') estado = 32;
+                else if(charEntrada== '!') estado = 32;
                 // igualdade ou atribuição
-                if(charEntrada== '=') estado = 35;
+                else if(charEntrada== '=') estado = 35;
                 // soma
-                if(charEntrada== '+') estado = 38;
+                else if(charEntrada== '+') estado = 38;
                 // subtração
-                if(charEntrada== '-') estado = 39;
+                else if(charEntrada== '-') estado = 39;
                 // multiplicaçõa
-                if(charEntrada== '*') estado = 40;
+                else if(charEntrada== '*') estado = 40;
                 // virgula
-                if(charEntrada== ',') estado = 41;
+                else if(charEntrada== ',') estado = 41;
                 // maior ou maior e igual
                 // if(charEntrada== EOF) estado = 2;
                 // não entra fim de arquivo
 
                 // ou condicional
-                if(charEntrada== '|') estado = 43;
+                else if(charEntrada== '|') estado = 43;
                 // e condicional
-                if(charEntrada== '&') estado = 45;
+                else if(charEntrada== '&') estado = 45;
 
                 // RETRO ALIMENTAÇÂO
 
                 // maior ou maior e igual
-                if(charEntrada== '\n' || charEntrada== '\t' ||charEntrada== '\b') estado = 0;
+                else if(charEntrada== '\n' || charEntrada== '\t' ||charEntrada== ' ') estado = 0;
+                else mensagemDeErro(charEntrada);
                 break;
             case 1: //FINAL
                 temptoken.categoria = CAT_sinais;

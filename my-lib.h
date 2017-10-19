@@ -129,6 +129,15 @@ bool ehDigito(char caracter){
     return false;
 }
 
+void mensagemDeErro(char c){
+    printf("HEY YOU LITTLE PRICK!\n");
+    printf("YOU BROKE THE RULES!\n");
+    printf("COME HERE RIGHT NOW!\n");
+
+    printf("THIS (%c) IS ILEGAL\n", c);
+    exit(1);
+}
+
 
 // terminar isso aqui
 // imprimir de acordo com a categoria
