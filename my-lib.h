@@ -15,6 +15,7 @@ enum PR{
     enquanto,
     principal
 };
+#define NUM_PR_TABLE 12
 char PR_TABLE[][50]={
     "inteiro",
     "real",
@@ -24,6 +25,7 @@ char PR_TABLE[][50]={
     "semretorno",
     "semparam",
     "se",
+    "senao",
     "para",
     "enquanto",
     "principal"
@@ -126,6 +128,14 @@ bool ehLetra(char caracter){
 bool ehDigito(char caracter){
     if(caracter >= 48 && caracter <= 57)
         return true;
+    return false;
+}
+
+bool ehPalavraReservada(char string[]){
+    int i;
+    for (i=0;i<NUM_PR_TABLE;i++){
+        if( !strcmp( string , PR_TABLE[i] ) ) return true;
+    } 
     return false;
 }
 

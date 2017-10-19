@@ -182,12 +182,17 @@ void main(){
                 }
                 break;
             case 14: //FINAL
-                strcpy(ID_TABLE[ ID_TABLE_TOPO ],buffer);
-                buffer[0] = '\0';                
-                temptoken.categoria = CAT_id;
-                temptoken.codigo = ID_TABLE_TOPO;
-                mostraToken(temptoken);
-                ID_TABLE_TOPO++;
+                if(ehPalavraReservada(buffer)){
+                    printf("<TOKEN: PR, %s>\n",buffer);
+                    buffer[0] = '\0';
+                }else{
+                    strcpy(ID_TABLE[ ID_TABLE_TOPO ],buffer);
+                    buffer[0] = '\0';                
+                    temptoken.categoria = CAT_id;
+                    temptoken.codigo = ID_TABLE_TOPO;
+                    mostraToken(temptoken);
+                    ID_TABLE_TOPO++;
+                }
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
                 estado = 0;
