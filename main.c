@@ -11,9 +11,13 @@ void main(){
     char buffer[1000]="";
     fp = fopen("sample.cmm","r");
     int estado = 0;
+    int linha=1;
+    int coluna=1;
     while( (charEntrada = fgetc(fp)) != EOF ){
         //printf("%c",charEntrada);
         //printf("estado atual %d\tlendo char '%c'\n",estado,charEntrada);
+        
+        //printf(":%d:%d ->'%c'\n",linha,coluna,charEntrada);
         switch(estado){
             case 0: //INICIAL
                 // abre chaves
@@ -31,11 +35,13 @@ void main(){
                 // palavra reservada ou ID
                 else if(ehLetra(charEntrada)){
                     ungetc(charEntrada, fp);
+                    coluna--;
                     estado = 12;
                 }
                 // numero inteiro ou real
                 else if(ehDigito(charEntrada)){
                     ungetc(charEntrada, fp);
+                    coluna--;
                     estado = 15;
                 }
                 // Cadeia de caracteres
@@ -70,8 +76,13 @@ void main(){
                 // RETRO ALIMENTAÇÂO
 
                 // maior ou maior e igual
-                else if(charEntrada== '\n' || charEntrada== '\t' ||charEntrada== ' ') estado = 0;
-                else mensagemDeErro(charEntrada);
+                else if(charEntrada=='\n'){
+                    estado = 0;
+                    linha++;
+                    coluna=0;
+                }
+                else if(charEntrada== '\t' ||charEntrada== ' ') estado = 0;
+                else mensagemDeErro(charEntrada,linha,coluna);
                 break;
             case 1: //FINAL
                 temptoken.categoria = CAT_sinais;
@@ -79,6 +90,7 @@ void main(){
                 mostraToken(temptoken);
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 2: //FINAL
@@ -87,6 +99,7 @@ void main(){
                 mostraToken(temptoken);
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 3: //FINAL
@@ -95,6 +108,7 @@ void main(){
                 mostraToken(temptoken);
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 4: //FINAL
@@ -103,6 +117,7 @@ void main(){
                 mostraToken(temptoken);
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 5: //FINAL
@@ -111,6 +126,7 @@ void main(){
                 mostraToken(temptoken);
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 6:
@@ -120,6 +136,7 @@ void main(){
                 //divisão
                 }else{
                     ungetc(charEntrada, fp);
+                    coluna--;
                     estado = 7;
                 }
                 break;
@@ -129,6 +146,7 @@ void main(){
                 mostraToken(temptoken);
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 8:
@@ -136,6 +154,10 @@ void main(){
                     estado = 10;
                 }else{
                     estado = 9;
+                    if(charEntrada=='\n'){
+                        linha++;
+                        coluna=0;
+                    }
                 }
                 break;
             case 9:
@@ -143,6 +165,10 @@ void main(){
                     estado = 10;
                 }else{
                     estado = 9;
+                    if(charEntrada=='\n'){
+                        linha++;
+                        coluna=0;
+                    }
                 }
                 break;
             case 10:
@@ -161,6 +187,7 @@ void main(){
                 printf("(COMENTARIO)\n");
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 12:
@@ -178,6 +205,7 @@ void main(){
                     estado = 13;
                 }else{
                     ungetc(charEntrada, fp);
+                    coluna--;
                     estado = 14;
                 }
                 break;
@@ -195,6 +223,7 @@ void main(){
                 }
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 15:
@@ -206,6 +235,7 @@ void main(){
                     estado = 17;
                 }else{
                     ungetc(charEntrada,fp);
+                    coluna--;
                     estado = 16;
                 }
                 break;
@@ -214,6 +244,7 @@ void main(){
                 buffer[0] = '\0';                
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 17:
@@ -228,6 +259,7 @@ void main(){
                     estado = 18;
                 }else{
                     ungetc(charEntrada,fp);
+                    coluna--;
                     estado = 19;
                 }
                 break;
@@ -236,6 +268,7 @@ void main(){
                 buffer[0] = '\0';                
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 20:
@@ -257,6 +290,7 @@ void main(){
                 buffer[0] = '\0';                
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 23:
@@ -277,6 +311,7 @@ void main(){
                 buffer[0] = '\0';                
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 26:
@@ -284,6 +319,7 @@ void main(){
                     estado = 27;
                 }else{
                     ungetc(charEntrada,fp);
+                    coluna--;
                     estado = 28;
                 }
                 break;
@@ -293,6 +329,7 @@ void main(){
                 mostraToken(temptoken);
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 28: //FINAL
@@ -301,6 +338,7 @@ void main(){
                 mostraToken(temptoken);
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 29:
@@ -308,6 +346,7 @@ void main(){
                     estado = 30;
                 }else{
                     ungetc(charEntrada,fp);
+                    coluna--;
                     estado = 31;
                 }
                 break;
@@ -317,6 +356,7 @@ void main(){
                 mostraToken(temptoken);
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 31: //FINAL
@@ -325,6 +365,7 @@ void main(){
                 mostraToken(temptoken);
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 32:
@@ -332,6 +373,7 @@ void main(){
                     estado = 33;
                 }else{
                     ungetc(charEntrada,fp);
+                    coluna--;
                     estado = 34;
                 }
                 break;
@@ -341,6 +383,7 @@ void main(){
                 mostraToken(temptoken);
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 34: //FINAL
@@ -349,6 +392,7 @@ void main(){
                 mostraToken(temptoken);
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 35:
@@ -356,6 +400,7 @@ void main(){
                     estado = 36;
                 }else{
                     ungetc(charEntrada,fp);
+                    coluna--;
                     estado = 37;
                 }
                 break;
@@ -365,6 +410,7 @@ void main(){
                 mostraToken(temptoken);
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 37: //FINAL
@@ -373,6 +419,7 @@ void main(){
                 mostraToken(temptoken);
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 38: //FINAL
@@ -381,6 +428,7 @@ void main(){
                 mostraToken(temptoken);
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 39: //FINAL
@@ -389,6 +437,7 @@ void main(){
                 mostraToken(temptoken);
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 40: //FINAL
@@ -397,6 +446,7 @@ void main(){
                 mostraToken(temptoken);
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 41: //FINAL
@@ -405,6 +455,7 @@ void main(){
                 mostraToken(temptoken);
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 42:
@@ -421,6 +472,7 @@ void main(){
                 mostraToken(temptoken);
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 45:
@@ -434,6 +486,7 @@ void main(){
                 mostraToken(temptoken);
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 47:
@@ -468,6 +521,7 @@ void main(){
                 buffer[0] = '\0';                
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 52: //FINAL
@@ -475,6 +529,7 @@ void main(){
                 buffer[0] = '\0';                
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             case 53: //FINAL
@@ -482,6 +537,7 @@ void main(){
                 buffer[0] = '\0';                
                 // fseek(fp,-1, SEEK_CUR);
                 ungetc(charEntrada, fp);
+                coluna--;
                 estado = 0;
                 break;
             
@@ -489,6 +545,7 @@ void main(){
                 printf("ESTADO INVALIDO, VERIFICAR CODIGO!");
                 exit(1);
         }
+        coluna++;
     }
         
     fclose(fp);

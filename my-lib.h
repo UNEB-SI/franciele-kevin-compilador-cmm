@@ -139,7 +139,11 @@ bool ehPalavraReservada(char string[]){
     return false;
 }
 
-void mensagemDeErro(char c){
+void mensagemDeErro(char c,int linha,int coluna){
+    
+
+    printf("Erro em %d:%d\n",linha,coluna);
+    
     printf("HEY YOU LITTLE PRICK!\n");
     printf("YOU BROKE THE RULES!\n");
     printf("COME HERE RIGHT NOW!\n");
