@@ -13,7 +13,7 @@ Todo List
  - [x] reconhecer constante caracter
  - [ ] tratar EOF
  - [ ] tratar erros
- - [ ] contar linhas
+ - [x] contar linhas
  - [ ] organizar repostitorio
  - [ ] testar no codeblocks
  - [ ] publicar no AVA link do repositorio
