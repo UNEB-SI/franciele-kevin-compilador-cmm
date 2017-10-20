@@ -284,7 +284,7 @@ void main(){
                 if(charEntrada != '\n'){
                     sprintf(buffer,"%s%c",buffer,charEntrada);                    
                     estado = 21;                    
-                }
+                } else mensagemDeErro(fp,charEntrada,linha,coluna);
                 break;
             case 21:
                 if(charEntrada=='"'){
@@ -292,7 +292,7 @@ void main(){
                 }else if(charEntrada != '\n'){
                     sprintf(buffer,"%s%c",buffer,charEntrada);                    
                     estado = 21;                    
-                }
+                }else mensagemDeErro(fp,charEntrada,linha,coluna);
                 break;
             case 22: //FINAL
                 printf("<TOKEN: LT, \"%s\">\n",buffer);
@@ -308,12 +308,12 @@ void main(){
                 }else if( charEntrada != '\''){
                     sprintf(buffer,"%s%c",buffer,charEntrada);
                     estado = 24;
-                }
+                }else mensagemDeErro(fp,charEntrada,linha,coluna);
                 break;
             case 24:
                 if(charEntrada=='\''){
                     estado = 25;
-                }
+                }else mensagemDeErro(fp,charEntrada,linha,coluna);
                 break;
             case 25: //FINAL
                 printf("<TOKEN: CC, '%s'>\n",buffer);
@@ -475,7 +475,7 @@ void main(){
             case 43:
                 if(charEntrada == '|'){
                     estado = 44;
-                }
+                }else mensagemDeErro(fp,charEntrada,linha,coluna);
                 break;
             case 44: //FINAL
                 temptoken.categoria = CAT_sinais;
@@ -489,7 +489,7 @@ void main(){
             case 45:
                 if(charEntrada == '&'){
                     estado = 46;
-                }
+                }else mensagemDeErro(fp,charEntrada,linha,coluna);
                 break;
             case 46: //FINAL
                 temptoken.categoria = CAT_sinais;
@@ -510,22 +510,22 @@ void main(){
                 }else if(charEntrada == '0'){
                     sprintf(buffer,"%s%c",buffer,'\0');
                     estado = 50;
-                }
+                }else mensagemDeErro(fp,charEntrada,linha,coluna);
                 break;
             case 48:
                 if(charEntrada=='\''){
                     estado = 25;
-                }
+                }else mensagemDeErro(fp,charEntrada,linha,coluna);
                 break;
             case 49:
                 if(charEntrada=='\''){
                     estado = 25;
-                }
+                }else mensagemDeErro(fp,charEntrada,linha,coluna);
                 break;
             case 50:
                 if(charEntrada=='\''){
                     estado = 25;
-                }
+                }else mensagemDeErro(fp,charEntrada,linha,coluna);
                 break;
             case 51: //FINAL
                 printf("<TOKEN: CC, '%s'>\n",buffer);

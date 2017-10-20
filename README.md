@@ -12,7 +12,7 @@ Todo List
  - [x] reconhecer constante real
  - [x] reconhecer constante caracter
  - [x] tratar EOF
- - [ ] tratar erros
+ - [x] tratar erros
  - [x] contar linhas
  - [ ] organizar repostitorio
  - [ ] testar no codeblocks
