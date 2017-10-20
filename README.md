@@ -11,7 +11,7 @@ Todo List
  - [x] reconhecer constante inteira
  - [x] reconhecer constante real
  - [x] reconhecer constante caracter
- - [ ] tratar EOF
+ - [x] tratar EOF
  - [ ] tratar erros
  - [x] contar linhas
  - [ ] organizar repostitorio

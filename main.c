@@ -13,7 +13,12 @@ void main(){
     int estado = 0;
     int linha=1;
     int coluna=1;
-    while( (charEntrada = fgetc(fp)) != EOF ){
+    bool finalDeArquivo = false;
+//    while( (charEntrada = fgetc(fp)) != EOF ){
+
+    while( !finalDeArquivo ){
+        charEntrada = fgetc(fp);
+
         //printf("%c",charEntrada);
         //printf("estado atual %d\tlendo char '%c'\n",estado,charEntrada);
         
@@ -65,7 +70,11 @@ void main(){
                 // virgula
                 else if(charEntrada== ',') estado = 41;
                 // maior ou maior e igual
-                // if(charEntrada== EOF) estado = 2;
+                else if(charEntrada == EOF){
+                    estado = 42;
+                    ungetc(charEntrada, fp);
+                    coluna--;
+                }
                 // não entra fim de arquivo
 
                 // ou condicional
@@ -460,6 +469,8 @@ void main(){
                 break;
             case 42:
                 //EOF
+                printf("((EOF))\n");
+                finalDeArquivo = true;
                 break;
             case 43:
                 if(charEntrada == '|'){
