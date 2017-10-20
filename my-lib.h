@@ -139,16 +139,22 @@ bool ehPalavraReservada(char string[]){
     return false;
 }
 
-void mensagemDeErro(char c,int linha,int coluna){
+void mensagemDeErro(FILE* fp,char c,int linha,int coluna){
     
-
-    printf("Erro em %d:%d\n",linha,coluna);
-    
-    printf("HEY YOU LITTLE PRICK!\n");
-    printf("YOU BROKE THE RULES!\n");
-    printf("COME HERE RIGHT NOW!\n");
-
-    printf("THIS (%c) IS ILEGAL\n", c);
+    char auxChar;
+    int i;
+    printf("\nErro lexico em %d:%d\n",linha,coluna);
+    fseek(fp, coluna * -1, SEEK_CUR);
+    while( true ){
+        auxChar = fgetc(fp);
+        if(auxChar == '\n' || auxChar == EOF){
+            printf("\n");
+            break;
+        }
+        else printf("%c",auxChar);
+    }
+    for(i=1;i<coluna;i++) printf(" ");
+    printf("^\n");
     exit(1);
 }
 

@@ -91,7 +91,7 @@ void main(){
                     coluna=0;
                 }
                 else if(charEntrada== '\t' ||charEntrada== ' ') estado = 0;
-                else mensagemDeErro(charEntrada,linha,coluna);
+                else mensagemDeErro(fp,charEntrada,linha,coluna);
                 break;
             case 1: //FINAL
                 temptoken.categoria = CAT_sinais;
