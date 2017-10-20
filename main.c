@@ -9,7 +9,7 @@ void main(){
     FILE *fp;
     char charEntrada;
     char buffer[1000]="";
-    fp = fopen("sample.cmm","r");
+    fp = fopen("sample1.cmm","r");
     int estado = 0;
     int linha=1;
     int coluna=1;
@@ -166,6 +166,10 @@ void main(){
                     if(charEntrada=='\n'){
                         linha++;
                         coluna=0;
+                    }else if(charEntrada == EOF){
+                        estado = 42;
+                        ungetc(charEntrada, fp);
+                        coluna--;
                     }
                 }
                 break;
@@ -177,6 +181,10 @@ void main(){
                     if(charEntrada=='\n'){
                         linha++;
                         coluna=0;
+                    }else if(charEntrada == EOF){
+                        estado = 42;
+                        ungetc(charEntrada, fp);
+                        coluna--;
                     }
                 }
                 break;
@@ -185,6 +193,10 @@ void main(){
                     estado = 10;
                 }else if(charEntrada == '/'){
                     estado = 11;
+                }else if(charEntrada == EOF){
+                    estado = 42;
+                    ungetc(charEntrada, fp);
+                    coluna--;
                 }else{
                     estado = 9;
                 }
