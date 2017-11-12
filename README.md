@@ -15,6 +15,7 @@ gcc main.c -o go
 
 Erro lexico em 58:4
 '\no'
+   ^
 ```
 Niveis
 ----------
