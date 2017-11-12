@@ -16,19 +16,12 @@ gcc main.c -o go
 Erro lexico em 58:4
 '\no'
 ```
-Todo List
+Niveis
 ----------
 
- - [x] Reconhecer comentario
- - [x] Reconhecer identificador
- - [x] Reconhcer literal
- - [x] reconhercer Palavra reservada
- - [x] reconhecer constante inteira
- - [x] reconhecer constante real
- - [x] reconhecer constante caracter
- - [x] tratar EOF
- - [x] tratar erros
- - [x] contar linhas
- - [ ] organizar repostitorio _(maybe next week)_
- - [ ] testar no codeblocks  _(maybe next week or never)_
- - [x] publicar no AVA link do repositorio
+ - [x] Lexicos
+ - [ ] Sintatico _(working on)_
+ - [ ] Gerenciador da tabelas de simbolos
+ - [ ] ...
+ 
+ 
