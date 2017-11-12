@@ -5,6 +5,8 @@ int estado = 0;
 int linha=1;
 int coluna=1;
 
+bool debug = false;
+
 
 bool ehLetra(char caracter){
     if(
@@ -26,6 +28,45 @@ bool ehPalavraReservada(char string[]){
         if( !strcmp( string , PR_TABLE[i] ) ) return true;
     } 
     return false;
+}
+
+int numeroEnumPalavraReservada(char string[]){
+    int i;
+    for (i=0;i<NUM_PR_TABLE;i++){
+        if( !strcmp( string , PR_TABLE[i] ) ) return i;
+    } 
+    return -1;
+}
+
+float converteStringParaReal(char string[]){
+    char parteInteira[100];
+    char parteDecimal[100];
+    parteInteira[0] = '\0';
+    parteDecimal[0] = '\0';
+    float pi = 0;
+    float pd = 0;
+    float retorno=0;
+
+    bool depoisDoPonto = false;
+    int i;
+    for(i=0; string[i]!='\0' ;i++){
+        if(string[i]=='.') depoisDoPonto= true;
+        else{
+            if(depoisDoPonto){
+                sprintf(parteDecimal,"%s%c",parteDecimal,string[i]);
+            }else{ // antes do ponto
+                sprintf(parteInteira,"%s%c",parteInteira,string[i]);
+            }
+        }
+    }
+
+    pi = atof(parteInteira);
+    pd = atof(parteDecimal);
+    retorno = pi + ( pd * pow(0.1,strlen(parteDecimal)) );
+
+
+    //printf("%s %s %f %f %f %d\n", parteInteira, parteDecimal, pi, pd, retorno, strlen(parteDecimal));
+    return retorno;
 }
 
 void mensagemDeErro(FILE* fp,char c,int linha,int coluna){
@@ -62,7 +103,7 @@ token analex(FILE *fp){
         
         //printf(":%d:%d ->'%c'\n",linha,coluna,charEntrada);
         switch(estado){
-            case 0: //INICIAL
+            case 0: if(debug){printf("E:%d  B:%s\n",estado,buffer);} //INICIAL
                 // abre chaves
                 if(charEntrada== '{') estado = 1;
                 // fecha chaves
@@ -131,7 +172,7 @@ token analex(FILE *fp){
                 else if(charEntrada== '\t' ||charEntrada== ' ') estado = 0;
                 else mensagemDeErro(fp,charEntrada,linha,coluna);
                 break;
-            case 1: //FINAL
+            case 1: if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 
                 returnToken.categoria = CAT_sinais;
                 returnToken.codigo = SN_abreChaves;
@@ -141,7 +182,7 @@ token analex(FILE *fp){
                 estado = 0;
                 return returnToken;
                 break;
-            case 2: //FINAL
+            case 2: if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 returnToken.categoria = CAT_sinais;
                 returnToken.codigo = SN_fechaChaves;
                 ungetc(charEntrada, fp);
@@ -149,7 +190,7 @@ token analex(FILE *fp){
                 estado = 0;
                 return returnToken;
                 break;
-            case 3: //FINAL
+            case 3: if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 returnToken.categoria = CAT_sinais;
                 returnToken.codigo = SN_abreParenteses;
                 ungetc(charEntrada, fp);
@@ -157,7 +198,7 @@ token analex(FILE *fp){
                 estado = 0;
                 return returnToken;
                 break;
-            case 4: //FINAL
+            case 4: if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 returnToken.categoria = CAT_sinais;
                 returnToken.codigo = SN_fechaParenteses;
                 ungetc(charEntrada, fp);
@@ -165,7 +206,7 @@ token analex(FILE *fp){
                 estado = 0;
                 return returnToken;
                 break;
-            case 5: //FINAL
+            case 5: if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 returnToken.categoria = CAT_sinais;
                 returnToken.codigo = SN_pontoEVirgula;
                 ungetc(charEntrada, fp);
@@ -173,7 +214,7 @@ token analex(FILE *fp){
                 estado = 0;
                 return returnToken;
                 break;
-            case 6:
+            case 6: if(debug){printf("E:%d  B:%s\n",estado,buffer);}
                 // comentario
                 if(charEntrada == '*'){ 
                     estado = 8;
@@ -184,7 +225,7 @@ token analex(FILE *fp){
                     estado = 7;
                 }
                 break;
-            case 7: //FINAL
+            case 7: if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 returnToken.categoria = CAT_sinais;
                 returnToken.codigo = SN_divisao;
                 ungetc(charEntrada, fp);
@@ -192,7 +233,7 @@ token analex(FILE *fp){
                 estado = 0;
                 return returnToken;
                 break;
-            case 8:
+            case 8: if(debug){printf("E:%d  B:%s\n",estado,buffer);}
                 if(charEntrada == '*'){
                     estado = 10;
                 }else{
@@ -207,7 +248,7 @@ token analex(FILE *fp){
                     }
                 }
                 break;
-            case 9:
+            case 9: if(debug){printf("E:%d  B:%s\n",estado,buffer);}
                 if(charEntrada == '*'){
                     estado = 10;
                 }else{
@@ -222,7 +263,7 @@ token analex(FILE *fp){
                     }
                 }
                 break;
-            case 10:
+            case 10:if(debug){printf("E:%d  B:%s\n",estado,buffer);}
                 if(charEntrada == '*'){
                     estado = 10;
                 }else if(charEntrada == '/'){
@@ -235,7 +276,7 @@ token analex(FILE *fp){
                     estado = 9;
                 }
                 break;
-            case 11: //FINAL
+            case 11:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 
                 // printf("(COMENTARIO)\n");
                 ungetc(charEntrada, fp);
@@ -243,7 +284,7 @@ token analex(FILE *fp){
                 estado = 0;
                 // return returnToken;
                 break;
-            case 12:
+            case 12:if(debug){printf("E:%d  B:%s\n",estado,buffer);}
                 if(ehLetra(charEntrada) || ehDigito(charEntrada) || charEntrada == '_'){
                     sprintf(buffer,"%s%c",buffer,charEntrada);
                     estado = 13;
@@ -251,7 +292,7 @@ token analex(FILE *fp){
                     estado = 14;
                 }
                 break;
-            case 13:
+            case 13:if(debug){printf("E:%d  B:%s\n",estado,buffer);}
                 if(ehLetra(charEntrada) || ehDigito(charEntrada) || charEntrada == '_'){
                     sprintf(buffer,"%s%c",buffer,charEntrada);
                     estado = 13;
@@ -261,9 +302,12 @@ token analex(FILE *fp){
                     estado = 14;
                 }
                 break;
-            case 14: //FINAL
+            case 14:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 if(ehPalavraReservada(buffer)){
                     // printf("<TOKEN: PR, %s>\n",buffer);
+
+                    returnToken.categoria = CAT_palavraReservada;
+                    returnToken.codigo = numeroEnumPalavraReservada(buffer);
                     buffer[0] = '\0';
                 }else{
                     strcpy(ID_TABLE[ ID_TABLE_TOPO ],buffer);
@@ -278,7 +322,7 @@ token analex(FILE *fp){
                 estado = 0;
                 return returnToken;
                 break;
-            case 15:
+            case 15:if(debug){printf("E:%d  B:%s\n",estado,buffer);}
                 if(ehDigito(charEntrada)){
                     sprintf(buffer,"%s%c",buffer,charEntrada);                    
                     estado = 15;
@@ -291,21 +335,26 @@ token analex(FILE *fp){
                     estado = 16;
                 }
                 break;
-            case 16: //FINAL
+            case 16:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 // printf("<TOKEN: CI, %s>\n",buffer);
+                CT_I_TABLE[CT_I_TABLE_TOPO]= atoi(buffer);
+                returnToken.categoria = CAT_constanteInteira;
+                returnToken.codigo = CT_I_TABLE_TOPO;
+                CT_I_TABLE_TOPO++;
+                
                 buffer[0] = '\0';                
                 ungetc(charEntrada, fp);
                 coluna--;
                 estado = 0;
                 return returnToken;
                 break;
-            case 17:
+            case 17:if(debug){printf("E:%d  B:%s\n",estado,buffer);}
                 if(ehDigito(charEntrada)){
                     sprintf(buffer,"%s%c",buffer,charEntrada);                    
                     estado = 18;
                 }
                 break;
-            case 18:
+            case 18:if(debug){printf("E:%d  B:%s\n",estado,buffer);}
                 if(ehDigito(charEntrada)){
                     sprintf(buffer,"%s%c",buffer,charEntrada);                    
                     estado = 18;
@@ -315,21 +364,27 @@ token analex(FILE *fp){
                     estado = 19;
                 }
                 break;
-            case 19: //FINAL
+            case 19:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 // printf("<TOKEN: CR, %s>\n",buffer);
+                CT_R_TABLE[CT_R_TABLE_TOPO]= converteStringParaReal(buffer);
+                returnToken.categoria = CAT_constanteReal;
+                returnToken.codigo = CT_R_TABLE_TOPO;
+                CT_R_TABLE_TOPO++;
+
+
                 buffer[0] = '\0';                
                 ungetc(charEntrada, fp);
                 coluna--;
                 estado = 0;
                 return returnToken;
                 break;
-            case 20:
+            case 20:if(debug){printf("E:%d  B:%s\n",estado,buffer);}
                 if(charEntrada != '\n'){
                     sprintf(buffer,"%s%c",buffer,charEntrada);                    
                     estado = 21;                    
                 } else mensagemDeErro(fp,charEntrada,linha,coluna);
                 break;
-            case 21:
+            case 21:if(debug){printf("E:%d  B:%s\n",estado,buffer);}
                 if(charEntrada=='"'){
                     estado = 22;
                 }else if(charEntrada != '\n'){
@@ -337,15 +392,21 @@ token analex(FILE *fp){
                     estado = 21;                    
                 }else mensagemDeErro(fp,charEntrada,linha,coluna);
                 break;
-            case 22: //FINAL
+            case 22:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 // printf("<TOKEN: LT, \"%s\">\n",buffer);
+                // printf("22->>%s %c\n", buffer, buffer[0]);
+                strcpy(LT[LT_TOPO],buffer);
+                returnToken.categoria = CAT_literal;
+                returnToken.codigo = LT_TOPO;
+                LT_TOPO++;
+
                 buffer[0] = '\0';                
                 ungetc(charEntrada, fp);
                 coluna--;
                 estado = 0;
                 return returnToken;
                 break;
-            case 23:
+            case 23:if(debug){printf("E:%d  B:%s\n",estado,buffer);}
                 if(charEntrada == '\\'){
                     estado = 47;
                 }else if( charEntrada != '\''){
@@ -353,20 +414,26 @@ token analex(FILE *fp){
                     estado = 24;
                 }else mensagemDeErro(fp,charEntrada,linha,coluna);
                 break;
-            case 24:
+            case 24:if(debug){printf("E:%d  B:%s\n",estado,buffer);}
                 if(charEntrada=='\''){
                     estado = 25;
                 }else mensagemDeErro(fp,charEntrada,linha,coluna);
                 break;
-            case 25: //FINAL
+            case 25:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 // printf("<TOKEN: CC, '%s'>\n",buffer);
+                // printf("25->>%s %c\n", buffer, buffer[0]);
+                CT_C_TABLE[CT_C_TABLE_TOPO]= buffer[0];
+                returnToken.categoria = CAT_constanteCaracter;
+                returnToken.codigo = CT_C_TABLE_TOPO;
+                CT_C_TABLE_TOPO++;
+
                 buffer[0] = '\0';                
                 ungetc(charEntrada, fp);
                 coluna--;
                 estado = 0;
                 return returnToken;
                 break;
-            case 26:
+            case 26:if(debug){printf("E:%d  B:%s\n",estado,buffer);}
                 if(charEntrada == '='){
                     estado = 27;
                 }else{
@@ -375,7 +442,7 @@ token analex(FILE *fp){
                     estado = 28;
                 }
                 break;
-            case 27: //FINAL
+            case 27:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 returnToken.categoria = CAT_sinais;
                 returnToken.codigo = SN_maiorIgualQue;
                 
@@ -384,7 +451,7 @@ token analex(FILE *fp){
                 estado = 0;
                 return returnToken;
                 break;
-            case 28: //FINAL
+            case 28:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 returnToken.categoria = CAT_sinais;
                 returnToken.codigo = SN_maiorQue;
                 
@@ -393,7 +460,7 @@ token analex(FILE *fp){
                 estado = 0;
                 return returnToken;
                 break;
-            case 29:
+            case 29:if(debug){printf("E:%d  B:%s\n",estado,buffer);}
                 if(charEntrada == '='){
                     estado = 30;
                 }else{
@@ -402,7 +469,7 @@ token analex(FILE *fp){
                     estado = 31;
                 }
                 break;
-            case 30: //FINAL
+            case 30:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 returnToken.categoria = CAT_sinais;
                 returnToken.codigo = SN_menorIgualQue;
                 
@@ -411,7 +478,7 @@ token analex(FILE *fp){
                 estado = 0;
                 return returnToken;
                 break;
-            case 31: //FINAL
+            case 31:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 returnToken.categoria = CAT_sinais;
                 returnToken.codigo = SN_menorQue;
                 
@@ -420,7 +487,7 @@ token analex(FILE *fp){
                 estado = 0;
                 return returnToken;
                 break;
-            case 32:
+            case 32:if(debug){printf("E:%d  B:%s\n",estado,buffer);}
                 if(charEntrada == '='){
                     estado = 33;
                 }else{
@@ -429,7 +496,7 @@ token analex(FILE *fp){
                     estado = 34;
                 }
                 break;
-            case 33: //FINAL
+            case 33:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 returnToken.categoria = CAT_sinais;
                 returnToken.codigo = SN_difente;
                 
@@ -438,7 +505,7 @@ token analex(FILE *fp){
                 estado = 0;
                 return returnToken;
                 break;
-            case 34: //FINAL
+            case 34:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 returnToken.categoria = CAT_sinais;
                 returnToken.codigo = SN_negacao;
                 
@@ -447,7 +514,7 @@ token analex(FILE *fp){
                 estado = 0;
                 return returnToken;
                 break;
-            case 35:
+            case 35:if(debug){printf("E:%d  B:%s\n",estado,buffer);}
                 if(charEntrada == '='){
                     estado = 36;
                 }else{
@@ -456,7 +523,7 @@ token analex(FILE *fp){
                     estado = 37;
                 }
                 break;
-            case 36: //FINAL
+            case 36:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 returnToken.categoria = CAT_sinais;
                 returnToken.codigo = SN_igualdade;
                 
@@ -465,7 +532,7 @@ token analex(FILE *fp){
                 estado = 0;
                 return returnToken;
                 break;
-            case 37: //FINAL
+            case 37:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 returnToken.categoria = CAT_sinais;
                 returnToken.codigo = SN_atribuicao;
                 ungetc(charEntrada, fp);
@@ -473,7 +540,7 @@ token analex(FILE *fp){
                 estado = 0;
                 return returnToken;
                 break;
-            case 38: //FINAL
+            case 38:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 returnToken.categoria = CAT_sinais;
                 returnToken.codigo = SN_soma;
                 
@@ -482,7 +549,7 @@ token analex(FILE *fp){
                 estado = 0;
                 return returnToken;
                 break;
-            case 39: //FINAL
+            case 39:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 returnToken.categoria = CAT_sinais;
                 returnToken.codigo = SN_subtracao;
                 
@@ -491,7 +558,7 @@ token analex(FILE *fp){
                 estado = 0;
                 return returnToken;
                 break;
-            case 40: //FINAL
+            case 40:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 returnToken.categoria = CAT_sinais;
                 returnToken.codigo = SN_mutiplicacao;
                 
@@ -500,7 +567,7 @@ token analex(FILE *fp){
                 estado = 0;
                 return returnToken;
                 break;
-            case 41: //FINAL
+            case 41:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 returnToken.categoria = CAT_sinais;
                 returnToken.codigo = SN_virgula;
                 
@@ -509,7 +576,7 @@ token analex(FILE *fp){
                 estado = 0;
                 return returnToken;
                 break;
-            case 42:
+            case 42:if(debug){printf("E:%d  B:%s\n",estado,buffer);}
                 //EOF
                 returnToken.categoria = CAT_fimDeArquivo;
                 // printf("((EOF))\n");
@@ -517,12 +584,12 @@ token analex(FILE *fp){
                 finalDeArquivo = true;
                 return returnToken;
                 break;
-            case 43:
+            case 43:if(debug){printf("E:%d  B:%s\n",estado,buffer);}
                 if(charEntrada == '|'){
                     estado = 44;
                 }else mensagemDeErro(fp,charEntrada,linha,coluna);
                 break;
-            case 44: //FINAL
+            case 44:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 returnToken.categoria = CAT_sinais;
                 returnToken.codigo = SN_ouCondicional;
                 
@@ -531,12 +598,12 @@ token analex(FILE *fp){
                 estado = 0;
                 return returnToken;
                 break;
-            case 45:
+            case 45:if(debug){printf("E:%d  B:%s\n",estado,buffer);}
                 if(charEntrada == '&'){
                     estado = 46;
                 }else mensagemDeErro(fp,charEntrada,linha,coluna);
                 break;
-            case 46: //FINAL
+            case 46:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 returnToken.categoria = CAT_sinais;
                 returnToken.codigo = SN_eCondicional;
                 
@@ -546,7 +613,7 @@ token analex(FILE *fp){
                 estado = 0;
                 return returnToken;
                 break;
-            case 47:
+            case 47:if(debug){printf("E:%d  B:%s\n",estado,buffer);}
                 if(charEntrada == 'n'){
                     sprintf(buffer,"%s%c",buffer,'\n');
                     estado = 48;
@@ -558,22 +625,22 @@ token analex(FILE *fp){
                     estado = 50;
                 }else mensagemDeErro(fp,charEntrada,linha,coluna);
                 break;
-            case 48:
+            case 48:if(debug){printf("E:%d  B:%s\n",estado,buffer);}
                 if(charEntrada=='\''){
                     estado = 25;
                 }else mensagemDeErro(fp,charEntrada,linha,coluna);
                 break;
-            case 49:
+            case 49:if(debug){printf("E:%d  B:%s\n",estado,buffer);}
                 if(charEntrada=='\''){
                     estado = 25;
                 }else mensagemDeErro(fp,charEntrada,linha,coluna);
                 break;
-            case 50:
+            case 50:if(debug){printf("E:%d  B:%s\n",estado,buffer);}
                 if(charEntrada=='\''){
                     estado = 25;
                 }else mensagemDeErro(fp,charEntrada,linha,coluna);
                 break;
-            case 51: //FINAL
+            case 51:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 // printf("<TOKEN: CC, '%s'>\n",buffer);
                 buffer[0] = '\0';                
                 
@@ -582,7 +649,7 @@ token analex(FILE *fp){
                 estado = 0;
                 return returnToken;
                 break;
-            case 52: //FINAL
+            case 52:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 // printf("<TOKEN: CC, '%s'>\n",buffer);
                 buffer[0] = '\0';                
                 
@@ -591,7 +658,7 @@ token analex(FILE *fp){
                 estado = 0;
                 return returnToken;
                 break;
-            case 53: //FINAL
+            case 53:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 // printf("<TOKEN: CC, '%s'>\n",buffer);
                 buffer[0] = '\0';                
                 

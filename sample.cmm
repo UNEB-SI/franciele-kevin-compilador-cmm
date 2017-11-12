@@ -17,7 +17,7 @@ aqui_vai_dar_erro [] continuacao_da_linha
 
 
 */
-
+prototipo
 
 
 semretorno
@@ -39,8 +39,8 @@ retorne
 teste
 cont
 cont2 cont3
-
-1 2.3 'c' '\n' '\0' '\t' "c" "Teste de literal"
+cont4
+1 123.4567 7.65 'c' '\n' '\0' '\t' "c" "Teste de literal"
 
 'a'
 

@@ -23,9 +23,10 @@ enum PR{
     se,
     para,
     enquanto,
-    principal
+    principal,
+    prototipo
 };
-#define NUM_PR_TABLE 12
+#define NUM_PR_TABLE 13
 char PR_TABLE[][50]={
     "inteiro",
     "real",
@@ -38,7 +39,8 @@ char PR_TABLE[][50]={
     "senao",
     "para",
     "enquanto",
-    "principal"
+    "principal",
+    "prototipo"
 };
 
 // Sinais ------------------------------------------------------------------------------
@@ -92,9 +94,14 @@ int CT_I_TABLE[100]; // inteiro
 float CT_R_TABLE[100]; //real
 char CT_C_TABLE[100]; //caracter
 
+int CT_I_TABLE_TOPO=0; // topo da tabela
+int CT_R_TABLE_TOPO=0; // topo da tabela
+int CT_C_TABLE_TOPO=0; // topo da tabela
+
+
 // Literais ------------------------------------------------------------------------------
 char LT[1000][100];
-
+int LT_TOPO=0;
 // Outros
 #define C_NovaLinha '\n';
 #define C_Tab '\t';

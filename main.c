@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <math.h>
 #include "libs/analex.c"
 #include "libs/analex.h"
 #include "libs/anasin.c"
