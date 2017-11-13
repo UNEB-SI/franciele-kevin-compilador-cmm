@@ -38,35 +38,75 @@ int numeroEnumPalavraReservada(char string[]){
     return -1;
 }
 
-float converteStringParaReal(char string[]){
-    char parteInteira[100];
-    char parteDecimal[100];
-    parteInteira[0] = '\0';
-    parteDecimal[0] = '\0';
-    float pi = 0;
-    float pd = 0;
-    float retorno=0;
-
-    bool depoisDoPonto = false;
-    int i;
-    for(i=0; string[i]!='\0' ;i++){
-        if(string[i]=='.') depoisDoPonto= true;
-        else{
-            if(depoisDoPonto){
-                sprintf(parteDecimal,"%s%c",parteDecimal,string[i]);
-            }else{ // antes do ponto
-                sprintf(parteInteira,"%s%c",parteInteira,string[i]);
-            }
-        }
+void mostraToken(token token){
+    char tempVar[100];
+    switch(token.categoria){
+        case CAT_id:
+            strcpy(tempVar,ID_TABLE[token.codigo]);
+            break;
+        case CAT_palavraReservada:
+            strcpy(tempVar,PR_TABLE[token.codigo]);
+            break;
+        case CAT_sinais:
+            strcpy(tempVar,SN_TABLE[token.codigo]);
+            break;
+        case CAT_constanteInteira:
+            // strcpy(tempVar,CT_I_TABLE[token.codigo]);
+            sprintf(tempVar,"%d",CT_I_TABLE[token.codigo]);
+            break;
+        case CAT_constanteReal:
+            // strcpy(tempVar,CT_R_TABLE[token.codigo]);
+            sprintf(tempVar,"%f",CT_R_TABLE[token.codigo]);
+            break;
+        case CAT_constanteCaracter:
+            // strcpy(tempVar,CT_C_TABLE[token.codigo]);
+            sprintf(tempVar,"%c",CT_C_TABLE[token.codigo]);
+            break;
+        case CAT_literal:
+            strcpy(tempVar,LT[token.codigo]);
+            break;
+        case CAT_fimDeArquivo:
+            strcpy(tempVar,tabela_categoria[token.categoria]);
+            break;
+        default:
+            strcpy(tempVar,"Categoria indefinida");
+            break;
     }
-
-    pi = atof(parteInteira);
-    pd = atof(parteDecimal);
-    retorno = pi + ( pd * pow(0.1,strlen(parteDecimal)) );
+    printf("< %s , %s >\n",tabela_categoria[token.categoria], tempVar);
+}
 
 
+float converteStringParaReal(char string[]){
+    // char parteInteira[100];
+    // char parteDecimal[100];
+    // parteInteira[0] = '\0';
+    // parteDecimal[0] = '\0';
+    // float pi = 0;
+    // float pd = 0;
+    // float retorno=0;
+
+    // bool depoisDoPonto = false;
+    // int i;
+    // for(i=0; string[i]!='\0' ;i++){
+    //     if(string[i]=='.') depoisDoPonto= true;
+    //     else{
+    //         if(depoisDoPonto){
+    //             sprintf(parteDecimal,"%s%c",parteDecimal,string[i]);
+    //         }else{ // antes do ponto
+    //             sprintf(parteInteira,"%s%c",parteInteira,string[i]);
+    //         }
+    //     }
+    // }
+
+    // pi = atof(parteInteira);
+    // pd = atof(parteDecimal);
+    // retorno = pi + ( pd * pow(0.1,strlen(parteDecimal)) );
+
+    printf("-> %f",atof(string));
+    return atof(string);
     //printf("%s %s %f %f %f %d\n", parteInteira, parteDecimal, pi, pd, retorno, strlen(parteDecimal));
-    return retorno;
+    
+    // return retorno;
 }
 
 void mensagemDeErro(FILE* fp,char c,int linha,int coluna){
@@ -366,7 +406,7 @@ token analex(FILE *fp){
                 break;
             case 19:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 // printf("<TOKEN: CR, %s>\n",buffer);
-                CT_R_TABLE[CT_R_TABLE_TOPO]= converteStringParaReal(buffer);
+                CT_R_TABLE[CT_R_TABLE_TOPO]=  atof(buffer); // converteStringParaReal(buffer);
                 returnToken.categoria = CAT_constanteReal;
                 returnToken.codigo = CT_R_TABLE_TOPO;
                 CT_R_TABLE_TOPO++;

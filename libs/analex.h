@@ -7,6 +7,8 @@ typedef struct token{
     int codigo;
 }token;
 
+token temptoken;
+
 // IDs ------------------------------------------------------------------------------
 char ID_TABLE[1000][100];
 int ID_TABLE_TOPO=0;
@@ -130,5 +132,9 @@ char tabela_categoria[][100]={
     "EOF"
 };
 
+
+// FILE -----------------------------------------------------
+
+FILE* fp;
 
 #endif // ANALEX
