@@ -7,10 +7,18 @@ real soma(
 
     inteiro a,b,c;
     real x,y,z;
-    se carro();
+   
+    p = 55;
+    carro = 'k';
+    kevin_oliveiras = 2.3;
+    se (1) <- tem erro aqui
+        real pi = 3.14;
+    }
 }
 
+erro
 
+/*
 inteiro a,b,c;
 
 
@@ -27,16 +35,15 @@ asd
 
 asdfghjkl
 
-/*
+
 aqui_vai_dar_erro [] continuacao_da_linha
-*/
-
-/*************************/
-
-/* Comentario
 
 
-*/
+
+ Comentario
+
+
+
 prototipo
 
 
@@ -54,7 +61,7 @@ retorne
 
 
 
-+  -  *  /  ;  ,  < <= > >=  ==  !=  =  ||  &&  ( ) { } /*[ ]*/
++  -  *  /  ;  ,  < <= > >=  ==  !=  =  ||  &&  ( ) { } 
 
 teste
 cont
@@ -64,7 +71,6 @@ cont4
 
 'a'
 
-/*-------------------------------------------------------*/
 
 utlimalinha
 a
@@ -76,3 +82,4 @@ a
 if( some && thing) 
 
 '\n'
+*/

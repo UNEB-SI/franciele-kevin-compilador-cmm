@@ -52,7 +52,7 @@ void getToken(){
 
 void prog(){
     if(debugSin){
-        printf("DBGsin: prog()\n");
+        printf("DBGsin: prog()=>");
         mostraToken(tokenAtual);
     }
     getToken();
@@ -118,9 +118,13 @@ void prog(){
                                                 erroSin();
                                             }
                                         }
-                                    }if(false){ //CMD
+                                    }/*if(false){ //CMD
 
-                                    }
+                                    }*/
+                                    do{
+                                        cmd();
+                                        getToken();
+                                    }while(!sinal(tokenAtual,SN_fechaParenteses));
 
                                     
                             }else{
@@ -138,7 +142,7 @@ void prog(){
 }
 bool tipo(token token){
     if(debugSin){
-        printf("DBGsin: tipo()\n");
+        printf("DBGsin: tipo()=>");
         mostraToken(tokenAtual);
     }
 
@@ -159,7 +163,7 @@ bool tipo(token token){
 }
 void tipos_param(){
     if(debugSin){
-        printf("DBGsin: tipos_param()\n");
+        printf("DBGsin: tipos_param()=>");
         mostraToken(tokenAtual);
     }
     getToken();
@@ -210,17 +214,17 @@ void tipos_param(){
 }
 void tipos_p_opc(){
     if(debugSin){
-        printf("DBGsin: tipos_p_opc()\n");
+        printf("DBGsin: tipos_p_opc()=>");
         mostraToken(tokenAtual);
     }
 }
 void cmd(){
     if(debugSin){
-        printf("DBGsin: cmd()\n");
+        printf("DBGsin: cmd()=>");
         mostraToken(tokenAtual);
     }
     
-    getToken();
+    //getToken();
     
     if(tokenAtual.categoria == CAT_palavraReservada){
         switch(tokenAtual.codigo){
@@ -306,11 +310,10 @@ void cmd(){
             default:
                 erroSin();
         }
-    }else if(tokenAtual.categoria == CAT_id){ // id '(' [expr { ',' expr } ] ')' ';'
+    }else if(id(tokenAtual)){ // id '(' [expr { ',' expr } ] ')' ';'
         getToken();
         
-        if(tokenAtual.categoria == CAT_sinais &&
-           tokenAtual.codigo == SN_abreParenteses){
+        if( sinal(tokenAtual,SN_abreParenteses)){
             getToken();
             
             if(tokenAtual.categoria == CAT_sinais &&
@@ -349,9 +352,15 @@ void cmd(){
                 }
                
             }
+        }else if(tokenAtual,SN_atribuicao){
+            atrib();
+            if(tokenAtual,SN_pontoEVirgula){
+                // DO SOMETHING
+            }else{
+                erroSin();
+            }
         }
-    }else if(tokenAtual.categoria == CAT_sinais &&  // '{' { cmd } '}'
-             tokenAtual.codigo == SN_abreChaves){
+    }else if( sinal(tokenAtual,SN_abreChaves)){ // '{' { cmd } '}'
         getToken();
         
         if(tokenAtual.categoria != CAT_sinais &&
@@ -363,10 +372,9 @@ void cmd(){
         }else{
          // Não faz nada   
         }                  
-    }else if(tokenAtual.categoria == CAT_sinais &&  // ';'
-             tokenAtual.codigo == SN_pontoEVirgula){
+    }else if( sinal(tokenAtual,SN_pontoEVirgula) ){// ';'
         // Não faz nada
-    }else{ //  atrib ';' 
+    }/*else{ //  atrib ';' 
         atrib();
         getToken();
         
@@ -376,68 +384,81 @@ void cmd(){
         }else{
             erroSin();
         }
-    }
+    }*/
 }
 void atrib(){
     if(debugSin){
-        printf("DBGsin: atrib()\n");
+        printf("DBGsin: atrib()=>");
         mostraToken(tokenAtual);
     }
-    getToken();
+    // getToken();
     
-    if( id(tokenAtual) ){
-            getToken();// <== ANALEX != ANALEXICO
-            
-            if( sinal(tokenAtual,SN_igualdade)){
-                expr();
-                // THE END       
-            }else{
-                erroSin();
-            }
+    if( sinal(tokenAtual,SN_atribuicao)){
+        expr();
+        // THE END       
     }else{
         erroSin();
     }
+
+    // if( id(tokenAtual) ){
+    //         getToken();// <== ANALEX != ANALEXICO
+            
+    //         if( sinal(tokenAtual,SN_atribuicao)){
+    //             expr();
+    //             // THE END       
+    //         }else{
+    //             erroSin();
+    //         }
+    // }else{
+    //     erroSin();
+    // }
 }
 void expr(){
     if(debugSin){
-        printf("DBGsin: expr()\n");
+        printf("DBGsin: expr()=>");
         mostraToken(tokenAtual);
     }
     expr_simp(); 
-    op_rel();    
-    expr_simp();  
+    // op_rel();    
+    // expr_simp();  
 }
 void expr_simp(){
     if(debugSin){
-        printf("DBGsin: expr_simp()\n");
+        printf("DBGsin: expr_simp()=>");
         mostraToken(tokenAtual);
     }
 
     if( sinal(tokenAtual,SN_soma) ||
-        sinal(tokenAtual,SN_subtracao)
-    ){
-        termo();
-    }else{
-        erroSin();
+        sinal(tokenAtual,SN_subtracao)){
+        getToken();
     }
-    if( sinal(tokenAtual,SN_soma) ||
-        sinal(tokenAtual,SN_subtracao) ||
-        sinal(tokenAtual,SN_ouCondicional)
-    ){   
-        while(  sinal(tokenAtual,SN_soma) ||
-                sinal(tokenAtual,SN_subtracao)||
-                sinal(tokenAtual,SN_ouCondicional)
-        ){   
-            termo();
-        }
-    }else{
-        erroSin();
-    }
+    termo();
+
+    // if( sinal(tokenAtual,SN_soma) ||
+    //     sinal(tokenAtual,SN_subtracao)
+    // ){
+    //     termo();
+    // }else{
+    //     erroSin();
+    // }
+    // if( sinal(tokenAtual,SN_soma) ||
+    //     sinal(tokenAtual,SN_subtracao) ||
+    //     sinal(tokenAtual,SN_ouCondicional)
+    // ){   
+    //     while(  sinal(tokenAtual,SN_soma) ||
+    //             sinal(tokenAtual,SN_subtracao)||
+    //             sinal(tokenAtual,SN_ouCondicional)
+    //     ){   
+    //         termo();
+    //     }
+    // }else{
+    //     erroSin();
+    // }
     
 }
 void termo(){
     if(debugSin){
-        printf("DBGsin: termo()\n");
+        printf("DBGsin: termo()=>");
         mostraToken(tokenAtual);
     }
 
@@ -452,7 +473,7 @@ void termo(){
 }
 void fator(){
     if(debugSin){
-        printf("DBGsin: fator()\n");
+        printf("DBGsin: fator()=>");
         mostraToken(tokenAtual);
     }
     
@@ -498,7 +519,7 @@ void fator(){
 }
 void op_rel(){
     if(debugSin){
-        printf("DBGsin: op_rel()\n");
+        printf("DBGsin: op_rel()=>");
         mostraToken(tokenAtual);
     }
     getToken();
