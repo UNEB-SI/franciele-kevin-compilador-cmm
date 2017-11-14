@@ -222,9 +222,111 @@ void cmd(){
                 if(tokenAtual.categoria == CAT_sinais &&
                 tokenAtual.codigo == SN_abreParenteses){
                     // PARAMOS AQUI
+                    tokenAtual = analex(fp);
+                    mostraToken(tokenAtual);
+                    if( tokenAtual.categoria == CAT_sinais &&
+                        tokenAtual.codigo == SN_pontoEVirgula){
+                        tokenAtual = analex(fp);
+                        mostraToken(tokenAtual);
+                        if( tokenAtual.categoria == CAT_sinais &&
+                            tokenAtual.codigo == SN_pontoEVirgula){
+                            tokenAtual = analex(fp);
+                            mostraToken(tokenAtual);
+                            if( tokenAtual.categoria == CAT_sinais &&
+                            tokenAtual.codigo == SN_fechaParenteses){
+                                cmd();
+                            }else{
+                                atrib();
+                            }
+                        }else{
+                            expr();
+                        }
+                    }else{
+                        atrib();
+                    }
                 }
                 break;
             case retorne:
+                tokenAtual = analex(fp);
+                mostraToken(tokenAtual);
+                if(tokenAtual.categoria == CAT_sinais &&
+                tokenAtual.codigo == SN_pontoEVirgula){
+                    // Nada a fazer, talvez chamar analex
+                }else{
+                    expr();
+                }
+            default:
+                erroSin();
+        }
+    }else if(tokenAtual.categoria == CAT_id){ // id '(' [expr { ',' expr } ] ')' ';'
+        tokenAtual = analex(fp);
+        mostraToken(tokenAtual);
+        if(tokenAtual.categoria == CAT_sinais &&
+           tokenAtual.codigo == SN_abreParenteses){
+            tokenAtual = analex(fp);
+            mostraToken(tokenAtual);
+            if(tokenAtual.categoria == CAT_sinais &&
+            tokenAtual.codigo == SN_fechaParenteses){
+                tokenAtual = analex(fp);
+                mostraToken(tokenAtual);
+                if(tokenAtual.categoria == CAT_sinais &&
+                   tokenAtual.codigo == SN_pontoEVirgula){
+                    // Talvez chamar analex
+                }else{
+                    erroSin();
+                }
+            }else{
+                expr();
+                if(tokenAtual.categoria == CAT_sinais &&
+                   tokenAtual.codigo == SN_virgula){
+                    while(tokenAtual.categoria == CAT_sinais &&
+                          tokenAtual.codigo == SN_virgula){
+                        expr();
+                    }
+                    if(tokenAtual.categoria == CAT_sinais &&
+                       tokenAtual.codigo == SN_fechaParenteses){
+                        tokenAtual = analex(fp);
+                        mostraToken(tokenAtual);
+                        if(tokenAtual.categoria == CAT_sinais &&
+                           tokenAtual.codigo == SN_pontoEVirgula){
+                            //Talvez chamar analex
+                        }else{
+                            erroSin();
+                        }
+                    }else{
+                        erroSin();
+                    }
+                }else{
+                    erroSin();
+                }
+               
+            }
+        }
+    }else if(tokenAtual.categoria == CAT_sinais &&  // '{' { cmd } '}'
+             tokenAtual.codigo == SN_abreChaves){
+        tokenAtual = analex(fp);
+        mostraToken(tokenAtual);
+        if(tokenAtual.categoria != CAT_sinais &&
+           tokenAtual.codigo != SN_fechaChaves){
+               while(tokenAtual.categoria != CAT_sinais &&
+                     tokenAtual.codigo != SN_fechaChaves){
+               cmd();
+            } 
+        }else{
+         // Não faz nada   
+        }                  
+    }else if(tokenAtual.categoria == CAT_sinais &&  // ';'
+             tokenAtual.codigo == SN_pontoEVirgula){
+        // Não faz nada
+    }else{ //  atrib ';' 
+        atrib();
+        tokenAtual = analex(fp);
+        mostraToken(tokenAtual);
+        if(tokenAtual.categoria == CAT_sinais &&
+           tokenAtual.codigo == SN_pontoEVirgula){
+            // Talvez chamar analex...
+        }else{
+            erroSin();
         }
     }
 }
@@ -263,14 +365,14 @@ void expr_simp(){
     if( (tokenAtual.categoria == CAT_sinais &&
         tokenAtual.codigo == SN_soma) ||
        (tokenAtual.categoria == CAT_sinais &&
-        tokenAtual.codigo == SN_subtracao)
+        tokenAtual.codigo == SN_subtracao) ||
        (tokenAtual.categoria == CAT_sinais &&
         tokenAtual.codigo == SN_ouCondicional)
     ){   
         while( (tokenAtual.categoria == CAT_sinais &&
             tokenAtual.codigo == SN_soma) ||
            (tokenAtual.categoria == CAT_sinais &&
-            tokenAtual.codigo == SN_subtracao)
+            tokenAtual.codigo == SN_subtracao) ||
            (tokenAtual.categoria == CAT_sinais &&
             tokenAtual.codigo == SN_ouCondicional)
         ){   
@@ -345,9 +447,9 @@ void op_rel(){
     if(tokenAtual.categoria = CAT_sinais){
         switch(tokenAtual.codigo){
             case SN_igualdade:
-            case SN_difente;
+            case SN_difente:
             case SN_menorIgualQue:
-            case SN_menorQue;
+            case SN_menorQue:
             case SN_maiorIgualQue:
             case SN_maiorQue:
                 tokenAtual = analex(fp);
