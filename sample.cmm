@@ -1,6 +1,14 @@
 
 
-real soma( ){}
+real soma(
+    real a ,
+    inteiro a ,
+    real x 
+){
+
+    inteiro a,b,c;
+    real x,y,z;
+}
 
 
 inteiro a,b,c;

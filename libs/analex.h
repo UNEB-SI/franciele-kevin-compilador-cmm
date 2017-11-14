@@ -23,6 +23,7 @@ enum PR{
     semretorno,
     semparam,
     se,
+    senao,
     para,
     enquanto,
     principal,
