@@ -7,11 +7,11 @@ real soma(
 
     inteiro a,b,c;
     real x,y,z;
+    se carro();
 }
 
 
 inteiro a,b,c;
-
 
 
 

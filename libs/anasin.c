@@ -15,71 +15,104 @@ void fator();
 void op_rel();
 void erroSin();
 
+bool debugSin = true;
 
-void prog(){
+
+bool sinal(token token, int sinal){
+    if( tokenAtual.categoria == CAT_sinais &&
+        tokenAtual.codigo == sinal){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+bool id(token token){
+    if( tokenAtual.categoria == CAT_id){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+bool pr(token token, int pr){
+    if( tokenAtual.categoria == CAT_palavraReservada &&
+        tokenAtual.codigo == pr){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+
+void getToken(){
     tokenAtual = analex(fp);
     mostraToken(tokenAtual);
-    // printf("%s\n", tipo(tokenAtual) ? "é tipo" : "não é tipo");
-    if(tipo(tokenAtual)){
-        tokenAtual = analex(fp);
+}
+
+void prog(){
+    if(debugSin){
+        printf("DBGsin: prog()\n");
         mostraToken(tokenAtual);
-        if(tokenAtual.categoria == CAT_id ){ // tipo id {',' id} ';'
-            tokenAtual = analex(fp);
-            mostraToken(tokenAtual);
-            while( tokenAtual.categoria == CAT_sinais &&
-                tokenAtual.codigo == SN_virgula){
-                    tokenAtual = analex(fp);
-                    mostraToken(tokenAtual);
-                    if(tokenAtual.categoria != CAT_id){
+    }
+    getToken();
+    
+    // printf("%s\n", tipo(tokenAtual) ? "é tipo" : "não é tipo");
+    if( tipo(tokenAtual) ){
+        getToken();
+        
+
+        if( id(tokenAtual) ){ // tipo id {',' id} ';'
+            getToken();
+            
+
+            while( sinal(tokenAtual,SN_virgula) ){
+                    getToken();
+                    
+
+                    if( !id(tokenAtual) ){
                         erroSin();
                     }else{
-                        tokenAtual = analex(fp);
-                        mostraToken(tokenAtual);
+                        getToken();
+                        
                     }
             }
-            if( tokenAtual.categoria == CAT_sinais &&
-                tokenAtual.codigo == SN_abreParenteses){
+            if( sinal(tokenAtual,SN_abreParenteses) ){
                     // printf("ABRE PARNTESES\n"); // chama tipos_param
                     tipos_param();
-                    if( tokenAtual.categoria == CAT_sinais &&
-                        tokenAtual.codigo == SN_fechaParenteses){
-                            tokenAtual = analex(fp);
-                            mostraToken(tokenAtual);
-                            if( tokenAtual.categoria == CAT_sinais &&
-                                tokenAtual.codigo == SN_abreChaves){
-                                    tokenAtual = analex(fp);
-                                    mostraToken(tokenAtual);
+                    if( sinal(tokenAtual,SN_fechaParenteses) ){
+                            getToken();
+                            
+                            if( sinal(tokenAtual,SN_abreChaves) ){
+                                    getToken();
+                                    
                                     if(tipo(tokenAtual)){
                                         while(tipo(tokenAtual)){
-                                            tokenAtual = analex(fp);
-                                            mostraToken(tokenAtual);
-                                            if(tokenAtual.categoria == CAT_id){
-                                                tokenAtual = analex(fp);
-                                                mostraToken(tokenAtual);
-                                                if( tokenAtual.categoria == CAT_sinais &&
-                                                    tokenAtual.codigo == SN_virgula){
-                                                    while(  tokenAtual.categoria == CAT_sinais &&
-                                                            tokenAtual.codigo == SN_virgula){
-                                                        tokenAtual = analex(fp);
-                                                        mostraToken(tokenAtual);
-                                                        if(tokenAtual.categoria == CAT_id){
-                                                            tokenAtual = analex(fp);
-                                                            mostraToken(tokenAtual);
+                                            getToken();
+                                            
+                                            if( id(tokenAtual) ){
+                                                getToken();
+                                                
+                                                if( sinal(tokenAtual,SN_virgula) ){
+                                                    while(  sinal(tokenAtual,SN_virgula) ){
+                                                        getToken();
+                                                        
+                                                        if( id(tokenAtual) ){
+                                                            getToken();
+                                                            
                                                         }else{
                                                             erroSin();
                                                         }
                                                     }
-                                                    if( tokenAtual.categoria != CAT_sinais ||
-                                                        tokenAtual.codigo != SN_pontoEVirgula){
+                                                    if( !sinal(tokenAtual,SN_pontoEVirgula) ){
                                                             erroSin();
                                                     }
                                                 }
-                                                if( tokenAtual.categoria != CAT_sinais ||
-                                                    tokenAtual.codigo != SN_pontoEVirgula){
+                                                if( !sinal(tokenAtual,SN_pontoEVirgula)){
                                                         erroSin();
                                                 }else{
-                                                    tokenAtual = analex(fp);
-                                                    mostraToken(tokenAtual);
+                                                    getToken();
+                                                    
                                                 }
                                             }else{
                                                 erroSin();
@@ -96,8 +129,7 @@ void prog(){
                     }else{
                         erroSin();
                     }
-            }else if(   tokenAtual.categoria != CAT_sinais ||
-                        tokenAtual.codigo != SN_pontoEVirgula){
+            }else if(   !sinal(tokenAtual,SN_pontoEVirgula)){
                     erroSin();
             }
         }
@@ -105,6 +137,12 @@ void prog(){
     }
 }
 bool tipo(token token){
+    if(debugSin){
+        printf("DBGsin: tipo()\n");
+        mostraToken(tokenAtual);
+    }
+
+
     if(token.categoria == CAT_palavraReservada){
         switch(token.codigo){
             case caracter:
@@ -120,28 +158,30 @@ bool tipo(token token){
     }
 }
 void tipos_param(){
-    tokenAtual = analex(fp);
-    mostraToken(tokenAtual);
+    if(debugSin){
+        printf("DBGsin: tipos_param()\n");
+        mostraToken(tokenAtual);
+    }
+    getToken();
+    
 
-    if( tokenAtual.categoria == CAT_palavraReservada &&
-        tokenAtual.codigo == semparam){
+    if( pr(tokenAtual,semparam)){
             // printf("SEM PARAMETROS\n");
     }else if( tipo(tokenAtual)){
-        tokenAtual = analex(fp);
-        mostraToken(tokenAtual);
-        if(tokenAtual.categoria == CAT_id){
-            tokenAtual = analex(fp);
-            mostraToken(tokenAtual);
-            while(  tokenAtual.categoria == CAT_sinais &&
-                    tokenAtual.codigo == SN_virgula ){
-                tokenAtual = analex(fp);
-                mostraToken(tokenAtual);
+        getToken();
+        
+        if( id(tokenAtual) ){
+            getToken();
+            
+            while(  sinal(tokenAtual,SN_virgula) ){
+                getToken();
+                
                 if(tipo(tokenAtual)){
-                    tokenAtual = analex(fp);
-                    mostraToken(tokenAtual);
-                    if(tokenAtual.categoria == CAT_id){
-                        tokenAtual = analex(fp);
-                        mostraToken(tokenAtual);
+                    getToken();
+                    
+                    if( id(tokenAtual) ){
+                        getToken();
+                        
                     }else{
                         erroSin();
                     }
@@ -149,10 +189,8 @@ void tipos_param(){
                     erroSin();
                 }
             }
-            if( (tokenAtual.categoria!= CAT_sinais ||
-                 tokenAtual.codigo != SN_virgula)  &&
-                (tokenAtual.categoria!= CAT_sinais ||
-                 tokenAtual.codigo != SN_fechaParenteses)
+            if( !sinal(tokenAtual,SN_virgula)  &&
+                !sinal(tokenAtual,SN_fechaParenteses)
               ){
                   erroSin();
               }
@@ -170,23 +208,33 @@ void tipos_param(){
 
 
 }
-void tipos_p_opc(){}
+void tipos_p_opc(){
+    if(debugSin){
+        printf("DBGsin: tipos_p_opc()\n");
+        mostraToken(tokenAtual);
+    }
+}
 void cmd(){
-    tokenAtual = analex(fp);
-    mostraToken(tokenAtual);
+    if(debugSin){
+        printf("DBGsin: cmd()\n");
+        mostraToken(tokenAtual);
+    }
+    
+    getToken();
+    
     if(tokenAtual.categoria == CAT_palavraReservada){
         switch(tokenAtual.codigo){
             case se:
-                tokenAtual = analex(fp);
-                mostraToken(tokenAtual);
+                getToken();
+                
                 if(tokenAtual.categoria == CAT_sinais &&
                    tokenAtual.codigo == SN_abreParenteses){
                     expr();
                     if(tokenAtual.categoria == CAT_sinais &&
                         tokenAtual.codigo == SN_fechaParenteses){
                         cmd();
-                        tokenAtual = analex(fp);
-                        mostraToken(tokenAtual);
+                        getToken();
+                        
                         if( tokenAtual.categoria == CAT_palavraReservada &&
                             tokenAtual.codigo == senao){
                             cmd();
@@ -200,8 +248,8 @@ void cmd(){
                 break;
 
             case enquanto:
-                tokenAtual = analex(fp);
-                mostraToken(tokenAtual);
+                getToken();
+                
                 if(tokenAtual.categoria == CAT_sinais &&
                 tokenAtual.codigo == SN_abreParenteses){
                     expr();
@@ -217,21 +265,21 @@ void cmd(){
                 break;
 
             case para:
-                tokenAtual = analex(fp);
-                mostraToken(tokenAtual);
+                getToken();
+                
                 if(tokenAtual.categoria == CAT_sinais &&
                 tokenAtual.codigo == SN_abreParenteses){
                     // PARAMOS AQUI
-                    tokenAtual = analex(fp);
-                    mostraToken(tokenAtual);
+                    getToken();
+                    
                     if( tokenAtual.categoria == CAT_sinais &&
                         tokenAtual.codigo == SN_pontoEVirgula){
-                        tokenAtual = analex(fp);
-                        mostraToken(tokenAtual);
+                        getToken();
+                        
                         if( tokenAtual.categoria == CAT_sinais &&
                             tokenAtual.codigo == SN_pontoEVirgula){
-                            tokenAtual = analex(fp);
-                            mostraToken(tokenAtual);
+                            getToken();
+                            
                             if( tokenAtual.categoria == CAT_sinais &&
                             tokenAtual.codigo == SN_fechaParenteses){
                                 cmd();
@@ -247,8 +295,8 @@ void cmd(){
                 }
                 break;
             case retorne:
-                tokenAtual = analex(fp);
-                mostraToken(tokenAtual);
+                getToken();
+                
                 if(tokenAtual.categoria == CAT_sinais &&
                 tokenAtual.codigo == SN_pontoEVirgula){
                     // Nada a fazer, talvez chamar analex
@@ -259,16 +307,16 @@ void cmd(){
                 erroSin();
         }
     }else if(tokenAtual.categoria == CAT_id){ // id '(' [expr { ',' expr } ] ')' ';'
-        tokenAtual = analex(fp);
-        mostraToken(tokenAtual);
+        getToken();
+        
         if(tokenAtual.categoria == CAT_sinais &&
            tokenAtual.codigo == SN_abreParenteses){
-            tokenAtual = analex(fp);
-            mostraToken(tokenAtual);
+            getToken();
+            
             if(tokenAtual.categoria == CAT_sinais &&
             tokenAtual.codigo == SN_fechaParenteses){
-                tokenAtual = analex(fp);
-                mostraToken(tokenAtual);
+                getToken();
+                
                 if(tokenAtual.categoria == CAT_sinais &&
                    tokenAtual.codigo == SN_pontoEVirgula){
                     // Talvez chamar analex
@@ -285,8 +333,8 @@ void cmd(){
                     }
                     if(tokenAtual.categoria == CAT_sinais &&
                        tokenAtual.codigo == SN_fechaParenteses){
-                        tokenAtual = analex(fp);
-                        mostraToken(tokenAtual);
+                        getToken();
+                        
                         if(tokenAtual.categoria == CAT_sinais &&
                            tokenAtual.codigo == SN_pontoEVirgula){
                             //Talvez chamar analex
@@ -304,8 +352,8 @@ void cmd(){
         }
     }else if(tokenAtual.categoria == CAT_sinais &&  // '{' { cmd } '}'
              tokenAtual.codigo == SN_abreChaves){
-        tokenAtual = analex(fp);
-        mostraToken(tokenAtual);
+        getToken();
+        
         if(tokenAtual.categoria != CAT_sinais &&
            tokenAtual.codigo != SN_fechaChaves){
                while(tokenAtual.categoria != CAT_sinais &&
@@ -320,8 +368,8 @@ void cmd(){
         // Não faz nada
     }else{ //  atrib ';' 
         atrib();
-        tokenAtual = analex(fp);
-        mostraToken(tokenAtual);
+        getToken();
+        
         if(tokenAtual.categoria == CAT_sinais &&
            tokenAtual.codigo == SN_pontoEVirgula){
             // Talvez chamar analex...
@@ -331,13 +379,16 @@ void cmd(){
     }
 }
 void atrib(){
-    tokenAtual = analex(fp);
-    mostraToken(tokenAtual);
-    if( tokenAtual.categoria == CAT_id){
-            tokenAtual = analex(fp);// <== ANALEX != ANALEXICO
-            mostraToken(tokenAtual);
-            if( tokenAtual.categoria == CAT_sinais &&
-                tokenAtual.codigo == SN_igualdade){
+    if(debugSin){
+        printf("DBGsin: atrib()\n");
+        mostraToken(tokenAtual);
+    }
+    getToken();
+    
+    if( id(tokenAtual) ){
+            getToken();// <== ANALEX != ANALEXICO
+            
+            if( sinal(tokenAtual,SN_igualdade)){
                 expr();
                 // THE END       
             }else{
@@ -348,33 +399,34 @@ void atrib(){
     }
 }
 void expr(){
+    if(debugSin){
+        printf("DBGsin: expr()\n");
+        mostraToken(tokenAtual);
+    }
     expr_simp(); 
     op_rel();    
     expr_simp();  
 }
 void expr_simp(){
-    if( (tokenAtual.categoria == CAT_sinais &&
-         tokenAtual.codigo == SN_soma) ||
-        (tokenAtual.categoria == CAT_sinais &&
-         tokenAtual.codigo == SN_subtracao)
+    if(debugSin){
+        printf("DBGsin: expr_simp()\n");
+        mostraToken(tokenAtual);
+    }
+
+    if( sinal(tokenAtual,SN_soma) ||
+        sinal(tokenAtual,SN_subtracao)
     ){
         termo();
     }else{
         erroSin();
     }
-    if( (tokenAtual.categoria == CAT_sinais &&
-        tokenAtual.codigo == SN_soma) ||
-       (tokenAtual.categoria == CAT_sinais &&
-        tokenAtual.codigo == SN_subtracao) ||
-       (tokenAtual.categoria == CAT_sinais &&
-        tokenAtual.codigo == SN_ouCondicional)
+    if( sinal(tokenAtual,SN_soma) ||
+        sinal(tokenAtual,SN_subtracao) ||
+        sinal(tokenAtual,SN_ouCondicional)
     ){   
-        while( (tokenAtual.categoria == CAT_sinais &&
-            tokenAtual.codigo == SN_soma) ||
-           (tokenAtual.categoria == CAT_sinais &&
-            tokenAtual.codigo == SN_subtracao) ||
-           (tokenAtual.categoria == CAT_sinais &&
-            tokenAtual.codigo == SN_ouCondicional)
+        while(  sinal(tokenAtual,SN_soma) ||
+                sinal(tokenAtual,SN_subtracao)||
+                sinal(tokenAtual,SN_ouCondicional)
         ){   
             termo();
         }
@@ -384,35 +436,39 @@ void expr_simp(){
     
 }
 void termo(){
+    if(debugSin){
+        printf("DBGsin: termo()\n");
+        mostraToken(tokenAtual);
+    }
+
     fator();
     while(
-        (tokenAtual.categoria == CAT_sinais &&
-         tokenAtual.codigo == SN_mutiplicacao)||
-        (tokenAtual.categoria == CAT_sinais &&
-         tokenAtual.codigo == SN_divisao)||
-        (tokenAtual.categoria == CAT_sinais &&
-         tokenAtual.codigo == SN_eCondicional)
+        sinal(tokenAtual,SN_mutiplicacao)||
+        sinal(tokenAtual,SN_divisao)||
+        sinal(tokenAtual,SN_eCondicional)
     ){
         fator();
     }
 }
 void fator(){
-    tokenAtual = analex(fp);
-    mostraToken(tokenAtual);    
+    if(debugSin){
+        printf("DBGsin: fator()\n");
+        mostraToken(tokenAtual);
+    }
+    
+    getToken();
+        
 
     switch(tokenAtual.categoria){
         case CAT_id:
-            tokenAtual = analex(fp);
-            mostraToken(tokenAtual); 
-            if( tokenAtual.categoria == CAT_sinais &&
-                tokenAtual.codigo == SN_abreParenteses){
-                    tokenAtual = analex(fp);
-                    mostraToken(tokenAtual); 
-                    while(tokenAtual.categoria != CAT_sinais ||
-                          tokenAtual.codigo != SN_fechaParenteses){
+            getToken();
+             
+            if( sinal(tokenAtual,SN_abreParenteses)){
+                    getToken();
+                     
+                    while(sinal(tokenAtual,SN_fechaParenteses)){
                         expr();
-                        while(tokenAtual.categoria == CAT_sinais &&
-                              tokenAtual.codigo == SN_virgula){
+                        while(sinal(tokenAtual,SN_virgula)){
                             expr();
                         }
                     }
@@ -421,14 +477,13 @@ void fator(){
         case CAT_constanteInteira:
         case CAT_constanteReal:
         case CAT_constanteCaracter:
-            tokenAtual = analex(fp);
-            mostraToken(tokenAtual);   
+            getToken();
+               
             break;
         case CAT_sinais:
-            if(tokenAtual.codigo == SN_abreParenteses){
+            if(sinal(tokenAtual,SN_abreParenteses)){
                 expr();
-                if( tokenAtual.categoria != CAT_sinais ||
-                    tokenAtual.codigo != SN_fechaParenteses){
+                if( sinal(tokenAtual,SN_fechaParenteses)){
                     erroSin();
                 }
             }else if(tokenAtual.codigo == SN_negacao){
@@ -442,8 +497,12 @@ void fator(){
     }
 }
 void op_rel(){
-    tokenAtual = analex(fp);
-    mostraToken(tokenAtual);
+    if(debugSin){
+        printf("DBGsin: op_rel()\n");
+        mostraToken(tokenAtual);
+    }
+    getToken();
+    
     if(tokenAtual.categoria = CAT_sinais){
         switch(tokenAtual.codigo){
             case SN_igualdade:
@@ -452,8 +511,8 @@ void op_rel(){
             case SN_menorQue:
             case SN_maiorIgualQue:
             case SN_maiorQue:
-                tokenAtual = analex(fp);
-                mostraToken(tokenAtual);
+                getToken();
+                
                 break;
             default:
                 erroSin();
