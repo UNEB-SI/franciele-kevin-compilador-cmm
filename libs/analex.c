@@ -75,6 +75,79 @@ void mostraToken(token token){
     printf("< %s , %s >\n",tabela_categoria[token.categoria], tempVar);
 }
 
+void mostraTokens(token token1, token token2){
+    char tempVar[100];
+    switch(token1.categoria){
+        case CAT_id:
+            strcpy(tempVar,ID_TABLE[token1.codigo]);
+            break;
+        case CAT_palavraReservada:
+            strcpy(tempVar,PR_TABLE[token1.codigo]);
+            break;
+        case CAT_sinais:
+            strcpy(tempVar,SN_TABLE[token1.codigo]);
+            break;
+        case CAT_constanteInteira:
+            // strcpy(tempVar,CT_I_TABLE[token.codigo]);
+            sprintf(tempVar,"%d",CT_I_TABLE[token1.codigo]);
+            break;
+        case CAT_constanteReal:
+            // strcpy(tempVar,CT_R_TABLE[token.codigo]);
+            sprintf(tempVar,"%f",CT_R_TABLE[token1.codigo]);
+            break;
+        case CAT_constanteCaracter:
+            // strcpy(tempVar,CT_C_TABLE[token.codigo]);
+            sprintf(tempVar,"%c",CT_C_TABLE[token1.codigo]);
+            break;
+        case CAT_literal:
+            strcpy(tempVar,LT[token1.codigo]);
+            break;
+        case CAT_fimDeArquivo:
+            strcpy(tempVar,tabela_categoria[token1.categoria]);
+            break;
+        default:
+            strcpy(tempVar,"Categoria indefinida");
+            break;
+    }
+    printf("[ %s , %s ]",tabela_categoria[token1.categoria], tempVar);
+    tempVar[0]='\0';
+    printf(" -> ");
+    switch(token2.categoria){
+        case CAT_id:
+            strcpy(tempVar,ID_TABLE[token2.codigo]);
+            break;
+        case CAT_palavraReservada:
+            strcpy(tempVar,PR_TABLE[token2.codigo]);
+            break;
+        case CAT_sinais:
+            strcpy(tempVar,SN_TABLE[token2.codigo]);
+            break;
+        case CAT_constanteInteira:
+            // strcpy(tempVar,CT_I_TABLE[token.codigo]);
+            sprintf(tempVar,"%d",CT_I_TABLE[token2.codigo]);
+            break;
+        case CAT_constanteReal:
+            // strcpy(tempVar,CT_R_TABLE[token.codigo]);
+            sprintf(tempVar,"%f",CT_R_TABLE[token2.codigo]);
+            break;
+        case CAT_constanteCaracter:
+            // strcpy(tempVar,CT_C_TABLE[token.codigo]);
+            sprintf(tempVar,"%c",CT_C_TABLE[token2.codigo]);
+            break;
+        case CAT_literal:
+            strcpy(tempVar,LT[token2.codigo]);
+            break;
+        case CAT_fimDeArquivo:
+            strcpy(tempVar,tabela_categoria[token2.categoria]);
+            break;
+        default:
+            strcpy(tempVar,"Categoria indefinida");
+            break;
+    }
+    printf("[ %s , %s ]\n",tabela_categoria[token2.categoria], tempVar);
+
+}
+
 
 float converteStringParaReal(char string[]){
     // char parteInteira[100];

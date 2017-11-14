@@ -22,9 +22,12 @@ void main(){
     // temptoken = analex(fp);
     // E(fp);
 
-    // do{
-    //     temptoken = analex(fp);
-    //     mostraToken(temptoken);
-    // }while(temptoken.categoria != CAT_fimDeArquivo);
-    prog();
+
+
+    do{
+        // temptoken = analex(fp);
+        // mostraToken(temptoken);
+        getToken();
+    }while(!eof(viewToken()));
+    // prog();
 }

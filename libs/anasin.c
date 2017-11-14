@@ -15,7 +15,37 @@ void fator();
 void op_rel();
 void erroSin();
 
-bool debugSin = true;
+token viewToken();
+token viewNext();
+
+
+void getToken(){
+    if( tokenNaoInicializados){
+        //printf("primeira chamada\n");
+        tokenProx = analex(fp);
+        tokenAtual = tokenProx;
+        tokenProx = analex(fp);
+        tokenNaoInicializados = false;
+    }else{
+        // printf("não é a primeira chamada\n");
+        tokenAtual = tokenProx;
+        tokenProx = analex(fp);
+    }
+    // tokenAtual = analex(fp);
+  
+    // printf("TOKEN ATUAL");mostraToken(viewToken());
+    // printf("TOKEN NEXT");mostraToken(viewNext());
+    mostraTokens(viewToken(),viewNext());
+}
+
+token viewToken(){
+    return tokenAtual;
+}
+token viewNext(){
+    return tokenProx;
+}
+
+bool debugSin = false;
 
 
 bool sinal(token token, int sinal){
@@ -44,11 +74,12 @@ bool pr(token token, int pr){
     }
 }
 
-
-void getToken(){
-    tokenAtual = analex(fp);
-    mostraToken(tokenAtual);
+bool eof(token token){
+    if(token.categoria == CAT_fimDeArquivo) return true;
+    else return false;
 }
+
+
 
 void prog(){
     if(debugSin){

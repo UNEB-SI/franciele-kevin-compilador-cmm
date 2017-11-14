@@ -11,9 +11,6 @@ real soma(
     p = 55;
     carro = 'k';
     kevin_oliveiras = 2.3;
-    se (1) <- tem erro aqui
-        real pi = 3.14;
-    }
 }
 
 erro
