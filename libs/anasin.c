@@ -231,8 +231,24 @@ void expr_simp(){
         printf("DBGsin: expr_simp()=>");
         mostraTokens(viewToken(),viewNext());
     }
+    if(
+        sinal(viewNext(),SN_soma) ||
+        sinal(viewNext(),SN_subtracao)
+    ){
+        getToken();
+    }
+    termo();
+    while(
+        sinal(viewNext(),SN_soma) ||
+        sinal(viewNext(),SN_subtracao) ||
+        sinal(viewNext(),SN_ouCondicional)
+    ){
+        getToken();
+        termo();
+    }
 }
 
+// ok
 void termo(){
     if(debugSin){
         printf("DBGsin: termo()=>");
