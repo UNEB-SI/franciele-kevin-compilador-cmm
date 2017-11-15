@@ -31,12 +31,15 @@ void main(){
     // }while(!eof(viewToken()));
 
     
-    op_rel();
+    // op_rel();
     // tipos_param();
     // tipos_p_opc();
 
     // fator();
     // termo();
-    expr_simp();
+    // expr_simp();
     // prog();
+    getToken();
+    printf("----\n");
+    expr();
 }

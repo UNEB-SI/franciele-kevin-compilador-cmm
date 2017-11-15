@@ -14,7 +14,7 @@ void expr();
 void expr_simp();
 void termo();
 void fator();
-void op_rel();
+bool op_rel(token token);
 void erroSin();
 
 token viewToken();
@@ -112,6 +112,36 @@ bool tipo(token token){
         // all fine
         return true;
     }else{
+        return false;
+    }
+}
+
+// ok
+bool op_rel(token token){
+    if(debugSin){
+        printf("DBGsin: op_rel()=>");
+        mostraTokens(viewToken(),viewNext());
+    }
+    // getToken();
+    if(
+        sinal(token, SN_igualdade) ||
+        sinal(token, SN_difente) ||
+        sinal(token, SN_menorIgualQue) ||
+        sinal(token, SN_menorQue) ||
+        sinal(token, SN_maiorIgualQue) ||
+        sinal(token, SN_maiorQue) 
+    ){
+        // all fine
+        if(debugSin){
+            printf("DBGsin: op_rel() <==");
+            mostraTokens(viewToken(),viewNext());
+        }
+        return true;
+    }else{
+        if(debugSin){
+            printf("DBGsin: op_rel() <==");
+            mostraTokens(viewToken(),viewNext());
+        }
         return false;
     }
 }
@@ -219,13 +249,25 @@ void atrib(){
     }
 }
 
+//ok
 void expr(){
     if(debugSin){
         printf("DBGsin: expr()=>");
         mostraTokens(viewToken(),viewNext());
     }
+    expr_simp();
+    if(op_rel(viewNext())){
+        getToken();
+        expr_simp();
+    }
+    if(debugSin){
+        printf("DBGsin: expr() <==");
+        mostraTokens(viewToken(),viewNext());
+    }
+
 }
 
+//ok 
 void expr_simp(){
     if(debugSin){
         printf("DBGsin: expr_simp()=>");
@@ -246,6 +288,10 @@ void expr_simp(){
         getToken();
         termo();
     }
+    if(debugSin){
+        printf("DBGsin: expr_simp() <==");
+        mostraTokens(viewToken(),viewNext());
+    }
 }
 
 // ok
@@ -262,6 +308,10 @@ void termo(){
     ){
         getToken();
         fator();
+    }
+    if(debugSin){
+        printf("DBGsin: termo() <==");
+        mostraTokens(viewToken(),viewNext());
     }
 }
 
@@ -310,28 +360,13 @@ void fator(){
     }else{
         erroSin();
     }
-}
-
-// ok
-void op_rel(){
     if(debugSin){
-        printf("DBGsin: op_rel()=>");
+        printf("DBGsin: fator() <==");
         mostraTokens(viewToken(),viewNext());
     }
-    getToken();
-    if(
-        sinal(viewToken(), SN_igualdade) ||
-        sinal(viewToken(), SN_difente) ||
-        sinal(viewToken(), SN_menorIgualQue) ||
-        sinal(viewToken(), SN_menorQue) ||
-        sinal(viewToken(), SN_maiorIgualQue) ||
-        sinal(viewToken(), SN_maiorQue) 
-    ){
-        // all fine
-    }else{
-        erroSin();
-    }
 }
+
+
 
 // ok
 void erroSin(){
