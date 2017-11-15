@@ -1,7 +1,9 @@
 
 inteiro ,
 real ,
-caracter c)
+caracter ,
+booleano a b,
+real)
 
 
 

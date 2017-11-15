@@ -64,7 +64,7 @@ bool sinal(token token, int sinal){
 
 // ok
 bool id(token token){
-    if( tokenAtual.categoria == CAT_id){
+    if( token.categoria == CAT_id){
         return true;
     }else{
         return false;
@@ -73,8 +73,8 @@ bool id(token token){
 
 // ok
 bool pr(token token, int pr){
-    if( tokenAtual.categoria == CAT_palavraReservada &&
-        tokenAtual.codigo == pr){
+    if( token.categoria == CAT_palavraReservada &&
+        token.codigo == pr){
         return true;
     }else{
         return false;
@@ -169,19 +169,20 @@ void tipos_p_opc(){
     getToken();
     
     if(pr(viewToken(),semparam)){
-        printf("SEM PARAMETOS\n");
+        //all fine
     }else if(tipo(viewToken())){
         getToken();
         if(id(viewToken())) getToken();
-        // printf("HEELO\n");
         if(sinal(viewToken(),SN_virgula)){
-            printf("WOW\n");
-            mostraTokens(viewToken(),viewNext());
-            getToken();
-            do{
+            do{ 
+                getToken();
+                if(sinal(viewToken(),SN_virgula)) getToken();
+
                 if(tipo(viewToken())){
-                    if(id(viewNext())) getToken();
-                    if(sinal(viewNext())) getToken();
+                    if(id(viewNext())){
+                        getToken();
+                    }
+
                 }else{
                     erroSin();
                 }
@@ -189,7 +190,7 @@ void tipos_p_opc(){
         }else;
         
     }else{
-        erroSin();
+        erroSin(); // argumentos invalidos
     }
 
 }
