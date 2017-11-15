@@ -52,6 +52,7 @@ token viewNext(){
 
 // Checagem ---------------
 
+// ok
 bool sinal(token token, int sinal){
     if( token.categoria == CAT_sinais &&
         token.codigo == sinal){
@@ -61,6 +62,7 @@ bool sinal(token token, int sinal){
     }
 }
 
+// ok
 bool id(token token){
     if( tokenAtual.categoria == CAT_id){
         return true;
@@ -69,6 +71,7 @@ bool id(token token){
     }
 }
 
+// ok
 bool pr(token token, int pr){
     if( tokenAtual.categoria == CAT_palavraReservada &&
         tokenAtual.codigo == pr){
@@ -78,21 +81,13 @@ bool pr(token token, int pr){
     }
 }
 
+// ok
 bool eof(token token){
     if(token.categoria == CAT_fimDeArquivo) return true;
     else return false;
 }
 
-// Execução ---------------
-
-
-void prog(){
-    if(debugSin){
-        printf("DBGsin: prog()=>");
-        mostraTokens(viewToken(),viewNext());
-    }
-}
-
+// ok
 bool tipo(token token){
     if(debugSin){
         printf("DBGsin: tipo()=>");
@@ -112,6 +107,17 @@ bool tipo(token token){
     }
 }
 
+// Execução ---------------
+
+
+void prog(){
+    if(debugSin){
+        printf("DBGsin: prog()=>");
+        mostraTokens(viewToken(),viewNext());
+    }
+}
+
+// ok
 void tipos_param(){
     if(debugSin){
         printf("DBGsin: tipos_param()=>");
@@ -159,6 +165,33 @@ void tipos_p_opc(){
         printf("DBGsin: tipos_p_opc()=>");
         mostraTokens(viewToken(),viewNext());
     }
+
+    getToken();
+    
+    if(pr(viewToken(),semparam)){
+        printf("SEM PARAMETOS\n");
+    }else if(tipo(viewToken())){
+        getToken();
+        if(id(viewToken())) getToken();
+        // printf("HEELO\n");
+        if(sinal(viewToken(),SN_virgula)){
+            printf("WOW\n");
+            mostraTokens(viewToken(),viewNext());
+            getToken();
+            do{
+                if(tipo(viewToken())){
+                    if(id(viewNext())) getToken();
+                    if(sinal(viewNext())) getToken();
+                }else{
+                    erroSin();
+                }
+            }while(sinal(viewNext(),SN_virgula));
+        }else;
+        
+    }else{
+        erroSin();
+    }
+
 }
 
 void cmd(){
@@ -203,6 +236,7 @@ void fator(){
     }
 }
 
+// ok
 void op_rel(){
     if(debugSin){
         printf("DBGsin: op_rel()=>");
@@ -223,6 +257,7 @@ void op_rel(){
     }
 }
 
+// ok
 void erroSin(){
     printf("ERRO SINTATICO!!!!!\n");
     exit(1);
