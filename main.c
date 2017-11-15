@@ -35,7 +35,7 @@ void main(){
     // tipos_param();
     // tipos_p_opc();
 
-    fator();
-
+    // fator();
+    termo();
     // prog();
 }

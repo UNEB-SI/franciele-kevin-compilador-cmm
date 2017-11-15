@@ -238,11 +238,18 @@ void termo(){
         printf("DBGsin: termo()=>");
         mostraTokens(viewToken(),viewNext());
     }
-
-
+    fator();
+    while(
+        sinal(viewNext(),SN_mutiplicacao) ||
+        sinal(viewNext(),SN_divisao) ||
+        sinal(viewNext(),SN_eCondicional)
+    ){
+        getToken();
+        fator();
+    }
 }
 
-
+// ok 
 void fator(){
     if(debugSin){
         printf("DBGsin: fator()=>");
@@ -256,11 +263,13 @@ void fator(){
             getToken();
             if(sinal(viewNext(),SN_fechaParenteses)){
                 // all fine
+                getToken();
             }else{
                 // expr
                 // NOT TESTED
                 expr();
                 while(sinal(viewNext(),SN_virgula)){
+                    getToken();
                     expr();
                 }
             }
