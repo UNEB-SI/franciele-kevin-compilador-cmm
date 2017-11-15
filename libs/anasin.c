@@ -53,6 +53,15 @@ token viewNext(){
 // Checagem ---------------
 
 // ok
+bool categoria(token token, int cat){
+    if( token.categoria == cat){
+        return true;
+    }else{
+        return false;
+    }
+}
+
+// ok
 bool sinal(token token, int sinal){
     if( token.categoria == CAT_sinais &&
         token.codigo == sinal){
@@ -160,6 +169,7 @@ void tipos_param(){
 
 }
 
+// ok
 void tipos_p_opc(){
     if(debugSin){
         printf("DBGsin: tipos_p_opc()=>");
@@ -228,12 +238,52 @@ void termo(){
         printf("DBGsin: termo()=>");
         mostraTokens(viewToken(),viewNext());
     }
+
+
 }
+
 
 void fator(){
     if(debugSin){
         printf("DBGsin: fator()=>");
         mostraTokens(viewToken(),viewNext());
+    }
+
+    getToken();
+    if(id(viewToken())){
+        // 2 cases
+        if(sinal(viewNext(),SN_abreParenteses)){
+            getToken();
+            if(sinal(viewNext(),SN_fechaParenteses)){
+                // all fine
+            }else{
+                // expr
+                // NOT TESTED
+                expr();
+                while(sinal(viewNext(),SN_virgula)){
+                    expr();
+                }
+            }
+        }else{
+            // all fine
+        }
+    }else if(categoria(viewToken(),CAT_constanteInteira)){
+        // all fine
+    }else if(categoria(viewToken(),CAT_constanteReal)){
+        // all fine
+    }else if(categoria(viewToken(),CAT_constanteCaracter)){
+        // all fine
+    }else if (sinal(viewToken(),SN_abreParenteses)){
+        // expr
+        expr();
+        getToken();
+        if(sinal(viewToken(),SN_fechaParenteses));
+        else erroSin();
+    }else if(sinal(viewToken(),SN_negacao)){
+        // fator
+        fator();
+    }else{
+        erroSin();
     }
 }
 
