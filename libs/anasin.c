@@ -2,6 +2,8 @@
 #include <stdbool.h>
 
 
+
+// Protipos -----------------
 void prog();
 bool tipo();
 void tipos_param();
@@ -18,6 +20,8 @@ void erroSin();
 token viewToken();
 token viewNext();
 
+bool debugSin = false;
+// Token ---------------
 
 void getToken(){
     if( tokenNaoInicializados){
@@ -41,16 +45,16 @@ void getToken(){
 token viewToken(){
     return tokenAtual;
 }
+
 token viewNext(){
     return tokenProx;
 }
 
-bool debugSin = false;
-
+// Checagem ---------------
 
 bool sinal(token token, int sinal){
-    if( tokenAtual.categoria == CAT_sinais &&
-        tokenAtual.codigo == sinal){
+    if( token.categoria == CAT_sinais &&
+        token.codigo == sinal){
         return true;
     }else{
         return false;
@@ -79,6 +83,7 @@ bool eof(token token){
     else return false;
 }
 
+// Execução ---------------
 
 
 void prog(){
@@ -87,72 +92,117 @@ void prog(){
         mostraTokens(viewToken(),viewNext());
     }
 }
-bool tipo(){
+
+bool tipo(token token){
     if(debugSin){
         printf("DBGsin: tipo()=>");
         mostraTokens(viewToken(),viewNext());
     }
-    getToken();
+    // getToken();
     if(
-        pr(viewToken(),caracter) ||
-        pr(viewToken(),inteiro) ||
-        pr(viewToken(),real) ||
-        pr(viewToken(),booleano) 
+        pr(token,caracter) ||
+        pr(token,inteiro) ||
+        pr(token,real) ||
+        pr(token,booleano) 
     ){
         // all fine
+        return true;
     }else{
-        erroSin(); 
+        return false;
     }
-
 }
+
 void tipos_param(){
     if(debugSin){
         printf("DBGsin: tipos_param()=>");
         mostraTokens(viewToken(),viewNext());
     }
+    
+    
+    getToken();
+
+    if(pr(viewToken(),semparam)){
+        printf("SEM PARAMETOS\n");
+    }else if(tipo(viewToken())){
+        getToken();
+        if(id(viewToken())){
+            if(sinal(viewNext(),SN_virgula)){
+                getToken();
+                do{
+                    if(sinal(viewNext(),SN_virgula)) getToken();
+                    getToken();
+                    if(tipo(viewToken())){
+                        getToken();
+                        if(id(viewToken())){
+                            // All fine
+                        }else{
+                            erroSin();
+                            // esperado um id
+                        }
+                    }else{
+                        erroSin();
+                        // esperado um tipo
+                    }
+                }while(sinal(viewNext(),SN_virgula));
+            }else;
+        }else{
+            erroSin();
+        }
+    }else{
+        erroSin();
+    }
+
 }
+
 void tipos_p_opc(){
     if(debugSin){
         printf("DBGsin: tipos_p_opc()=>");
         mostraTokens(viewToken(),viewNext());
     }
 }
+
 void cmd(){
     if(debugSin){
         printf("DBGsin: cmd()=>");
         mostraTokens(viewToken(),viewNext());
     }
 }
+
 void atrib(){
     if(debugSin){
         printf("DBGsin: atrib()=>");
         mostraTokens(viewToken(),viewNext());
     }
 }
+
 void expr(){
     if(debugSin){
         printf("DBGsin: expr()=>");
         mostraTokens(viewToken(),viewNext());
     }
 }
+
 void expr_simp(){
     if(debugSin){
         printf("DBGsin: expr_simp()=>");
         mostraTokens(viewToken(),viewNext());
     }
 }
+
 void termo(){
     if(debugSin){
         printf("DBGsin: termo()=>");
         mostraTokens(viewToken(),viewNext());
     }
 }
+
 void fator(){
     if(debugSin){
         printf("DBGsin: fator()=>");
         mostraTokens(viewToken(),viewNext());
     }
 }
+
 void op_rel(){
     if(debugSin){
         printf("DBGsin: op_rel()=>");

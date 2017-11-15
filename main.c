@@ -30,23 +30,9 @@ void main(){
     //     getToken();
     // }while(!eof(viewToken()));
 
-    // tipo();
-    // tipo();
-    // tipo();
-    // tipo();
-    // tipo();
-
-
-    // op_rel();
-    // op_rel();
-    // op_rel();
-    // op_rel();
-    // op_rel();
-    // op_rel();
-    // op_rel();
-    // op_rel();
-    // op_rel();
     
+    // op_rel();
+    tipos_param();
     
 
     // prog();
