@@ -24,10 +24,18 @@ void main(){
 
 
 
-    do{
-        // temptoken = analex(fp);
-        // mostraToken(temptoken);
-        getToken();
-    }while(!eof(viewToken()));
+    // do{
+    //     // temptoken = analex(fp);
+    //     // mostraToken(temptoken);
+    //     getToken();
+    // }while(!eof(viewToken()));
+
+    // tipo();
+    // tipo();
+    // tipo();
+    // tipo();
+    // tipo();
+    
+
     // prog();
 }
