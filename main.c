@@ -35,6 +35,18 @@ void main(){
     // tipo();
     // tipo();
     // tipo();
+
+
+    // op_rel();
+    // op_rel();
+    // op_rel();
+    // op_rel();
+    // op_rel();
+    // op_rel();
+    // op_rel();
+    // op_rel();
+    // op_rel();
+    
     
 
     // prog();

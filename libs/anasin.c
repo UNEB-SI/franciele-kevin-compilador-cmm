@@ -99,7 +99,7 @@ bool tipo(){
         pr(viewToken(),real) ||
         pr(viewToken(),booleano) 
     ){
-        
+        // all fine
     }else{
         erroSin(); 
     }
@@ -157,6 +157,19 @@ void op_rel(){
     if(debugSin){
         printf("DBGsin: op_rel()=>");
         mostraTokens(viewToken(),viewNext());
+    }
+    getToken();
+    if(
+        sinal(viewToken(), SN_igualdade) ||
+        sinal(viewToken(), SN_difente) ||
+        sinal(viewToken(), SN_menorIgualQue) ||
+        sinal(viewToken(), SN_menorQue) ||
+        sinal(viewToken(), SN_maiorIgualQue) ||
+        sinal(viewToken(), SN_maiorQue) 
+    ){
+        // all fine
+    }else{
+        erroSin();
     }
 }
 

@@ -1,8 +1,9 @@
-real
-inteiro
-caracter
-booleano
-tipo
+==
+!=
+<=
+<
+>=
+
 
 
 
