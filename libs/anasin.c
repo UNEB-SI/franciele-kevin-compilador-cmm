@@ -247,6 +247,17 @@ void atrib(){
         printf("DBGsin: atrib()=>");
         mostraTokens(viewToken(),viewNext());
     }
+    getToken();
+    if(id(viewToken())){
+        getToken();
+        if(sinal(viewToken(),SN_atribuicao)){
+            expr();
+        }else{
+            erroSin(); // Esperado sinal de igualdade
+        }
+    }else{
+        erroSin(); // esperado identificador
+    }
 }
 
 //ok

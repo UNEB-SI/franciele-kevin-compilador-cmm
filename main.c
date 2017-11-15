@@ -41,5 +41,5 @@ void main(){
     // prog();
     getToken();
     printf("----\n");
-    expr();
+    atrib();
 }
