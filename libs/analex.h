@@ -138,4 +138,10 @@ char tabela_categoria[][100]={
 
 FILE* fp;
 
+
+// ANALEX UTILS
+
+token tokenAtual,tokenProx,tokenProxProx;
+bool tokenNaoInicializados = true;
+
 #endif // ANALEX

@@ -19,6 +19,7 @@ void erroSin();
 
 token viewToken();
 token viewNext();
+token viewNextNext();
 
 bool debugSin = false;
 // Token ---------------
@@ -26,20 +27,28 @@ bool debugSin = false;
 void getToken(){
     if( tokenNaoInicializados){
         //printf("primeira chamada\n");
+
+        tokenAtual = analex(fp);
         tokenProx = analex(fp);
-        tokenAtual = tokenProx;
-        tokenProx = analex(fp);
+        tokenProxProx = analex(fp);
+        
+        // tokenProx = analex(fp);
+        // tokenAtual = tokenProx;
+        // tokenProx = analex(fp);
         tokenNaoInicializados = false;
     }else{
         // printf("não é a primeira chamada\n");
         tokenAtual = tokenProx;
-        tokenProx = analex(fp);
+        tokenProx = tokenProxProx;
+        tokenProxProx = analex(fp);
     }
     // tokenAtual = analex(fp);
   
     // printf("TOKEN ATUAL");mostraToken(viewToken());
-    // printf("TOKEN NEXT");mostraToken(viewNext());
-    mostraTokens(viewToken(),viewNext());
+    // printf("TOKEN PROX");mostraToken(viewNext());
+    // printf("TOKEN PROXPROX");mostraToken(viewNextNext());
+    
+    mostraTokens();
 }
 
 token viewToken(){
@@ -48,6 +57,10 @@ token viewToken(){
 
 token viewNext(){
     return tokenProx;
+}
+
+token viewNextNext(){
+    return tokenProxProx;
 }
 
 // Checagem ---------------
@@ -100,7 +113,7 @@ bool eof(token token){
 bool tipo(token token){
     if(debugSin){
         printf("DBGsin: tipo()=>");
-        mostraTokens(viewToken(),viewNext());
+        mostraTokens();
     }
     // getToken();
     if(
@@ -120,7 +133,7 @@ bool tipo(token token){
 bool op_rel(token token){
     if(debugSin){
         printf("DBGsin: op_rel()=>");
-        mostraTokens(viewToken(),viewNext());
+        mostraTokens();
     }
     // getToken();
     if(
@@ -134,13 +147,13 @@ bool op_rel(token token){
         // all fine
         if(debugSin){
             printf("DBGsin: op_rel() <==");
-            mostraTokens(viewToken(),viewNext());
+            mostraTokens();
         }
         return true;
     }else{
         if(debugSin){
             printf("DBGsin: op_rel() <==");
-            mostraTokens(viewToken(),viewNext());
+            mostraTokens();
         }
         return false;
     }
@@ -152,7 +165,7 @@ bool op_rel(token token){
 void prog(){
     if(debugSin){
         printf("DBGsin: prog()=>");
-        mostraTokens(viewToken(),viewNext());
+        mostraTokens();
     }
 }
 
@@ -160,7 +173,7 @@ void prog(){
 void tipos_param(){
     if(debugSin){
         printf("DBGsin: tipos_param()=>");
-        mostraTokens(viewToken(),viewNext());
+        mostraTokens();
     }
     
     
@@ -203,7 +216,7 @@ void tipos_param(){
 void tipos_p_opc(){
     if(debugSin){
         printf("DBGsin: tipos_p_opc()=>");
-        mostraTokens(viewToken(),viewNext());
+        mostraTokens();
     }
 
     getToken();
@@ -238,14 +251,17 @@ void tipos_p_opc(){
 void cmd(){
     if(debugSin){
         printf("DBGsin: cmd()=>");
-        mostraTokens(viewToken(),viewNext());
+        mostraTokens();
     }
+    // getToken();
+    // if(viw)
 }
 
+// ok
 void atrib(){
     if(debugSin){
         printf("DBGsin: atrib()=>");
-        mostraTokens(viewToken(),viewNext());
+        mostraTokens();
     }
     getToken();
     if(id(viewToken())){
@@ -264,7 +280,7 @@ void atrib(){
 void expr(){
     if(debugSin){
         printf("DBGsin: expr()=>");
-        mostraTokens(viewToken(),viewNext());
+        mostraTokens();
     }
     expr_simp();
     if(op_rel(viewNext())){
@@ -273,7 +289,7 @@ void expr(){
     }
     if(debugSin){
         printf("DBGsin: expr() <==");
-        mostraTokens(viewToken(),viewNext());
+        mostraTokens();
     }
 
 }
@@ -282,7 +298,7 @@ void expr(){
 void expr_simp(){
     if(debugSin){
         printf("DBGsin: expr_simp()=>");
-        mostraTokens(viewToken(),viewNext());
+        mostraTokens();
     }
     if(
         sinal(viewNext(),SN_soma) ||
@@ -301,7 +317,7 @@ void expr_simp(){
     }
     if(debugSin){
         printf("DBGsin: expr_simp() <==");
-        mostraTokens(viewToken(),viewNext());
+        mostraTokens();
     }
 }
 
@@ -309,7 +325,7 @@ void expr_simp(){
 void termo(){
     if(debugSin){
         printf("DBGsin: termo()=>");
-        mostraTokens(viewToken(),viewNext());
+        mostraTokens();
     }
     fator();
     while(
@@ -322,7 +338,7 @@ void termo(){
     }
     if(debugSin){
         printf("DBGsin: termo() <==");
-        mostraTokens(viewToken(),viewNext());
+        mostraTokens();
     }
 }
 
@@ -330,7 +346,7 @@ void termo(){
 void fator(){
     if(debugSin){
         printf("DBGsin: fator()=>");
-        mostraTokens(viewToken(),viewNext());
+        mostraTokens();
     }
 
     getToken();
@@ -373,7 +389,7 @@ void fator(){
     }
     if(debugSin){
         printf("DBGsin: fator() <==");
-        mostraTokens(viewToken(),viewNext());
+        mostraTokens();
     }
 }
 

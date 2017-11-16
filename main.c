@@ -40,6 +40,8 @@ void main(){
     // expr_simp();
     // prog();
     getToken();
+    getToken();
+    getToken();
     printf("----\n");
-    atrib();
+    cmd();
 }
