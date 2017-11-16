@@ -41,7 +41,9 @@ void main(){
     // prog();
     // getToken();
     // getToken();
-    getToken();
-    printf("----\n");
-    cmd();
+    // getToken();
+    // printf("----\n");
+    // cmd();
+
+    prog();
 }

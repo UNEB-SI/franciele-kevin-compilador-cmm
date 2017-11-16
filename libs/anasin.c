@@ -21,7 +21,7 @@ token viewToken();
 token viewNext();
 token viewNextNext();
 
-bool debugSin = true;
+bool debugSin = false;
 // Token ---------------
 
 void getToken(){
@@ -167,6 +167,184 @@ void prog(){
         printf("DBGsin: prog()=>");
         mostraTokens();
     }
+    getToken();
+    if(pr(viewToken(),prototipo)){
+        // printf("Prototipo\n");
+        getToken();
+        if(tipo(viewToken())){
+            getToken();
+            if(id(viewToken())){
+                getToken();
+                if(sinal(viewToken(),SN_abreParenteses)){
+                    tipos_p_opc();
+                    if(sinal(viewNext(),SN_fechaParenteses)){
+                        getToken();                        
+                        while(sinal(viewNext(),SN_virgula)){
+                            getToken();
+                            if(id(viewNext())){
+                                getToken();
+                            }else erroSin("Esperado identificador");
+                            
+                            if(sinal(viewNext(),SN_abreParenteses)){
+                                getToken();
+                                tipos_p_opc();
+                            }else erroSin("Esperando abre parenteses");
+
+                            if(sinal(viewNext(),SN_fechaParenteses)){
+                                getToken();
+                            }else erroSin("Esperado fecha parenteses");
+                        }
+
+                        if(sinal(viewNext(),SN_pontoEVirgula)){
+                            getToken();
+                        }else erroSin("Esperado ponto e virgula");
+                        
+                    }else erroSin("Esperad  o fecha parenteses");
+                }else erroSin("Esperado abre parenteses");
+            }else erroSin("Esperado identificador");
+        }else if(pr(viewToken(),semretorno)){
+            printf("sem retorno");
+            getToken();
+            if(id(viewToken())){
+                getToken();
+                if(sinal(viewToken(),SN_abreParenteses)){
+                    tipos_p_opc();
+                    if(sinal(viewNext(),SN_fechaParenteses)){
+                        getToken();                        
+                        while(sinal(viewNext(),SN_virgula)){
+                            getToken();
+                            if(id(viewNext())){
+                                getToken();
+                            }else erroSin("Esperado identificador");
+                            
+                            if(sinal(viewNext(),SN_abreParenteses)){
+                                getToken();
+                                tipos_p_opc();
+                            }else erroSin("Esperando abre parenteses");
+
+                            if(sinal(viewNext(),SN_fechaParenteses)){
+                                getToken();
+                            }else erroSin("Esperado fecha parenteses");
+                        }
+
+                        if(sinal(viewNext(),SN_pontoEVirgula)){
+                            getToken();
+                        }else erroSin("Esperado ponto e virgula");
+                        
+                    }else erroSin("Esperad  o fecha parenteses");
+                }else erroSin("Esperado abre parenteses");
+            }else erroSin("Esperado identificador");
+        }else{
+            erroSin("tipo invalido");
+        }
+
+    }else if(tipo(viewToken())){
+        printf("TIPO\n");
+        getToken();
+        if(id(viewToken())){
+            if(sinal(viewNext(),SN_abreParenteses)){
+                getToken();
+                printf("HERE=>"); mostraTokens();
+                tipos_param();
+                printf("OUTT=>"); mostraTokens();
+                if(sinal(viewNext(),SN_fechaParenteses)){
+                    getToken();
+                }else erroSin("Esperado Fecha Parenteses");
+                
+                if(sinal(viewNext(),SN_abreChaves)){
+                    getToken();
+                }else erroSin("Esperado Abre Chaves");
+                
+                
+                // mostraTokens();
+                while(tipo(viewNext())){
+                    getToken(); // no need to check, because the while will do for you
+                    if(id(viewNext())){
+                        getToken();
+                    }else erroSin("Esperado identificador");
+                    while(sinal(viewNext(),SN_virgula)){
+                        getToken();
+                        if(id(viewNext())){
+                            getToken();
+                        }else erroSin("Esperaro identificador");
+                    }
+                    // printf("=>"); mostraTokens();
+                    if(sinal(viewNext(),SN_pontoEVirgula)){
+                        getToken();
+                    }else erroSin("Esperado ponto e virgula");
+                }
+                if(sinal(viewNext(),SN_fechaChaves)){
+                    getToken();
+                }else{
+                    cmd();
+                    if(sinal(viewNext(),SN_fechaChaves)){
+                        getToken();
+                    }else erroSin("Esperado fecha chaves");
+                }
+
+                
+
+            }else{
+                while(sinal(viewNext(),SN_virgula)){
+                    getToken();
+                    if(id(viewNext())){
+                        getToken();
+                    }else erroSin("Esperado identificador");
+                }
+                if(sinal(viewNext(),SN_pontoEVirgula)){
+                    getToken();
+                }else erroSin("Esperado Ponto e virgula");
+            }
+        }else erroSin("Esperado identificador");
+
+    }else if(pr(viewToken(),semretorno)){
+        printf("Sem Retorno\n");
+        getToken();
+        if(id(viewToken())){
+            getToken();
+            if(sinal(viewToken(),SN_abreParenteses)){
+                tipos_param();
+                getToken();
+                if(sinal(viewToken(),SN_fechaParenteses)){
+                    getToken();
+                    if(sinal(viewToken(),SN_abreChaves)){
+                        mostraTokens();
+                        while(tipo(viewNext())){
+                            getToken(); // no need to check, because the while will do for you
+                            if(id(viewNext())){
+                                getToken();
+                            }else erroSin("Esperado identificador");
+                            while(sinal(viewNext(),SN_virgula)){
+                                getToken();
+                                if(id(viewNext())){
+                                    getToken();
+                                }else erroSin("Esperaro identificador");
+                            }
+                            printf("=>"); mostraTokens();
+                            if(sinal(viewNext(),SN_pontoEVirgula)){
+                                getToken();
+                            }else erroSin("Esperado ponto e virgula");
+                        }
+                        if(sinal(viewNext(),SN_fechaChaves)){
+                            getToken();
+                        }else{
+                            cmd();
+                            if(sinal(viewNext(),SN_fechaChaves)){
+                                getToken();
+                            }else erroSin("Esperado fecha chaves");
+                        }
+
+                    }else erroSin("Esperado abre chaves");
+                }else erroSin("Esperado fecha parenteses");
+            }else erroSin("Esperado abre parenteses");
+        }else erroSin("Esperado identificador");
+        
+        // mostraTokens();
+
+
+    }else{
+        erroSin("Entrada Invalida");
+    }
 }
 
 // ok
@@ -180,7 +358,7 @@ void tipos_param(){
     getToken();
 
     if(pr(viewToken(),semparam)){
-        printf("SEM PARAMETOS\n");
+        // ALL FINE DUDE
     }else if(tipo(viewToken())){
         getToken();
         if(id(viewToken())){

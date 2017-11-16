@@ -1,7 +1,29 @@
+prototipo
+semretorno
+kevin(
+    inteiro x,
+    real kevin
+);
+
+/*
+semretorno
+kevin
+(
+    inteiro x,
+    real kevin
+){
+    caracter kevin,
+    passaro,
+    aviao;
+    passaro = aviao;
+}
+*/
+/*
+prototipo
 inutil
 
 ;
-/*
+
 x
 
 para
