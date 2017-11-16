@@ -253,8 +253,120 @@ void cmd(){
         printf("DBGsin: cmd()=>");
         mostraTokens();
     }
-    // getToken();
-    // if(viw)
+    if(id(viewNext())){
+        if(sinal(viewNextNext(),SN_abreParenteses)){
+            getToken();
+            getToken();
+            if(!sinal(viewNext(),SN_fechaParenteses)){
+                expr();
+                while(sinal(viewNext(),SN_virgula)){
+                    getToken();
+                    expr();
+                }
+            }
+            
+            if(sinal(viewNext(),SN_fechaParenteses)){
+                getToken();
+                if(sinal(viewNext(),SN_pontoEVirgula)){
+                    getToken();
+                }else erroSin();
+            }
+        }else{
+            atrib();
+            getToken();
+            if(sinal(viewToken(),SN_pontoEVirgula));
+            else erroSin();
+        }
+    }
+    else if(pr(viewNext(),se)){
+        getToken();
+        getToken();
+        if(sinal(viewToken(),SN_abreParenteses)){
+            // printf("ENTER==>"); mostraTokens();
+            expr();
+            // printf("EXIT==>"); mostraTokens();
+            getToken();
+            if(sinal(viewToken(),SN_fechaParenteses)){
+                // all fine
+                cmd();
+                if(pr(viewNext(),senao)){
+                    getToken();
+                    cmd();
+                }
+            }else erroSin();
+        }else erroSin();
+        
+        
+    }
+    else if(pr(viewNext(),enquanto)){
+        getToken();
+        getToken();
+        if(sinal(viewToken(),SN_abreParenteses)){
+            // printf("ENTER==>"); mostraTokens();
+            expr();
+            // printf("EXIT==>"); mostraTokens();
+            getToken();
+            if(sinal(viewToken(),SN_fechaParenteses)){
+                // all fine
+                cmd();
+            }else erroSin();
+        }else erroSin();
+        
+    }
+    else if(pr(viewNext(),para)){
+        getToken();
+        getToken();
+        if(sinal(viewToken(),SN_abreParenteses)){
+            if(sinal(viewNext(),SN_pontoEVirgula)){
+            }else atrib();
+            getToken();
+            if(sinal(viewToken(),SN_pontoEVirgula)){
+            }else erroSin();
+
+            if(sinal(viewNext(),SN_pontoEVirgula)){
+            }else expr();
+            getToken();
+            if(sinal(viewToken(),SN_pontoEVirgula)){
+            }else erroSin();
+
+            if(sinal(viewNext(),SN_fechaParenteses)){
+            }else atrib();
+
+            getToken();
+            if(sinal(viewToken(),SN_fechaParenteses)){
+            }else erroSin();
+
+            cmd();
+
+        }
+    }
+    else if(pr(viewNext(),retorne)){
+        getToken();
+        if(sinal(viewNext(),SN_pontoEVirgula)){
+            getToken();
+        }else{
+            expr();
+            getToken();
+            if(sinal(viewToken(),SN_pontoEVirgula)){
+            }else erroSin();
+        }
+    }
+    else if(sinal(viewNext(),SN_abreChaves)){
+        getToken();
+        if(sinal(viewNext(),SN_fechaChaves)){
+            getToken();
+        }else{
+            cmd();
+            if(sinal(viewNext(),SN_fechaChaves)){
+                getToken();
+            }else erroSin();
+        }
+    }
+    else if(sinal(viewNext(),SN_pontoEVirgula)){
+        getToken();
+    }else{
+        erroSin();
+    }
 }
 
 // ok

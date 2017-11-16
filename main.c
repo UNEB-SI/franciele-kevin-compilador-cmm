@@ -39,8 +39,8 @@ void main(){
     // termo();
     // expr_simp();
     // prog();
-    getToken();
-    getToken();
+    // getToken();
+    // getToken();
     getToken();
     printf("----\n");
     cmd();

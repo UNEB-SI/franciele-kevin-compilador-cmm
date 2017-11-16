@@ -1,19 +1,28 @@
-1
-2
-3
-4
-5
-6
-7
-8
-
-
-
-
-
 inutil
-kevin = +o_cara
-WORKS
++
+
+/*
+x
+
+para
+(;;)
+franciele = ingrata;
+
+enquanto
+(cabelo == curto)
+franciele = feliz;
+
+kevin = x;
+franciele = idiota;
+BARREIRA
+BARREIRA2
+BARREIRA3
+
+
+
+
+ ( +o_cara
+WORKS*/
 /*
 (
     + 3.14
@@ -22,17 +31,17 @@ WORKS
     )
 ) != franciele
 */
+/*
 inteiro ,
 real ,
 caracter ,
 booleano a b,
 real)
+*/
 
 
 
-
-
-
+/*
 semparam
 semparam
 semparam
@@ -61,7 +70,7 @@ real soma(
 }
 
 erro
-
+*/
 /*
 inteiro a,b,c;
 
