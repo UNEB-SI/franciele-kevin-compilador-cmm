@@ -15,13 +15,13 @@ void expr_simp();
 void termo();
 void fator();
 bool op_rel(token token);
-void erroSin();
+void erroSin(char * string);
 
 token viewToken();
 token viewNext();
 token viewNextNext();
 
-bool debugSin = false;
+bool debugSin = true;
 // Token ---------------
 
 void getToken(){
@@ -194,20 +194,20 @@ void tipos_param(){
                         if(id(viewToken())){
                             // All fine
                         }else{
-                            erroSin();
+                            erroSin("Esperado um id");
                             // esperado um id
                         }
                     }else{
-                        erroSin();
+                        erroSin("Esperando um tipo");
                         // esperado um tipo
                     }
                 }while(sinal(viewNext(),SN_virgula));
             }else;
         }else{
-            erroSin();
+            erroSin("Esperado um id");
         }
     }else{
-        erroSin();
+        erroSin("Parametros invalidos");
     }
 
 }
@@ -237,17 +237,18 @@ void tipos_p_opc(){
                     }
 
                 }else{
-                    erroSin();
+                    erroSin("Tipo invalido");
                 }
             }while(sinal(viewNext(),SN_virgula));
         }else;
         
     }else{
-        erroSin(); // argumentos invalidos
+        erroSin("Argumentos invalidos"); // argumentos invalidos
     }
 
 }
 
+// ok
 void cmd(){
     if(debugSin){
         printf("DBGsin: cmd()=>");
@@ -269,13 +270,13 @@ void cmd(){
                 getToken();
                 if(sinal(viewNext(),SN_pontoEVirgula)){
                     getToken();
-                }else erroSin();
+                }else erroSin("Esperado ponto e virgula");
             }
         }else{
             atrib();
             getToken();
             if(sinal(viewToken(),SN_pontoEVirgula));
-            else erroSin();
+            else erroSin("Esperado Ponto e virgula");
         }
     }
     else if(pr(viewNext(),se)){
@@ -293,8 +294,8 @@ void cmd(){
                     getToken();
                     cmd();
                 }
-            }else erroSin();
-        }else erroSin();
+            }else erroSin("Esperado fecha parenteses");
+        }else erroSin("Esperado Abre Parenteses");
         
         
     }
@@ -309,8 +310,8 @@ void cmd(){
             if(sinal(viewToken(),SN_fechaParenteses)){
                 // all fine
                 cmd();
-            }else erroSin();
-        }else erroSin();
+            }else erroSin("Esperado Fecha Parenteses");
+        }else erroSin("Esperado Abre Parenteses");
         
     }
     else if(pr(viewNext(),para)){
@@ -321,20 +322,20 @@ void cmd(){
             }else atrib();
             getToken();
             if(sinal(viewToken(),SN_pontoEVirgula)){
-            }else erroSin();
+            }else erroSin("Esperado Ponto e virgula");
 
             if(sinal(viewNext(),SN_pontoEVirgula)){
             }else expr();
             getToken();
             if(sinal(viewToken(),SN_pontoEVirgula)){
-            }else erroSin();
+            }else erroSin("Esperado Ponto e virgula");
 
             if(sinal(viewNext(),SN_fechaParenteses)){
             }else atrib();
 
             getToken();
             if(sinal(viewToken(),SN_fechaParenteses)){
-            }else erroSin();
+            }else erroSin("Esperado Fecha Parenteses");
 
             cmd();
 
@@ -348,7 +349,7 @@ void cmd(){
             expr();
             getToken();
             if(sinal(viewToken(),SN_pontoEVirgula)){
-            }else erroSin();
+            }else erroSin("Esperado Ponto e virgula");
         }
     }
     else if(sinal(viewNext(),SN_abreChaves)){
@@ -359,13 +360,13 @@ void cmd(){
             cmd();
             if(sinal(viewNext(),SN_fechaChaves)){
                 getToken();
-            }else erroSin();
+            }else erroSin("Esperado Fecha Chaves");
         }
     }
     else if(sinal(viewNext(),SN_pontoEVirgula)){
         getToken();
     }else{
-        erroSin();
+        erroSin("Esperado Ponto e virgula");
     }
 }
 
@@ -381,10 +382,10 @@ void atrib(){
         if(sinal(viewToken(),SN_atribuicao)){
             expr();
         }else{
-            erroSin(); // Esperado sinal de igualdade
+            erroSin("Esperado Sinal de igualdade"); // Esperado sinal de igualdade
         }
     }else{
-        erroSin(); // esperado identificador
+        erroSin("Esperando Identificador"); // esperado identificador
     }
 }
 
@@ -492,12 +493,12 @@ void fator(){
         expr();
         getToken();
         if(sinal(viewToken(),SN_fechaParenteses));
-        else erroSin();
+        else erroSin("Esperado Fecha Parenteses");
     }else if(sinal(viewToken(),SN_negacao)){
         // fator
         fator();
     }else{
-        erroSin();
+        erroSin("Entrada invalida");
     }
     if(debugSin){
         printf("DBGsin: fator() <==");
@@ -505,10 +506,8 @@ void fator(){
     }
 }
 
-
-
 // ok
-void erroSin(){
-    printf("ERRO SINTATICO!!!!!\n");
+void erroSin(char * string){
+    printf("Erro Sintatico: %s\n", string);
     exit(1);
 }
