@@ -1,160 +1,24 @@
-prototipo
-semretorno
-kevin(
-    inteiro x,
-    real kevin
-);
+/* Sequencia de Fibonacci em Cmm - Recursivo */
 
-/*
-semretorno
-kevin
-(
-    inteiro x,
-    real kevin
-){
-    caracter kevin,
-    passaro,
-    aviao;
-    passaro = aviao;
-}
-*/
-/*
-prototipo
-inutil
+/*prototipo inteiro fibonacci(inteiro);*/
 
-;
+semretorno kevin(semparam) {
 
-x
+     inteiro i, n;
 
-para
-(;;)
-franciele = ingrata;
-
-enquanto
-(cabelo == curto)
-franciele = feliz;
-
-kevin = x;
-franciele = idiota;
-BARREIRA
-BARREIRA2
-BARREIRA3
-
-
-
-
- ( +o_cara
-WORKS*/
-/*
-(
-    + 3.14
-    - vida-(
-        'k'
-    )
-) != franciele
-*/
-/*
-inteiro ,
-real ,
-caracter ,
-booleano a b,
-real)
-*/
-
-
-
-/*
-semparam
-semparam
-semparam
-
-==
-!=
-<=
-<
->=
-
-
-
-
-real soma(
-    real a ,
-    inteiro a ,
-    real x 
-){
-
-    inteiro a,b,c;
-    real x,y,z;
-   
-    p = 55;
-    carro = 'k';
-    kevin_oliveiras = 2.3;
+     imprima(1);
+     leia(n);
+     imprima(1);
+     imprima(enter);
+     para (i=0; i<n; i=i+1) 
+            imprima(fibonacci(i+1));
+      retorne;
 }
 
-erro
-*/
-/*
-inteiro a,b,c;
+inteiro fibbonaci(inteiro num) {
 
+      se ((num==1) || (num==2)) retorne 1;
+      senao 
+             retorne (fibonacci(num-1)+fibonacci(num-2));
+}
 
-
-
-
-inteiro
-real
-abcd
-zxc
-lp
-q
-asd
-
-asdfghjkl
-
-
-aqui_vai_dar_erro [] continuacao_da_linha
-
-
-
- Comentario
-
-
-
-prototipo
-
-
-semretorno
-caracter
-inteiro
-real
-booleano
-semparam
-se
-senao
-enquanto
-para
-retorne
-
-
-
-+  -  *  /  ;  ,  < <= > >=  ==  !=  =  ||  &&  ( ) { } 
-
-teste
-cont
-cont2 cont3
-cont4
-1 123.4567 7.65 'c' '\n' '\0' '\t' "c" "Teste de literal"
-
-'a'
-
-
-utlimalinha
-a
-2
-&&
-
-"teste pra ver se funciona"
-'k'
-if( some && thing) 
-
-'\n'
-*/
