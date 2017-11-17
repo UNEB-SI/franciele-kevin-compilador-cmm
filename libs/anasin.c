@@ -168,6 +168,7 @@ void prog(){
         mostraTokens();
     }
     do{
+        printf("------------------------------------------------------------------------------------\n");
         getToken();
         if(pr(viewToken(),prototipo)){
             // printf("Prototipo\n");
@@ -241,22 +242,26 @@ void prog(){
 
         }else if(tipo(viewToken())){
             // printf("TIPO\n");
+            printf("1->"); mostraTokens();
             getToken();
             if(id(viewToken())){
+                printf("2->"); mostraTokens();
                 if(sinal(viewNext(),SN_abreParenteses)){
                     getToken();
+                    printf("3->"); mostraTokens();
                     // printf("HERE=>"); mostraTokens();
                     tipos_param();
+                    printf("4->"); mostraTokens();
                     // printf("OUTT=>"); mostraTokens();
-                    if(sinal(viewNext(),SN_fechaParenteses)){
-                        getToken();
+                    getToken();
+                    if(sinal(viewToken(),SN_fechaParenteses)){
                     }else erroSin("Esperado Fecha Parenteses");
-                    
-                    if(sinal(viewNext(),SN_abreChaves)){
-                        getToken();
+                    printf("5->"); mostraTokens();
+                    getToken();
+                    if(sinal(viewToken(),SN_abreChaves)){
                     }else erroSin("Esperado Abre Chaves");
                     
-                    
+                    printf("6->"); mostraTokens();
                     // mostraTokens();
                     while(tipo(viewNext())){
                         getToken(); // no need to check, because the while will do for you
@@ -274,14 +279,23 @@ void prog(){
                             getToken();
                         }else erroSin("Esperado ponto e virgula");
                     }
-                    if(sinal(viewNext(),SN_fechaChaves)){
-                        getToken();
-                    }else{
+                    printf("7->"); mostraTokens();
+
+                    while(!sinal(viewNext(),SN_fechaChaves)){
                         cmd();
-                        if(sinal(viewNext(),SN_fechaChaves)){
-                            getToken();
-                        }else erroSin("Esperado fecha chaves");
+                        getToken();
                     }
+                    getToken();
+                    printf("8->"); mostraTokens();
+
+                   
+                    // if(sinal(viewNext(),SN_fechaChaves)){
+                    // }else{
+                    //     cmd();
+                    //     if(sinal(viewNext(),SN_fechaChaves)){
+                    //         getToken();
+                    //     }else erroSin("Esperado fecha chaves");
+                    // }
 
                     
 
@@ -345,7 +359,7 @@ void prog(){
 
         }else{
             erroSin("Entrada Invalida");
-        }
+        }        
     }while(!eof(viewNext()));
 }
 

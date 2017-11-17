@@ -13,10 +13,11 @@ fibo
 
 
 
-prototipo real fibonacci(
+real fibonacci(
     real kevin
-);
-
+){
+    se(a<b);
+}
 
 /*
 semretorno principal(semparam) {
