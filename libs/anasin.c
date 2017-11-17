@@ -21,7 +21,7 @@ token viewToken();
 token viewNext();
 token viewNextNext();
 
-bool debugSin = true;
+bool debugSin = false;
 // Token ---------------
 
 void getToken(){
@@ -663,6 +663,7 @@ void fator(){
     if(id(viewToken())){
         // 2 cases
         if(sinal(viewNext(),SN_abreParenteses)){
+            
             getToken();
             if(sinal(viewNext(),SN_fechaParenteses)){
                 // all fine
@@ -676,6 +677,8 @@ void fator(){
                     expr();
                 }
             }
+            getToken();
+            // printf("HEY IM HERE! => "); mostraTokens();
         }else{
             // all fine
         }
