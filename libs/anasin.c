@@ -21,7 +21,7 @@ token viewToken();
 token viewNext();
 token viewNextNext();
 
-bool debugSin = false;
+bool debugSin = true;
 // Token ---------------
 
 void getToken(){
@@ -684,6 +684,8 @@ void fator(){
     }else if(categoria(viewToken(),CAT_constanteReal)){
         // all fine
     }else if(categoria(viewToken(),CAT_constanteCaracter)){
+        // all fine
+    }else if(categoria(viewToken(),CAT_literal)){
         // all fine
     }else if (sinal(viewToken(),SN_abreParenteses)){
         // expr

@@ -1,63 +1,14 @@
 /* Sequencia de Fibonacci em Cmm - Recursivo */
 
-prototipo
-semretorno
-fibo
-(
-    real kevin,
-    inteiro
-), soma(
-    inteiro k,
-    real
-);
+prototipo inteiro fibonacci(inteiro);
 
-prototipo
-inteiro
-fibo
-(
-    real kevin,
-    inteiro
-), soma(
-    inteiro k,
-    real
-);
-
-
-
-real fibonacci(
-    real kevin
-){
-    a=b;
-}
-
-
-inteiro soma ( inteiro a, inteiro b){
-    inteiro c;
-    c = 0;
-    c= a+b;
-    retorne c;
-}
-
-
-semretorno soma ( inteiro a, inteiro b){
-    inteiro c;
-    c = 0;
-    c= a+b;
-    retorne c;
-}
-
-
-real mundo, vida;
-
-
-/*
 semretorno principal(semparam) {
 
      inteiro i, n;
 
-     imprima(1);
+     imprima("Digite a qtd de termos da sequencia: ");
      leia(n);
-     imprima(1);
+     imprima("A sequencia de Fibonacci solicitada eh: ");
      imprima(enter);
      para (i=0; i<n; i=i+1) 
             imprima(fibonacci(i+1));
@@ -70,5 +21,3 @@ inteiro fibbonaci(inteiro num) {
       senao 
              retorne (fibonacci(num-1)+fibonacci(num-2));
 }
-
-*/
