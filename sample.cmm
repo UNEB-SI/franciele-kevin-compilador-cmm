@@ -2,7 +2,7 @@
 
 /*prototipo inteiro fibonacci(inteiro);*/
 
-semretorno kevin(semparam) {
+semretorno principal(semparam) {
 
      inteiro i, n;
 

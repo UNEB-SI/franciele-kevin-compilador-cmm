@@ -26,7 +26,6 @@ enum PR{
     senao,
     para,
     enquanto,
-    principal,
     prototipo
 };
 #define NUM_PR_TABLE 13
@@ -42,7 +41,6 @@ char PR_TABLE[][50]={
     "senao",
     "para",
     "enquanto",
-    "principal",
     "prototipo"
 };
 
