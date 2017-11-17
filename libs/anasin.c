@@ -242,26 +242,26 @@ void prog(){
 
         }else if(tipo(viewToken())){
             // printf("TIPO\n");
-            printf("1->"); mostraTokens();
+            // printf("1->"); mostraTokens();
             getToken();
             if(id(viewToken())){
-                printf("2->"); mostraTokens();
+                // printf("2->"); mostraTokens();
                 if(sinal(viewNext(),SN_abreParenteses)){
                     getToken();
-                    printf("3->"); mostraTokens();
+                    // printf("3->"); mostraTokens();
                     // printf("HERE=>"); mostraTokens();
                     tipos_param();
-                    printf("4->"); mostraTokens();
+                    // printf("4->"); mostraTokens();
                     // printf("OUTT=>"); mostraTokens();
                     getToken();
                     if(sinal(viewToken(),SN_fechaParenteses)){
                     }else erroSin("Esperado Fecha Parenteses");
-                    printf("5->"); mostraTokens();
+                    // printf("5->"); mostraTokens();
                     getToken();
                     if(sinal(viewToken(),SN_abreChaves)){
                     }else erroSin("Esperado Abre Chaves");
                     
-                    printf("6->"); mostraTokens();
+                    // printf("6->"); mostraTokens();
                     // mostraTokens();
                     while(tipo(viewNext())){
                         getToken(); // no need to check, because the while will do for you
@@ -279,14 +279,17 @@ void prog(){
                             getToken();
                         }else erroSin("Esperado ponto e virgula");
                     }
-                    printf("7->"); mostraTokens();
+                    // printf("7->"); mostraTokens();
 
                     while(!sinal(viewNext(),SN_fechaChaves)){
+                        // printf("7.1->"); mostraTokens();
                         cmd();
-                        getToken();
+                        // printf("7.2->"); mostraTokens();
+                        // getToken();
+                        // printf("7.3->"); mostraTokens();
                     }
                     getToken();
-                    printf("8->"); mostraTokens();
+                    // printf("8->"); mostraTokens();
 
                    
                     // if(sinal(viewNext(),SN_fechaChaves)){
@@ -313,7 +316,7 @@ void prog(){
             }else erroSin("Esperado identificador");
 
         }else if(pr(viewToken(),semretorno)){
-            printf("Sem Retorno\n");
+            // printf("Sem Retorno\n");
             getToken();
             if(id(viewToken())){
                 getToken();
@@ -340,21 +343,17 @@ void prog(){
                                     getToken();
                                 }else erroSin("Esperado ponto e virgula");
                             }
-                            if(sinal(viewNext(),SN_fechaChaves)){
-                                getToken();
-                            }else{
+
+                            while(!sinal(viewNext(),SN_fechaChaves)){
                                 cmd();
-                                if(sinal(viewNext(),SN_fechaChaves)){
-                                    getToken();
-                                }else erroSin("Esperado fecha chaves");
                             }
+                            getToken();
 
                         }else erroSin("Esperado abre chaves");
                     }else erroSin("Esperado fecha parenteses");
                 }else erroSin("Esperado abre parenteses");
             }else erroSin("Esperado identificador");
             
-            // mostraTokens();
 
 
         }else{

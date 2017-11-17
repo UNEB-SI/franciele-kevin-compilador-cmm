@@ -11,13 +11,44 @@ fibo
     real
 );
 
+prototipo
+inteiro
+fibo
+(
+    real kevin,
+    inteiro
+), soma(
+    inteiro k,
+    real
+);
+
 
 
 real fibonacci(
     real kevin
 ){
-    se(a<b);
+    a=b;
 }
+
+
+inteiro soma ( inteiro a, inteiro b){
+    inteiro c;
+    c = 0;
+    c= a+b;
+    retorne c;
+}
+
+
+semretorno soma ( inteiro a, inteiro b){
+    inteiro c;
+    c = 0;
+    c= a+b;
+    retorne c;
+}
+
+
+real mundo, vida;
+
 
 /*
 semretorno principal(semparam) {
