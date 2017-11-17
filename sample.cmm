@@ -1,7 +1,24 @@
 /* Sequencia de Fibonacci em Cmm - Recursivo */
 
-/*prototipo inteiro fibonacci(inteiro);*/
+prototipo
+semretorno
+fibo
+(
+    real kevin,
+    inteiro
+), soma(
+    inteiro k,
+    real
+);
 
+
+
+prototipo real fibonacci(
+    real kevin
+);
+
+
+/*
 semretorno principal(semparam) {
 
      inteiro i, n;
@@ -22,3 +39,4 @@ inteiro fibbonaci(inteiro num) {
              retorne (fibonacci(num-1)+fibonacci(num-2));
 }
 
+*/

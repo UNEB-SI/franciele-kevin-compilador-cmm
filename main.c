@@ -46,4 +46,5 @@ void main(){
     // cmd();
 
     prog();
+    // tipos_p_opc();
 }
