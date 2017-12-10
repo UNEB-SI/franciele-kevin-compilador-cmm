@@ -1,0 +1,32 @@
+# depslib dependency file v1.0
+1512923281 source:/home/franciele/Documentos/5º Semestre/Fundamentos de Compiladores/Compiladores/main.c
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<ctype.h>
+	"anasin.h"
+
+1512915669 /home/franciele/Documentos/5º Semestre/Fundamentos de Compiladores/Compiladores/analex.c
+	"analex.h"
+
+1512921625 /home/franciele/Documentos/5º Semestre/Fundamentos de Compiladores/Compiladores/analex.h
+	<stdio.h>
+	<stdbool.h>
+
+1512913300 /home/franciele/Documentos/5º Semestre/Fundamentos de Compiladores/Compiladores/anasin.c
+	"analex.c"
+
+1512921791 /home/franciele/Documentos/5º Semestre/Fundamentos de Compiladores/Compiladores/anasin.h
+	"analex.h"
+	"anasin.h"
+	<stdbool.h>
+
+1512915669 source:/home/franciele/Documentos/5º Semestre/Fundamentos de Compiladores/Compiladores/analex.c
+	"analex.h"
+
+1512913300 source:/home/franciele/Documentos/5º Semestre/Fundamentos de Compiladores/Compiladores/anasin.c
+	"analex.c"
+
+1512911283 /home/franciele/Documentos/5º Semestre/Fundamentos de Compiladores/Compiladores/analex_funcoes.h
+	<stdbool.h>
+
