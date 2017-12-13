@@ -29,13 +29,15 @@ enum tipoTS{
     tipoTS_real,
     tipoTS_caracter,
     tipoTS_booleano,
+    tipoTS_semretorno
 };
 
 char tipoTS_nomes[][20] = {
     "inteiro",
     "real",
     "caracter",
-    "booleano"
+    "booleano",
+    "sem retorno"
 };
 
 enum categoriaTS{
@@ -60,7 +62,7 @@ void armazenar_simbolo(int escopo,int categoria, int tipo, char nomeID[20]){
     tabela_de_simbolos[topo_tabela_de_simbolos].tipo = tipo;
     tabela_de_simbolos[topo_tabela_de_simbolos].categoria = categoria;
     tabela_de_simbolos[topo_tabela_de_simbolos].escopo = escopo;
-    topo_tabela_de_simbolos++;
+    
     switch(escopo){
             case escopoTS_global:
                 tabela_de_simbolos[topo_tabela_de_simbolos].enderecoRelativo = contador_simbolos_globais;
@@ -79,7 +81,7 @@ void armazenar_simbolo(int escopo,int categoria, int tipo, char nomeID[20]){
     }else{
         tabela_de_simbolos[topo_tabela_de_simbolos].zumbi = false;
     }
-
+    topo_tabela_de_simbolos++;
     printf("armazenado --> ");
     mostraSimbolo(topo_tabela_de_simbolos-1);
 }

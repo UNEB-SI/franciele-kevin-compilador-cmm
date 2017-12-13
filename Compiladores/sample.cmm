@@ -1,6 +1,10 @@
 /* Sequencia de Fibonacci em Cmm - Recursivo */
 
-prototipo inteiro fibonacci(inteiro);
+prototipo real portugal(inteiro);
+
+prototipo semretorno paralelepipedo(inteiro)
+, preda(semparam);
+
 
 semretorno principal(semparam) {
 
@@ -16,8 +20,20 @@ semretorno principal(semparam) {
 }
 
 inteiro fibbonaci(inteiro num) {
+      inteiro variavel1, variavel2;
 
       se ((num==1) || (num==2)) retorne 1;
       senao 
              retorne (fibonacci(num-1)+fibonacci(num-2));
 }
+
+booleano raiz(inteiro num) {
+      inteiro variavel3, variavel4;
+      se ((num==1) || (num==2)) retorne 1;
+      senao 
+             retorne (fibonacci(num-1)+fibonacci(num-2));
+}
+
+
+
+caracter char1, char2,char9999;
