@@ -31,13 +31,9 @@
 		<Compiler>
 			<Add option="-Wall" />
 		</Compiler>
-		<Unit filename="analex.c">
-			<Option compilerVar="CC" />
-		</Unit>
+		<Unit filename="GerenciadorTS.h" />
 		<Unit filename="analex.h" />
-		<Unit filename="anasin.c">
-			<Option compilerVar="CC" />
-		</Unit>
+		<Unit filename="anasin.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

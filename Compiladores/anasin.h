@@ -2,7 +2,7 @@
 #define ANASIN
 
 #include "analex.h"
-#include "anasin.h"
+#include "GerenciadorTS.h"
 #include <stdbool.h>
 
 
@@ -91,6 +91,8 @@ bool sinal(token token, int sinal){
 // ok
 bool id(token token){
     if( token.categoria == CAT_id){
+        printf("HEEEEY");
+        mostraToken(token);
         return true;
     }else{
         return false;
@@ -172,7 +174,7 @@ void prog(){
         mostraTokens();
     }
     do{
-        printf("------------------------------------------------------------------------------------\n");
+        // printf("------------------------------------------------------------------------------------\n");
         getToken();
         if(pr(viewToken(),prototipo)){
             // printf("Prototipo\n");
@@ -247,8 +249,16 @@ void prog(){
         }else if(tipo(viewToken())){
             // printf("TIPO\n");
             // printf("1->"); mostraTokens();
+            printf("HALOO WOrLD\n");
+            if( tipo(viewToken()) && id(viewNext()) ){
+                armazenar_simbolo(escopoTS_global,categoriaTS_variavel,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
+            }
+
+
             getToken();
+            printf("Franciele\n");
             if(id(viewToken())){
+                printf("franciele 2\n");
                 // printf("2->"); mostraTokens();
                 if(sinal(viewNext(),SN_abreParenteses)){
                     getToken();
@@ -716,6 +726,13 @@ void fator(){
 void erroSin(char * string){
     printf("Erro Sintatico: %s\n", string);
     exit(1);
+}
+
+int checar_tipoTS(token token){
+    if(pr(token,caracter)) return tipoTS_caracter;
+    else if(pr(token,inteiro)) return tipoTS_inteiro;
+    else if(pr(token,real)) return tipoTS_real;
+    else if(pr(token,booleano)) return tipoTS_booleano;
 }
 
 #endif

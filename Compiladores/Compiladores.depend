@@ -30,3 +30,23 @@
 1512911283 /home/franciele/Documentos/5º Semestre/Fundamentos de Compiladores/Compiladores/analex_funcoes.h
 	<stdbool.h>
 
+1513125457 source:/home/kevin/Documents/projects/franciele-kevin-compilador-cmm/Compiladores/main.c
+	<stdlib.h>
+	<string.h>
+	<math.h>
+	<ctype.h>
+	"anasin.h"
+
+1513126600 /home/kevin/Documents/projects/franciele-kevin-compilador-cmm/Compiladores/anasin.h
+	"analex.h"
+	"GerenciadorTS.h"
+	<stdbool.h>
+
+1513090513 /home/kevin/Documents/projects/franciele-kevin-compilador-cmm/Compiladores/analex.h
+	<stdio.h>
+	<stdbool.h>
+
+1513125902 /home/kevin/Documents/projects/franciele-kevin-compilador-cmm/Compiladores/GerenciadorTS.h
+	"anasin.h"
+	<stdbool.h>
+
