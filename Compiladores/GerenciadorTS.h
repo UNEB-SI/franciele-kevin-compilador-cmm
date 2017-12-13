@@ -6,7 +6,9 @@
 #include <stdbool.h>
 
 void mostraSimbolo(int id);
-void armazenar_simbolo(int escopo,int categoria, int tipo, char nomeID[20]);
+int armazenar_simbolo(int escopo,int categoria, int tipo, char nomeID[20]);
+void mostraTabela();
+void limparSimbolosLocais(int i);
 
 typedef struct struct_tabela_de_simbolos{
     char nome[20];
@@ -57,7 +59,7 @@ enum escopoTS{
     escopoTS_local
 };
 
-void armazenar_simbolo(int escopo,int categoria, int tipo, char nomeID[20]){
+int armazenar_simbolo(int escopo,int categoria, int tipo, char nomeID[20]){
     strcpy(tabela_de_simbolos[topo_tabela_de_simbolos].nome,nomeID);
     tabela_de_simbolos[topo_tabela_de_simbolos].tipo = tipo;
     tabela_de_simbolos[topo_tabela_de_simbolos].categoria = categoria;
@@ -83,7 +85,9 @@ void armazenar_simbolo(int escopo,int categoria, int tipo, char nomeID[20]){
     }
     topo_tabela_de_simbolos++;
     printf("armazenado --> ");
-    mostraSimbolo(topo_tabela_de_simbolos-1);
+    // mostraSimbolo(topo_tabela_de_simbolos-1);
+    mostraTabela();
+    return topo_tabela_de_simbolos-1;
 }
 
 
@@ -97,4 +101,20 @@ void mostraSimbolo(int id){
                                                             tabela_de_simbolos[id].zumbi ? "Zombie" : "Not Zombie");
 }
 
+
+
+void mostraTabela(){
+    int i;
+
+    printf("\n--TABELA-------------------------------------------\n");
+    for (i=0;i<topo_tabela_de_simbolos;i++){
+        mostraSimbolo(i);
+    }
+    printf("---------------------------------------------------\n");
+}
+
+
+void limparSimbolosLocais(int i){
+    topo_tabela_de_simbolos = i;
+}
 #endif

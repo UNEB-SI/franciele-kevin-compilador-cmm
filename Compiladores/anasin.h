@@ -174,6 +174,7 @@ void prog(){
         mostraTokens();
     }
     int temp_tipo = 0;
+    int temp_id = -1;
     do{
         // printf("------------------------------------------------------------------------------------\n");
         getToken();
@@ -294,6 +295,7 @@ void prog(){
 
                     // printf("6->"); mostraTokens();
                     // mostraTokens();
+                    temp_id = topo_tabela_de_simbolos;
                     while(tipo(viewNext())){
                         getToken(); // no need to check, because the while will do for you
                         if( tipo(viewToken()) && id(viewNext()) ){
@@ -331,6 +333,9 @@ void prog(){
                         // getToken();
                         // printf("7.3->"); mostraTokens();
                     }
+                    limparSimbolosLocais(temp_id);
+                    printf("THE END FOLKS\n");
+                    mostraTabela();
                     getToken();
                     // printf("8->"); mostraTokens();
 
@@ -381,6 +386,7 @@ void prog(){
                         getToken();
                         if(sinal(viewToken(),SN_abreChaves)){
                             mostraTokens();
+                            temp_id = topo_tabela_de_simbolos;
                             while(tipo(viewNext())){
                                 getToken(); // no need to check, because the while will do for you
                                 // printf("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\n");
@@ -407,6 +413,9 @@ void prog(){
                             while(!sinal(viewNext(),SN_fechaChaves)){
                                 cmd();
                             }
+                            printf("THERE IS ANOTHER END\n");
+                            limparSimbolosLocais(temp_id);
+                            mostraTabela();
                             getToken();
 
                         }else erroSin("Esperado abre chaves");

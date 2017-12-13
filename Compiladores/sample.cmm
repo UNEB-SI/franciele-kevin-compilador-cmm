@@ -8,7 +8,7 @@ prototipo semretorno paralelepipedo(inteiro)
 , preda(semparam);
 
 
-semretorno principal(semparam) {
+semretorno principal(inteiro motherboard) {
 
      inteiro i, n;
 
