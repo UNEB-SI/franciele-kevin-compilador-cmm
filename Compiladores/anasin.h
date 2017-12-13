@@ -435,6 +435,8 @@ void tipos_param(){
     if(pr(viewToken(),semparam)){
         // ALL FINE DUDE
     }else if(tipo(viewToken())){
+        // printf("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY\n");
+        armazenar_simbolo(escopoTS_local,categoriaTS_parametro,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
         getToken();
         if(id(viewToken())){
             if(sinal(viewNext(),SN_virgula)){
@@ -443,6 +445,8 @@ void tipos_param(){
                     if(sinal(viewNext(),SN_virgula)) getToken();
                     getToken();
                     if(tipo(viewToken())){
+                        // printf("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC\n");
+                        armazenar_simbolo(escopoTS_local,categoriaTS_parametro,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
                         getToken();
                         if(id(viewToken())){
                             // All fine
@@ -479,7 +483,12 @@ void tipos_p_opc(){
     }else if(tipo(viewToken())){
         // printf("1=>"); mostraTokens();
         // getToken();
-        if(id(viewNext())) getToken();
+        printf("121233333333333333333333333333333333333333333333333333\n");
+        if(id(viewNext())){
+            armazenar_simbolo(escopoTS_local,categoriaTS_parametro,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
+            getToken();
+        }
+        // printf("444444444444444444444444444444444444444444444444444\n");
         // printf("2\n");
         if(sinal(viewNext(),SN_virgula)){
             do{
@@ -490,7 +499,11 @@ void tipos_p_opc(){
                 if(tipo(viewNext())){
                     // printf("3\n");
                     getToken();
-                    if(id(viewNext())) getToken();
+                    // printf("-> -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> \n");
+                    if(id(viewNext())){
+                        armazenar_simbolo(escopoTS_local,categoriaTS_parametro,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
+                        getToken();
+                    }
 
 
                 }else{

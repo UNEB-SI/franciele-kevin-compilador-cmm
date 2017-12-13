@@ -1,6 +1,8 @@
 /* Sequencia de Fibonacci em Cmm - Recursivo */
 
-prototipo real portugal(inteiro);
+prototipo real portugal(inteiro, booleano);
+
+prototipo real kevin(real lindeza, booleano martin_luther_king);
 
 prototipo semretorno paralelepipedo(inteiro)
 , preda(semparam);
@@ -19,7 +21,7 @@ semretorno principal(semparam) {
       retorne;
 }
 
-inteiro fibbonaci(inteiro num) {
+inteiro fibbonaci(inteiro num, booleano vida) {
       inteiro variavel1, variavel2;
 
       se ((num==1) || (num==2)) retorne 1;
@@ -27,7 +29,7 @@ inteiro fibbonaci(inteiro num) {
              retorne (fibonacci(num-1)+fibonacci(num-2));
 }
 
-booleano raiz(inteiro num) {
+booleano raiz(inteiro abx, real realeza) {
       inteiro variavel3, variavel4;
       se ((num==1) || (num==2)) retorne 1;
       senao 
