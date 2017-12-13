@@ -37,7 +37,7 @@
 	<ctype.h>
 	"anasin.h"
 
-1513133757 /home/kevin/Documents/projects/franciele-kevin-compilador-cmm/Compiladores/anasin.h
+1513134649 /home/kevin/Documents/projects/franciele-kevin-compilador-cmm/Compiladores/anasin.h
 	"analex.h"
 	"GerenciadorTS.h"
 	<stdbool.h>

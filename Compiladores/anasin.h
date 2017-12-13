@@ -366,6 +366,11 @@ void prog(){
 
         }else if(pr(viewToken(),semretorno)){
             // printf("Sem Retorno\n");
+            // printf("ssssssssssssssssssssssssssssssssssssssss\n");
+            if(pr(viewToken(),semretorno) && id(viewNext())){
+                armazenar_simbolo(escopoTS_global,categoriaTS_funcao,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
+            }
+
             getToken();
             if(id(viewToken())){
                 getToken();
@@ -378,11 +383,17 @@ void prog(){
                             mostraTokens();
                             while(tipo(viewNext())){
                                 getToken(); // no need to check, because the while will do for you
+                                // printf("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\n");
+                                armazenar_simbolo(escopoTS_local,categoriaTS_variavel,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
+                                temp_tipo = checar_tipoTS(viewToken());
                                 if(id(viewNext())){
                                     getToken();
                                 }else erroSin("Esperado identificador");
                                 while(sinal(viewNext(),SN_virgula)){
                                     getToken();
+                                    // printf("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ\n");
+                                    armazenar_simbolo(escopoTS_local,categoriaTS_variavel,temp_tipo , ID_TABLE[viewNext().codigo]);
+
                                     if(id(viewNext())){
                                         getToken();
                                     }else erroSin("Esperaro identificador");
