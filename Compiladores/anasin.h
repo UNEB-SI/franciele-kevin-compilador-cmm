@@ -541,6 +541,7 @@ void cmd(){
             // printf("X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-\n");
             verificaExistenciaDaFuncao(ID_TABLE[viewNext().codigo]);
             id_funcao_atual = verificaPosicaoTabelaDeSimbolos(ID_TABLE[viewNext().codigo]);
+            numParamFuncao = 0;
             getToken();
             getToken();
             if(!sinal(viewNext(),SN_fechaParenteses)){
@@ -555,6 +556,7 @@ void cmd(){
 
             if(sinal(viewNext(),SN_fechaParenteses)){
                 getToken();
+                verificaQuantidadeDeParametros(numParamFuncao);
                 if(sinal(viewNext(),SN_pontoEVirgula)){
                     getToken();
                 }else erroSin("Esperado ponto e virgula");

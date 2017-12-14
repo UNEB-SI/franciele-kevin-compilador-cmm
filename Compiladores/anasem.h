@@ -148,6 +148,19 @@ void verificadorDeTipos(token token,int num_param){
     }
 }
 
+void verificaQuantidadeDeParametros(int num_param){
+    int i,contParam = 0;
+    i = id_funcao_atual;
+    while(tabela_de_simbolos[i+1].categoria == categoriaTS_parametro){
+        printf("verificando %d...\n",i);
+        i++;
+        contParam++;
+    }
+    if(contParam != num_param){
+        erroSem("Quantidade de parametros incorreta em chamada de função");
+    }
+}
+
 void erroSem(char * string){
     printf("Erro Semântico: %s\n", string);
     exit(1);

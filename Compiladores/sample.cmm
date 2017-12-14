@@ -17,6 +17,9 @@ prototipo semretorno leia(semparam);
 inteiro fibonacci(booleano num,real bullshit) {
 }
 
+booleano pietro(real var){
+
+}
 
 semretorno principal(inteiro motherboard) {
 
@@ -25,6 +28,7 @@ semretorno principal(inteiro motherboard) {
      caracter p;
 
      imprima(n,p);
+     pietro(n);
      fibonacci(x,i);
 /*
      leia(n);
