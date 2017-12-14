@@ -3,6 +3,7 @@
 
 
 #include "anasin.h"
+#include "anasem.h"
 #include <stdbool.h>
 
 void mostraSimbolo(int id);
@@ -64,7 +65,7 @@ int armazenar_simbolo(int escopo,int categoria, int tipo, char nomeID[20]){
     tabela_de_simbolos[topo_tabela_de_simbolos].tipo = tipo;
     tabela_de_simbolos[topo_tabela_de_simbolos].categoria = categoria;
     tabela_de_simbolos[topo_tabela_de_simbolos].escopo = escopo;
-    
+
     switch(escopo){
             case escopoTS_global:
                 tabela_de_simbolos[topo_tabela_de_simbolos].enderecoRelativo = contador_simbolos_globais;
@@ -86,7 +87,9 @@ int armazenar_simbolo(int escopo,int categoria, int tipo, char nomeID[20]){
     topo_tabela_de_simbolos++;
     printf("armazenado --> ");
     // mostraSimbolo(topo_tabela_de_simbolos-1);
+    
     mostraTabela();
+    verificaIDGlobalDuplicado();
     return topo_tabela_de_simbolos-1;
 }
 
@@ -117,4 +120,8 @@ void mostraTabela(){
 void limparSimbolosLocais(int i){
     topo_tabela_de_simbolos = i;
 }
+
+
+
+
 #endif

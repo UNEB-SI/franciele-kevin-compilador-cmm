@@ -33,6 +33,7 @@
 		</Compiler>
 		<Unit filename="GerenciadorTS.h" />
 		<Unit filename="analex.h" />
+		<Unit filename="anasem.h" />
 		<Unit filename="anasin.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />

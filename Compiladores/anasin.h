@@ -2,6 +2,7 @@
 #define ANASIN
 
 #include "analex.h"
+#include "anasem.h"
 #include "GerenciadorTS.h"
 #include <stdbool.h>
 
@@ -278,7 +279,7 @@ void prog(){
                 if(sinal(viewNext(),SN_abreParenteses)){
 
                     armazenar_simbolo(escopoTS_global,categoriaTS_funcao,temp_tipo , ID_TABLE[viewToken().codigo]);
-                    
+
                     getToken();
                     // printf("3->"); mostraTokens();
                     // printf("HERE=>"); mostraTokens();
