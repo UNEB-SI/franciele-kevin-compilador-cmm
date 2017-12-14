@@ -1,14 +1,17 @@
 /* Sequencia de Fibonacci em Cmm - Recursivo */
 prototipo inteiro soma(inteiro a,inteiro b);
 
-inteiro soma(inteiro a, inteiro b){
-      inteiro resultado;
-      resultado = a + b;
-      retorne resultado;
-}
+
 
 
 semretorno principal(semparam){
       inteiro num1,num2;
-      soma(num1,num2);
+      booleano x;
+      soma(num1,num1);
+}
+
+inteiro soma(inteiro a, inteiro b){
+      inteiro resultado;
+      resultado = a + b;
+      retorne resultado;
 }
