@@ -54,7 +54,10 @@ void verificaExistenciaDaFuncao(char * nomeFunc){
     for(i=0;i<topo_tabela_de_simbolos;i++){
         if(
             !strcmp(tabela_de_simbolos[i].nome, nomeFunc) &&
-            tabela_de_simbolos[i].categoria == categoriaTS_funcao
+            (
+                tabela_de_simbolos[i].categoria == categoriaTS_funcao ||
+                tabela_de_simbolos[i].categoria == categoriaTS_prototipo
+            )   
         ){
             encontrado = true;
         }

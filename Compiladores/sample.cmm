@@ -1,7 +1,6 @@
 /* Sequencia de Fibonacci em Cmm - Recursivo */
+
 prototipo inteiro soma(inteiro a,inteiro b);
-
-
 
 
 semretorno principal(semparam){
