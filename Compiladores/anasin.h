@@ -446,6 +446,7 @@ void tipos_param(){
         // ALL FINE DUDE
     }else if(tipo(viewToken())){
         // printf("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY\n");
+        inicio_escopo_funcao=topo_tabela_de_simbolos;
         armazenar_simbolo(escopoTS_local,categoriaTS_parametro,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
         getToken();
         if(id(viewToken())){
@@ -493,7 +494,8 @@ void tipos_p_opc(){
     }else if(tipo(viewToken())){
         // printf("1=>"); mostraTokens();
         // getToken();
-        printf("121233333333333333333333333333333333333333333333333333\n");
+        // printf("121233333333333333333333333333333333333333333333333333\n");
+        inicio_escopo_funcao=topo_tabela_de_simbolos;
         if(id(viewNext())){
             armazenar_simbolo(escopoTS_local,categoriaTS_parametro,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
             getToken();

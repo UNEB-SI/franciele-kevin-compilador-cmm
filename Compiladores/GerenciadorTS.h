@@ -24,7 +24,7 @@ struct_tabela_de_simbolos tabela_de_simbolos[200];
 int topo_tabela_de_simbolos = 0;
 int contador_simbolos_globais = 0;
 int contador_simbolos_locais = 0;
-
+int inicio_escopo_funcao = 0;
 
 
 enum tipoTS{
@@ -89,7 +89,11 @@ int armazenar_simbolo(int escopo,int categoria, int tipo, char nomeID[20]){
     // mostraSimbolo(topo_tabela_de_simbolos-1);
     
     mostraTabela();
-    verificaIDGlobalDuplicado();
+    if(escopo == escopoTS_global){
+        verificaIDGlobalDuplicado(topo_tabela_de_simbolos-1);
+    }else{
+        verificaIDLocalDuplicado(inicio_escopo_funcao,topo_tabela_de_simbolos-1);
+    }
     return topo_tabela_de_simbolos-1;
 }
 

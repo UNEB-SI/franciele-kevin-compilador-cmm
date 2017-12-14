@@ -18,13 +18,28 @@ void verificaIDGlobalDuplicado(int id){
         if(i != id){
             if(
                 !strcmp(tabela_de_simbolos[i].nome, tabela_de_simbolos[id].nome) &&
-                tabela_de_simbolos[i].escopo == tabela_de_simbolos[id].escopo
+                tabela_de_simbolos[i].escopo == escopoTS_global
             ){
                 erroSem("Redefinição de variável global");
             }
         }
     }
 
+}
+
+void verificaIDLocalDuplicado(int id_inicio, int id){
+    int i;
+    printf("------------------------------------inicio: %d\n",id_inicio);
+    for(i=id_inicio;i<topo_tabela_de_simbolos;i++){
+        if(i != id){
+            if(
+                !strcmp(tabela_de_simbolos[i].nome, tabela_de_simbolos[id].nome) &&
+                tabela_de_simbolos[i].escopo == escopoTS_local
+            ){
+                erroSem("Redefinição de variável local ou Parametro duplicado");
+            }
+        }
+    }
 }
 
 
