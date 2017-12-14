@@ -538,12 +538,17 @@ void cmd(){
     }
     if(id(viewNext())){
         if(sinal(viewNextNext(),SN_abreParenteses)){
+            // printf("X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-\n");
+            verificaExistenciaDaFuncao(ID_TABLE[viewNext().codigo]);
+            id_funcao_atual = verificaPosicaoTabelaDeSimbolos(ID_TABLE[viewNext().codigo]);
             getToken();
             getToken();
             if(!sinal(viewNext(),SN_fechaParenteses)){
+                numParamFuncao =1;
                 expr();
                 while(sinal(viewNext(),SN_virgula)){
                     getToken();
+                    numParamFuncao++;
                     expr();
                 }
             }
@@ -747,6 +752,7 @@ void fator(){
     getToken();
     if(id(viewToken())){
         // 2 cases
+        verificadorDeTipos(viewToken(),numParamFuncao);
         if(sinal(viewNext(),SN_abreParenteses)){
 
             getToken();
@@ -769,10 +775,13 @@ void fator(){
         }
     }else if(categoria(viewToken(),CAT_constanteInteira)){
         // all fine
+        verificadorDeTipos(viewToken(),numParamFuncao);
     }else if(categoria(viewToken(),CAT_constanteReal)){
         // all fine
+        verificadorDeTipos(viewToken(),numParamFuncao);
     }else if(categoria(viewToken(),CAT_constanteCaracter)){
         // all fine
+        verificadorDeTipos(viewToken(),numParamFuncao);
     }else if(categoria(viewToken(),CAT_literal)){
         // all fine
     }else if (sinal(viewToken(),SN_abreParenteses)){

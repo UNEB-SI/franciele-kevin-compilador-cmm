@@ -6,39 +6,56 @@ inteiro marca;
 
 prototipo real kevin(real lindeza, booleano martin_luther_king);
 
+
 prototipo semretorno paralelepipedo(inteiro)
 , preda(semparam);
+
+semretorno imprima(real inicio,caracter vida){
+}
+prototipo semretorno leia(semparam);
+
+inteiro fibonacci(booleano num,real bullshit) {
+}
 
 
 semretorno principal(inteiro motherboard) {
 
-     inteiro i, n;
+     real i, n;
+     booleano x;
+     caracter p;
 
-     imprima("Digite a qtd de termos da sequencia: ");
+     imprima(n,p);
+     fibonacci(x,i);
+/*
      leia(n);
      imprima("A sequencia de Fibonacci solicitada eh: ");
-     imprima(enter);
+     imprima(i);
      para (i=0; i<n; i=i+1) 
             imprima(fibonacci(i+1));
       retorne;
+*/
 }
 
 
 
 
-inteiro fibbonaci(inteiro num, booleano vida) {
+inteiro fibbonaci2(inteiro num, booleano vida) {
+      /*
       inteiro variavel1, variavel2;
 
       se ((num==1) || (num==2)) retorne 1;
       senao 
              retorne (fibonacci(num-1)+fibonacci(num-2));
+      */
 }
 
 booleano raiz(inteiro abx, real realeza) {
+      /*
       inteiro variavel1, variavel2;
       se ((num==1) || (num==2)) retorne 1;
       senao 
              retorne (fibonacci(num-1)+fibonacci(num-2));
+      */
 }
 
 

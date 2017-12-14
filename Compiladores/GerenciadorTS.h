@@ -25,6 +25,8 @@ int topo_tabela_de_simbolos = 0;
 int contador_simbolos_globais = 0;
 int contador_simbolos_locais = 0;
 int inicio_escopo_funcao = 0;
+int id_funcao_atual = 0;
+int numParamFuncao = 1;
 
 
 enum tipoTS{
@@ -94,6 +96,11 @@ int armazenar_simbolo(int escopo,int categoria, int tipo, char nomeID[20]){
     }else{
         verificaIDLocalDuplicado(inicio_escopo_funcao,topo_tabela_de_simbolos-1);
     }
+
+    // if(escopo == escopoTS_global && categoria == categoriaTS_funcao)
+        // id_funcao_atual = topo_tabela_de_simbolos-1;
+
+
     return topo_tabela_de_simbolos-1;
 }
 
@@ -115,6 +122,7 @@ void mostraTabela(){
 
     printf("\n--TABELA-------------------------------------------\n");
     for (i=0;i<topo_tabela_de_simbolos;i++){
+        printf("[%.2d]",i);
         mostraSimbolo(i);
     }
     printf("---------------------------------------------------\n");
