@@ -18,6 +18,7 @@ typedef struct struct_tabela_de_simbolos{
     int escopo;
     int enderecoRelativo;
     bool zumbi;
+    bool sem_nome;
 } struct_tabela_de_simbolos;
 
 struct_tabela_de_simbolos tabela_de_simbolos[200];
@@ -48,13 +49,17 @@ char tipoTS_nomes[][20] = {
 enum categoriaTS{
     categoriaTS_variavel,
     categoriaTS_parametro,
-    categoriaTS_funcao
+    categoriaTS_funcao,
+    categoriaTS_prototipo,
+    categoriaTS_parametro_prototipo
 };
 
 char categoriaTS_nomes[][20] = {
     "variavel",
     "parametro",
-    "funcao"
+    "funcao",
+    "prototipo",
+    "param de proto"
 };
 
 enum escopoTS{
@@ -64,6 +69,7 @@ enum escopoTS{
 
 int armazenar_simbolo(int escopo,int categoria, int tipo, char nomeID[20]){
     strcpy(tabela_de_simbolos[topo_tabela_de_simbolos].nome,nomeID);
+    tabela_de_simbolos[topo_tabela_de_simbolos].sem_nome = !strcmp(nomeID,"");
     tabela_de_simbolos[topo_tabela_de_simbolos].tipo = tipo;
     tabela_de_simbolos[topo_tabela_de_simbolos].categoria = categoria;
     tabela_de_simbolos[topo_tabela_de_simbolos].escopo = escopo;
@@ -89,7 +95,7 @@ int armazenar_simbolo(int escopo,int categoria, int tipo, char nomeID[20]){
     topo_tabela_de_simbolos++;
     printf("armazenado --> ");
     // mostraSimbolo(topo_tabela_de_simbolos-1);
-    
+
     mostraTabela();
     if(escopo == escopoTS_global){
         verificaIDGlobalDuplicado(topo_tabela_de_simbolos-1);
@@ -107,12 +113,13 @@ int armazenar_simbolo(int escopo,int categoria, int tipo, char nomeID[20]){
 
 
 void mostraSimbolo(int id){
-    printf("<<N %s |Es %s |Er %d |T %s |C %s |Z %s |>>\n", tabela_de_simbolos[id].nome ,
+    printf("<<N %s |Es %s |Er %d |T %s |C %s |Z %s |SN %s>>\n", tabela_de_simbolos[id].nome ,
                                                             tabela_de_simbolos[id].escopo? "Local" :"Global" ,
                                                             tabela_de_simbolos[id].enderecoRelativo,
                                                             tipoTS_nomes[tabela_de_simbolos[id].tipo] ,
                                                             categoriaTS_nomes[tabela_de_simbolos[id].categoria] ,
-                                                            tabela_de_simbolos[id].zumbi ? "Zombie" : "Not Zombie");
+                                                            tabela_de_simbolos[id].zumbi ? "Zombie" : "Not Zombie" ,
+                                                            tabela_de_simbolos[id].sem_nome ? "sim" : "não");
 }
 
 

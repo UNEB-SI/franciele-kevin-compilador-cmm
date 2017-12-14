@@ -1,67 +1,14 @@
 /* Sequencia de Fibonacci em Cmm - Recursivo */
+prototipo inteiro soma(inteiro a,inteiro b);
 
-prototipo real portugal(inteiro, booleano);
-
-inteiro marca;
-
-prototipo real kevin(real lindeza, booleano martin_luther_king);
-
-
-prototipo semretorno paralelepipedo(inteiro)
-, preda(semparam);
-
-semretorno imprima(real inicio,caracter vida){
-}
-prototipo semretorno leia(semparam);
-
-inteiro fibonacci(booleano num,real bullshit) {
-}
-
-booleano pietro(real var){
-
-}
-
-semretorno principal(inteiro motherboard) {
-
-     real i, n;
-     booleano x;
-     caracter p;
-
-     imprima(n,p);
-     pietro(n);
-     fibonacci(x,i);
-/*
-     leia(n);
-     imprima("A sequencia de Fibonacci solicitada eh: ");
-     imprima(i);
-     para (i=0; i<n; i=i+1) 
-            imprima(fibonacci(i+1));
-      retorne;
-*/
+inteiro soma(inteiro a, inteiro b){
+      inteiro resultado;
+      resultado = a + b;
+      retorne resultado;
 }
 
 
-
-
-inteiro fibbonaci2(inteiro num, booleano vida) {
-      /*
-      inteiro variavel1, variavel2;
-
-      se ((num==1) || (num==2)) retorne 1;
-      senao 
-             retorne (fibonacci(num-1)+fibonacci(num-2));
-      */
+semretorno principal(semparam){
+      inteiro num1,num2;
+      soma(num1,num2);
 }
-
-booleano raiz(inteiro abx, real realeza) {
-      /*
-      inteiro variavel1, variavel2;
-      se ((num==1) || (num==2)) retorne 1;
-      senao 
-             retorne (fibonacci(num-1)+fibonacci(num-2));
-      */
-}
-
-
-
-caracter char1, char2,char9999;

@@ -184,7 +184,7 @@ void prog(){
             getToken();
             if(tipo(viewToken())){
                 // printf("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
-                armazenar_simbolo(escopoTS_global,categoriaTS_funcao,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
+                armazenar_simbolo(escopoTS_global,categoriaTS_prototipo,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
                 temp_tipo = checar_tipoTS(viewToken());
                 getToken();
                 if(id(viewToken())){
@@ -195,7 +195,7 @@ void prog(){
                             getToken();
                             while(sinal(viewNext(),SN_virgula)){
                                 getToken();
-                                armazenar_simbolo(escopoTS_global,categoriaTS_funcao,temp_tipo, ID_TABLE[viewNext().codigo]);
+                                armazenar_simbolo(escopoTS_global,categoriaTS_prototipo,temp_tipo, ID_TABLE[viewNext().codigo]);
 
                                 // printf("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP\n");
 
@@ -223,7 +223,7 @@ void prog(){
             }else if(pr(viewToken(),semretorno)){
                 // printf("sem retorno");
                 // printf("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLll\n");
-                armazenar_simbolo(escopoTS_global,categoriaTS_funcao,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
+                armazenar_simbolo(escopoTS_global,categoriaTS_prototipo,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
                 temp_tipo = checar_tipoTS(viewToken());
                 getToken();
                 if(id(viewToken())){
@@ -235,7 +235,7 @@ void prog(){
                             while(sinal(viewNext(),SN_virgula)){
                                 getToken();
                                 // printf("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP\n");
-                                armazenar_simbolo(escopoTS_global,categoriaTS_funcao,temp_tipo, ID_TABLE[viewNext().codigo]);
+                                armazenar_simbolo(escopoTS_global,categoriaTS_prototipo,temp_tipo, ID_TABLE[viewNext().codigo]);
                                 if(id(viewNext())){
                                     getToken();
                                 }else erroSin("Esperado identificador");
@@ -497,8 +497,11 @@ void tipos_p_opc(){
         // printf("121233333333333333333333333333333333333333333333333333\n");
         inicio_escopo_funcao=topo_tabela_de_simbolos;
         if(id(viewNext())){
-            armazenar_simbolo(escopoTS_local,categoriaTS_parametro,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
+            armazenar_simbolo(escopoTS_local,categoriaTS_parametro_prototipo,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
             getToken();
+        }else{
+            armazenar_simbolo(escopoTS_local,categoriaTS_parametro_prototipo,checar_tipoTS(viewToken()) , "");
+            // printf("111111111111111111111111111111111111111111111111111111111111");
         }
         // printf("444444444444444444444444444444444444444444444444444\n");
         // printf("2\n");
@@ -513,8 +516,11 @@ void tipos_p_opc(){
                     getToken();
                     // printf("-> -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> \n");
                     if(id(viewNext())){
-                        armazenar_simbolo(escopoTS_local,categoriaTS_parametro,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
+                        armazenar_simbolo(escopoTS_local,categoriaTS_parametro_prototipo,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
                         getToken();
+                    }else{
+                        armazenar_simbolo(escopoTS_local,categoriaTS_parametro_prototipo,checar_tipoTS(viewToken()) , "");
+                        // printf("222222222222222222222222222222222222222222222222222222");
                     }
 
 

@@ -18,7 +18,11 @@ void verificaIDGlobalDuplicado(int id){
         if(i != id){
             if(
                 !strcmp(tabela_de_simbolos[i].nome, tabela_de_simbolos[id].nome) &&
-                tabela_de_simbolos[i].escopo == escopoTS_global
+                tabela_de_simbolos[i].escopo == escopoTS_global &&
+                (
+                    tabela_de_simbolos[i].categoria != categoriaTS_prototipo ||
+                    tabela_de_simbolos[id].categoria != categoriaTS_funcao
+                )
             ){
                 erroSem("Redefinição de variável global ou função");
             }
@@ -31,7 +35,7 @@ void verificaIDLocalDuplicado(int id_inicio, int id){
     int i;
     printf("------------------------------------inicio: %d\n",id_inicio);
     for(i=id_inicio;i<topo_tabela_de_simbolos;i++){
-        if(i != id){
+        if(i != id && !tabela_de_simbolos[i].sem_nome){
             if(
                 !strcmp(tabela_de_simbolos[i].nome, tabela_de_simbolos[id].nome) &&
                 tabela_de_simbolos[i].escopo == escopoTS_local
