@@ -1,40 +1,55 @@
-/* Sequencia de Fibonacci em Cmm - Recursivo */
+inteiro a, b, c;
+
+real d45;
+
+booleano FIM;
 
 
-prototipo inteiro soma(inteiro,inteiro);
+/* Comentario */
 
+caracter d;
 
+prototipo inteiro contagem(inteiro, real, booleano);
 
-inteiro soma(inteiro a, inteiro b){
-      inteiro resultado;
-      booleano x;
-      resultado = a + b;
+prototipo semretorno soma(semparam);
 
-      resultado = 4 +11 ;
-      resultado = 'k'+33;
-      resultado = 1+2+3+4+5+7+8+9;
-      resultado = 43+ 33;
-      
-      soma(4,3);
-
-
-      resultado = 'k';
-
-
-      retorne a+b;
-}
-
-
-semretorno vera(semparam){
-      booleano var1;
+semretorno minhaFUNC(inteiro a, real b, booleano c){
+      caracter varaiabel1, varaiabel2, varaiabel3;
       retorne ;
 }
-booleano nope(semparam){
-      inteiro xp10;
-      retorne 'c';
+
+semretorno minha2(semparam){
+      caracter varaiabel1, varaiabel2, varaiabel3;
 }
 
 
-booleano cap(semparam){
-      retorne 0;
+
+
+
+semretorno soma(semparam) {
+    inteiro a, b;
+    x=a+b;
+}
+
+inteiro contagem(inteiro a, real b, booleano c){
+    retorne a;
+}
+
+
+semretorno principal(semparam) {
+
+      /*contagem(1,2.9,3);*/
+
+      se (a>b) {
+      a=b / 5;
+      }
+/*
+    enquanto ((c<=d) && (x>2)) t=t+1;
+    para (x=1; x<y+100; x=x+2) i=i+10;
+    imprima("Mensagem de erro...!");
+    delta = b*b - 4*a*c;
+    x1= (-b + sqrt(delta))/2*a;
+    x2= (-b - sqrt(delta))/2*a;
+    se ((x1==x2) || (x1>x2) || ((x1>=x3) && (!(x1!=x2)))) ;
+    */
 }

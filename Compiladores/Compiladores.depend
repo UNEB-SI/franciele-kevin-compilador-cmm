@@ -47,12 +47,12 @@
 	<stdio.h>
 	<stdbool.h>
 
-1513373607 /home/kevin/Documents/projects/franciele-kevin-compilador-cmm/Compiladores/GerenciadorTS.h
+1513375753 /home/kevin/Documents/projects/franciele-kevin-compilador-cmm/Compiladores/GerenciadorTS.h
 	"anasin.h"
 	"anasem.h"
 	<stdbool.h>
 
-1513373805 /home/kevin/Documents/projects/franciele-kevin-compilador-cmm/Compiladores/anasem.h
+1513376542 /home/kevin/Documents/projects/franciele-kevin-compilador-cmm/Compiladores/anasem.h
 	"analex.h"
 	"anasin.h"
 	"GerenciadorTS.h"

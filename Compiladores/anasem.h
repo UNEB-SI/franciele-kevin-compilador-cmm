@@ -38,7 +38,8 @@ void verificaIDLocalDuplicado(int id_inicio, int id){
         if(i != id && !tabela_de_simbolos[i].sem_nome){
             if(
                 !strcmp(tabela_de_simbolos[i].nome, tabela_de_simbolos[id].nome) &&
-                tabela_de_simbolos[i].escopo == escopoTS_local
+                tabela_de_simbolos[i].escopo == escopoTS_local &&
+                tabela_de_simbolos[i].zumbi == false
             ){
                 erroSem("Redefinição de variável local ou Parametro duplicado");
             }
@@ -57,7 +58,7 @@ void verificaExistenciaDaFuncao(char * nomeFunc){
             (
                 tabela_de_simbolos[i].categoria == categoriaTS_funcao ||
                 tabela_de_simbolos[i].categoria == categoriaTS_prototipo
-            )   
+            )
         ){
             encontrado = true;
         }
@@ -77,7 +78,7 @@ int verificaTipoTabelaDeSimbolos(char * nome){
         if(!strcmp(tabela_de_simbolos[i].nome, nome)){
             if(tabela_de_simbolos[i].escopo == escopoTS_global){
                 id_global_encontrado = i;
-            }else{
+            }else if(tabela_de_simbolos[i].zumbi == false){
                 id_local_encontrado = i;
             }
         }
@@ -100,7 +101,7 @@ int verificaPosicaoTabelaDeSimbolos(char * nome){
         if(!strcmp(tabela_de_simbolos[i].nome, nome)){
             if(tabela_de_simbolos[i].escopo == escopoTS_global){
                 id_global_encontrado = i;
-            }else{
+            }else if(tabela_de_simbolos[i].zumbi == false){
                 id_local_encontrado = i;
             }
         }
@@ -129,7 +130,7 @@ void verificadorDeTipos(token token,int num_param){
                 tipo == tabela_de_simbolos[id_funcao_atual+num_param].tipo &&
                 (
                     tabela_de_simbolos[id_funcao_atual+num_param].categoria == categoriaTS_parametro ||
-                    tabela_de_simbolos[id_funcao_atual+num_param].categoria == categoriaTS_parametro_prototipo 
+                    tabela_de_simbolos[id_funcao_atual+num_param].categoria == categoriaTS_parametro_prototipo
                 )
             );
             else{
@@ -151,7 +152,7 @@ void verificadorDeTipos(token token,int num_param){
                 tipoTS_booleano == tabela_de_simbolos[id_funcao_atual+num_param].tipo &&
                 (
                     tabela_de_simbolos[id_funcao_atual+num_param].categoria == categoriaTS_parametro ||
-                    tabela_de_simbolos[id_funcao_atual+num_param].categoria == categoriaTS_parametro_prototipo 
+                    tabela_de_simbolos[id_funcao_atual+num_param].categoria == categoriaTS_parametro_prototipo
                 )
             );
             else erroSem("Tipo incompativel na chamada da função");
@@ -162,7 +163,7 @@ void verificadorDeTipos(token token,int num_param){
                 tipoTS_real == tabela_de_simbolos[id_funcao_atual+num_param].tipo &&
                 (
                     tabela_de_simbolos[id_funcao_atual+num_param].categoria == categoriaTS_parametro ||
-                    tabela_de_simbolos[id_funcao_atual+num_param].categoria == categoriaTS_parametro_prototipo 
+                    tabela_de_simbolos[id_funcao_atual+num_param].categoria == categoriaTS_parametro_prototipo
                 )
             );
             else erroSem("Tipo incompativel na chamada da função");
@@ -174,7 +175,7 @@ void verificadorDeTipos(token token,int num_param){
                 tipoTS_inteiro == tabela_de_simbolos[id_funcao_atual+num_param].tipo  &&
                 (
                     tabela_de_simbolos[id_funcao_atual+num_param].categoria == categoriaTS_parametro ||
-                    tabela_de_simbolos[id_funcao_atual+num_param].categoria == categoriaTS_parametro_prototipo 
+                    tabela_de_simbolos[id_funcao_atual+num_param].categoria == categoriaTS_parametro_prototipo
                 )
             );
             else erroSem("Tipo incompativel na chamada da função");
@@ -206,7 +207,7 @@ int id_corpo_de_funcao_atual(){
         i--;
     }while(tabela_de_simbolos[i].categoria != categoriaTS_funcao);
     return i;
-} 
+}
 
 void trocaTipo(int novoTipo){
     switch(tipoAtualUtilizado){
@@ -271,7 +272,7 @@ void verificaTipoDeRetorno(){
             // printf("NÂO TEM QUE RETORNAR NADA NESSA BAGAÇA\n");
             // printf("SEM RETORNO == %s \n", tipoTS_nomes[tipoAtualUtilizado]);
             break;
-        
+
         case tipoTS_inteiro:
             if(
                 tipoAtualUtilizado == tipoTS_inteiro ||
@@ -325,7 +326,7 @@ void verificaRetornoObrigatorio(){
         tabela_de_simbolos[id_corpo_de_funcao_atual()].tipo == tipoTS_semretorno
     ){
         // tudo certo
-    }else if(!possui_retorno){   
+    }else if(!possui_retorno){
         erroSem("Faltado retorno na função");
     }
 

@@ -75,7 +75,7 @@ int armazenar_simbolo(int escopo,int categoria, int tipo, char nomeID[20]){
     tabela_de_simbolos[topo_tabela_de_simbolos].tipo = tipo;
     tabela_de_simbolos[topo_tabela_de_simbolos].categoria = categoria;
     tabela_de_simbolos[topo_tabela_de_simbolos].escopo = escopo;
-
+    tabela_de_simbolos[topo_tabela_de_simbolos].zumbi = false;
     switch(escopo){
             case escopoTS_global:
                 tabela_de_simbolos[topo_tabela_de_simbolos].enderecoRelativo = contador_simbolos_globais;
@@ -89,11 +89,7 @@ int armazenar_simbolo(int escopo,int categoria, int tipo, char nomeID[20]){
                 break;
                 // erro
     }
-    if(categoria == categoriaTS_parametro){
-        tabela_de_simbolos[topo_tabela_de_simbolos].zumbi = true;
-    }else{
-        tabela_de_simbolos[topo_tabela_de_simbolos].zumbi = false;
-    }
+    
     topo_tabela_de_simbolos++;
     // printf("armazenado --> ");
     // mostraSimbolo(topo_tabela_de_simbolos-1);
@@ -120,7 +116,7 @@ void mostraSimbolo(int id){
                                                             tabela_de_simbolos[id].enderecoRelativo,
                                                             tipoTS_nomes[tabela_de_simbolos[id].tipo] ,
                                                             categoriaTS_nomes[tabela_de_simbolos[id].categoria] ,
-                                                            tabela_de_simbolos[id].zumbi ? "Zombie" : "Not Zombie" ,
+                                                            tabela_de_simbolos[id].zumbi ? "Zombie" : "Alive" ,
                                                             tabela_de_simbolos[id].sem_nome ? "sim" : "não");
 }
 
@@ -139,7 +135,17 @@ void mostraTabela(){
 
 
 void limparSimbolosLocais(int i){
+    // printf("LIMPANDO OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO %d\n",i);
+    // printf("%d\n",id_corpo_de_funcao_atual());
     topo_tabela_de_simbolos = i;
+
+    i = id_corpo_de_funcao_atual() +1;
+    while(i!=topo_tabela_de_simbolos){
+        // printf(">>%d\n",i);
+        tabela_de_simbolos[i].zumbi = true;
+        i++;
+    }
+
 }
 
 
