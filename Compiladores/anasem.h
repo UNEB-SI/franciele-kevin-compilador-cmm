@@ -131,11 +131,22 @@ void verificadorDeTipos(token token,int num_param){
                     tabela_de_simbolos[id_funcao_atual+num_param].categoria == categoriaTS_parametro_prototipo 
                 )
             );
-            else erroSem("Tipo incompativel na chamada da função");
+            else{
+                if(
+                    (
+                        tipo == tipoTS_inteiro && tabela_de_simbolos[id_funcao_atual+num_param].tipo == tipoTS_caracter ||
+                        tipo == tipoTS_caracter && tabela_de_simbolos[id_funcao_atual+num_param].tipo == tipoTS_inteiro
+                    ) ||
+                        tipo == tipoTS_inteiro && tabela_de_simbolos[id_funcao_atual+num_param].tipo == tipoTS_booleano
+                ) break;
+                erroSem("Tipo incompativel na chamada da função");
+            }
             break;
         case CAT_constanteInteira:
             if(
-                tipoTS_inteiro == tabela_de_simbolos[id_funcao_atual+num_param].tipo &&
+                tipoTS_inteiro == tabela_de_simbolos[id_funcao_atual+num_param].tipo  ||
+                tipoTS_caracter == tabela_de_simbolos[id_funcao_atual+num_param].tipo ||
+                tipoTS_booleano == tabela_de_simbolos[id_funcao_atual+num_param].tipo &&
                 (
                     tabela_de_simbolos[id_funcao_atual+num_param].categoria == categoriaTS_parametro ||
                     tabela_de_simbolos[id_funcao_atual+num_param].categoria == categoriaTS_parametro_prototipo 
@@ -155,8 +166,8 @@ void verificadorDeTipos(token token,int num_param){
             break;
         case CAT_constanteCaracter:
             if(
-                (tipoTS_caracter == tabela_de_simbolos[id_funcao_atual+num_param].tipo ||
-                tipoTS_inteiro == tabela_de_simbolos[id_funcao_atual+num_param].tipo)  &&
+                tipoTS_caracter == tabela_de_simbolos[id_funcao_atual+num_param].tipo ||
+                tipoTS_inteiro == tabela_de_simbolos[id_funcao_atual+num_param].tipo  &&
                 (
                     tabela_de_simbolos[id_funcao_atual+num_param].categoria == categoriaTS_parametro ||
                     tabela_de_simbolos[id_funcao_atual+num_param].categoria == categoriaTS_parametro_prototipo 
