@@ -336,7 +336,10 @@ void prog(){
                         // printf("7.3->"); mostraTokens();
                     }
                     limparSimbolosLocais(temp_id);
-                    printf("THE END FOLKS\n");
+                    verificaRetornoObrigatorio();
+                    possui_retorno = false;
+                    // printf("THE END FOLKS\n");
+                    
                     mostraTabela();
                     getToken();
                     // printf("8->"); mostraTokens();
@@ -416,7 +419,10 @@ void prog(){
                                 cmd();
                                 tipoAtualUtilizado = -1;
                             }
-                            printf("THERE IS ANOTHER END\n");
+                            // printf("THERE IS ANOTHER END\n");
+
+                            verificaRetornoObrigatorio();
+                            possui_retorno = false;
                             limparSimbolosLocais(temp_id);
                             mostraTabela();
                             getToken();
@@ -645,6 +651,7 @@ void cmd(){
             printf("<----------------------------------AQUI È RETORNO VAZIO\n");
             getToken();
             tipoAtualUtilizado = -1;
+            possui_retorno = true;
             verificaTipoDeRetorno();
         }else{
             printf("<----------------------------------AQUI TEM ALGO NO RETORNO\n");
@@ -652,6 +659,7 @@ void cmd(){
             printf("<----------------------------------AQUI VOLTOU HEIN\n");
             getToken();
             if(sinal(viewToken(),SN_pontoEVirgula)){
+                possui_retorno = true;
                 verificaTipoDeRetorno();
             }else erroSin("Esperado Ponto e virgula");
         }

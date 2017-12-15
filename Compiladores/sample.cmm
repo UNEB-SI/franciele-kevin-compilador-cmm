@@ -29,7 +29,12 @@ semretorno vera(semparam){
       booleano var1;
       retorne ;
 }
+booleano nope(semparam){
+      inteiro xp10;
+      retorne 'c';
+}
+
 
 booleano cap(semparam){
-      retorne;
+      retorne 0;
 }

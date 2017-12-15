@@ -319,6 +319,18 @@ void verificaTipoDeRetorno(){
 }
 
 
+void verificaRetornoObrigatorio(){
+    // printf("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+%s %s\n",tabela_de_simbolos[id_corpo_de_funcao_atual()].nome, possui_retorno? "SIM": "NÂO");
+    if(
+        tabela_de_simbolos[id_corpo_de_funcao_atual()].tipo == tipoTS_semretorno
+    ){
+        // tudo certo
+    }else if(!possui_retorno){   
+        erroSem("Faltado retorno na função");
+    }
+
+
+}
 
 void erroSem(char * string){
     printf("Erro Semântico: %s\n", string);

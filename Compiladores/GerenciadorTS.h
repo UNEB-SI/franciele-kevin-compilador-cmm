@@ -29,6 +29,7 @@ int inicio_escopo_funcao = 0;
 int id_funcao_atual = 0;
 int numParamFuncao = 0;
 int tipoAtualUtilizado = -1;
+bool possui_retorno = false;
 
 
 enum tipoTS{

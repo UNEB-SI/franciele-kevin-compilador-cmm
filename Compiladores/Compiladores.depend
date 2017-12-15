@@ -37,7 +37,7 @@
 	<ctype.h>
 	"anasin.h"
 
-1513370248 /home/kevin/Documents/projects/franciele-kevin-compilador-cmm/Compiladores/anasin.h
+1513373307 /home/kevin/Documents/projects/franciele-kevin-compilador-cmm/Compiladores/anasin.h
 	"analex.h"
 	"anasem.h"
 	"GerenciadorTS.h"
@@ -47,12 +47,12 @@
 	<stdio.h>
 	<stdbool.h>
 
-1513362825 /home/kevin/Documents/projects/franciele-kevin-compilador-cmm/Compiladores/GerenciadorTS.h
+1513373607 /home/kevin/Documents/projects/franciele-kevin-compilador-cmm/Compiladores/GerenciadorTS.h
 	"anasin.h"
 	"anasem.h"
 	<stdbool.h>
 
-1513371142 /home/kevin/Documents/projects/franciele-kevin-compilador-cmm/Compiladores/anasem.h
+1513373805 /home/kevin/Documents/projects/franciele-kevin-compilador-cmm/Compiladores/anasem.h
 	"analex.h"
 	"anasin.h"
 	"GerenciadorTS.h"
