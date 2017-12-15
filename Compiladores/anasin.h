@@ -639,9 +639,12 @@ void cmd(){
     else if(pr(viewNext(),retorne)){
         getToken();
         if(sinal(viewNext(),SN_pontoEVirgula)){
+            printf("<----------------------------------AQUI È RETORNO VAZIO\n");
             getToken();
         }else{
+            printf("<----------------------------------AQUI TEM ALGO NO RETORNO\n");
             expr();
+            printf("<----------------------------------AQUI VOLTOU HEIN\n");
             getToken();
             if(sinal(viewToken(),SN_pontoEVirgula)){
             }else erroSin("Esperado Ponto e virgula");
@@ -760,26 +763,52 @@ void fator(){
     getToken();
     if(id(viewToken())){
         // 2 cases
-        verificadorDeTipos(viewToken(),numParamFuncao);
+
+        // verificadorDeTipos(viewToken(),numParamFuncao); 
         if(sinal(viewNext(),SN_abreParenteses)){
 
+            verificadorDeTipos(viewToken(),numParamFuncao); 
+
+            printf("-------------------->HERE %s\n",ID_TABLE[viewToken().codigo]);
+            verificaExistenciaDaFuncao(ID_TABLE[viewToken().codigo]);
+            id_funcao_atual = verificaPosicaoTabelaDeSimbolos(ID_TABLE[viewToken().codigo]);
+            numParamFuncao = 0;
+            // verificadorDeTipos(viewToken(),numParamFuncao); 
+            printf("O TIPO DA FUNÇÂO %s é %s",ID_TABLE[viewToken().codigo],tipoTS_nomes[verificaTipoTabelaDeSimbolos(ID_TABLE[viewToken().codigo])]);
+            // printf("HERE IS A FUCKING FUNCKTION\n");
+
+            // id_funcao_atual = verificaPosicaoTabelaDeSimbolos(ID_TABLE[viewNext().codigo]);
+            // verificadorDeTipos(viewToken(),numParamFuncao);
             getToken();
             if(sinal(viewNext(),SN_fechaParenteses)){
                 // all fine
+
                 getToken();
             }else{
                 // expr
-                // NOT TESTED
+                // NOT TESTED     
+                // printf(">%s<\n",viewToken())           
+                // verificadorDeTipos(viewToken(),numParamFuncao); 
+                numParamFuncao=1;               
                 expr();
                 while(sinal(viewNext(),SN_virgula)){
                     getToken();
+                    numParamFuncao++;
                     expr();
+                    // printf("HEHEHHEHEHHEHEHE");                    
                 }
             }
             getToken();
+            printf("->->->->->->->-> %d <-<-<-<-<-<-<-<-\n",numParamFuncao);
+            verificaQuantidadeDeParametros(numParamFuncao);
+            // printf("fim da chamada fim da chamda fim da chamada\n");
             // printf("HEY IM HERE! => "); mostraTokens();
         }else{
             // all fine
+            printf("++++++++++++++++++++++++++++++++++++++++> %d\n",numParamFuncao);
+            if(numParamFuncao!=0)
+                verificadorDeTipos(viewToken(),numParamFuncao); 
+            // printf("NÂO È FUNÇÂO");
         }
     }else if(categoria(viewToken(),CAT_constanteInteira)){
         // all fine

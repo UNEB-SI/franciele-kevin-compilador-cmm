@@ -7,28 +7,34 @@ semretorno teste(caracter a){
 }
 
 inteiro teste2(booleano c){
+      caracter pp;
+      retorne c;
 
+      /*teste2(pp);*/
+
+
+/*
+      retorne teste(pp);*/
 }
 
 real pi(booleano p){
 
 }
 
+inteiro AQUIOH(semparam){
+      booleano variableNAME;
+      retorne variableNAME;
+}
+
 semretorno principal(semparam){
       inteiro num1,num2;
       booleano x;
       caracter k;
+      real shit;
       soma(num1,num1);
 
       teste(num1);
-      teste(k);/*
-      teste(x);
-      */pi(3);
-      /*pi(k);*/
-      teste(5);
-      teste2(teste2(0));
-      teste2(1);
-      teste2(2);
+
       
       
 }
@@ -36,5 +42,9 @@ semretorno principal(semparam){
 inteiro soma(inteiro a, inteiro b){
       inteiro resultado;
       resultado = a + b;
+
+      retorne;
       retorne resultado;
+      retorne soma(63,44);
+      retorne teste2(2);
 }

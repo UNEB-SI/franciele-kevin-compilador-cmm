@@ -121,6 +121,7 @@ void verificadorDeTipos(token token,int num_param){
     mostraTabela();
     switch(token.categoria){
         case CAT_id:
+            printf("********************************ID\n");
             tipo = verificaTipoTabelaDeSimbolos(ID_TABLE[token.codigo]);
             printf("%s :: %s | ",ID_TABLE[token.codigo],tabela_de_simbolos[id_funcao_atual].nome);
             printf("%s == %s?\n",tipoTS_nomes[tipo],tipoTS_nomes[tabela_de_simbolos[id_funcao_atual+num_param].tipo]);
@@ -143,6 +144,7 @@ void verificadorDeTipos(token token,int num_param){
             }
             break;
         case CAT_constanteInteira:
+            printf("********************************CI\n");
             if(
                 tipoTS_inteiro == tabela_de_simbolos[id_funcao_atual+num_param].tipo  ||
                 tipoTS_caracter == tabela_de_simbolos[id_funcao_atual+num_param].tipo ||
@@ -155,6 +157,7 @@ void verificadorDeTipos(token token,int num_param){
             else erroSem("Tipo incompativel na chamada da função");
             break;
         case CAT_constanteReal:
+            printf("********************************CR\n");
             if(
                 tipoTS_real == tabela_de_simbolos[id_funcao_atual+num_param].tipo &&
                 (
@@ -165,6 +168,7 @@ void verificadorDeTipos(token token,int num_param){
             else erroSem("Tipo incompativel na chamada da função");
             break;
         case CAT_constanteCaracter:
+            printf("********************************CC\n");
             if(
                 tipoTS_caracter == tabela_de_simbolos[id_funcao_atual+num_param].tipo ||
                 tipoTS_inteiro == tabela_de_simbolos[id_funcao_atual+num_param].tipo  &&
@@ -193,6 +197,58 @@ void verificaQuantidadeDeParametros(int num_param){
         erroSem("Quantidade de parametros incorreta em chamada de função");
     }
 }
+
+
+
+int id_corpo_de_funcao_atual(){
+    int i = topo_tabela_de_simbolos;
+    do{
+        i--;
+    }while(tabela_de_simbolos[i].categoria != categoriaTS_funcao);
+    return i;
+} 
+
+void trocaTipo(int novoTipo){
+    switch(tipoAtualUtilizado){
+        case -1:
+            tipoAtualUtilizado = novoTipo;
+            printf(">>>Definindo primeiro tipo como %s\n",tipoTS_nomes[novoTipo]);
+            break;
+        case tipoTS_booleano:
+            if(
+                novoTipo == tipoTS_booleano ||
+                novoTipo == tipoTS_inteiro
+            ){
+                printf(">>>Troca de tipo %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
+            }else erroSem("Expresão composta de tipos incompativeis");
+            break;
+        case tipoTS_caracter:
+            if(
+                novoTipo == tipoTS_caracter ||
+                novoTipo == tipoTS_inteiro
+            ){
+                printf(">>>Troca de tipo %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
+            }else erroSem("Expresão composta de tipos incompativeis");
+            break;
+        case tipoTS_inteiro:
+            if(
+                novoTipo == tipoTS_inteiro ||
+                novoTipo == tipoTS_caracter
+            ){
+                printf(">>>Troca de tipo %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
+            }else erroSem("Expresão composta de tipos incompativeis");
+            break;
+        case tipoTS_real:
+            if(
+                novoTipo == tipoTS_real
+            ){
+                printf(">>>Troca de tipo %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
+            }else erroSem("Expresão composta de tipos incompativeis");
+            break;
+    }
+}
+
+
 
 void erroSem(char * string){
     printf("Erro Semântico: %s\n", string);

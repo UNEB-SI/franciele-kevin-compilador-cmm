@@ -27,7 +27,8 @@ int contador_simbolos_globais = 0;
 int contador_simbolos_locais = 0;
 int inicio_escopo_funcao = 0;
 int id_funcao_atual = 0;
-int numParamFuncao = 1;
+int numParamFuncao = 0;
+int tipoAtualUtilizado = -1;
 
 
 enum tipoTS{
