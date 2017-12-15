@@ -563,6 +563,7 @@ void cmd(){
             if(sinal(viewNext(),SN_fechaParenteses)){
                 getToken();
                 verificaQuantidadeDeParametros(numParamFuncao);
+                numParamFuncao=0;
                 if(sinal(viewNext(),SN_pontoEVirgula)){
                     getToken();
                 }else erroSin("Esperado ponto e virgula");
@@ -801,24 +802,31 @@ void fator(){
             getToken();
             printf("->->->->->->->-> %d <-<-<-<-<-<-<-<-\n",numParamFuncao);
             verificaQuantidadeDeParametros(numParamFuncao);
+            numParamFuncao=0;
             // printf("fim da chamada fim da chamda fim da chamada\n");
             // printf("HEY IM HERE! => "); mostraTokens();
         }else{
             // all fine
-            printf("++++++++++++++++++++++++++++++++++++++++> %d\n",numParamFuncao);
+            // printf("++++++++++++++++++++++++++++++++++++++++> %d\n",numParamFuncao);
             if(numParamFuncao!=0)
                 verificadorDeTipos(viewToken(),numParamFuncao); 
             // printf("NÂO È FUNÇÂO");
         }
     }else if(categoria(viewToken(),CAT_constanteInteira)){
         // all fine
-        verificadorDeTipos(viewToken(),numParamFuncao);
+        // printf("++++++++++++++++++++++++++++++++++++++++> %d\n",numParamFuncao);
+        if(numParamFuncao!=0)
+            verificadorDeTipos(viewToken(),numParamFuncao);
     }else if(categoria(viewToken(),CAT_constanteReal)){
         // all fine
-        verificadorDeTipos(viewToken(),numParamFuncao);
+        printf("||||||||||||||||||||||||||||||||||||||||||||||||||||> %d\n",numParamFuncao);
+        if(numParamFuncao!=0)            
+            verificadorDeTipos(viewToken(),numParamFuncao);
     }else if(categoria(viewToken(),CAT_constanteCaracter)){
         // all fine
-        verificadorDeTipos(viewToken(),numParamFuncao);
+        // printf("++++++++++++++++++++++++++++++++++++++++> %d\n",numParamFuncao);
+        if(numParamFuncao!=0)
+            verificadorDeTipos(viewToken(),numParamFuncao);
     }else if(categoria(viewToken(),CAT_literal)){
         // all fine
     }else if (sinal(viewToken(),SN_abreParenteses)){

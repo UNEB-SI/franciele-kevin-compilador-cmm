@@ -43,8 +43,13 @@ inteiro soma(inteiro a, inteiro b){
       inteiro resultado;
       resultado = a + b;
 
-      retorne;
-      retorne resultado;
-      retorne soma(63,44);
-      retorne teste2(2);
+      resultado = 4 +88 +99;
+      resultado = 'k' +88 +99;
+      resultado = 4.90 +88 +999;
+      
+
+      resultado = 'k';
+
+
+      retorne 2+2;
 }
