@@ -1,55 +1,35 @@
 /* Sequencia de Fibonacci em Cmm - Recursivo */
 
-prototipo inteiro soma(inteiro a,inteiro b);
 
-semretorno teste(caracter a){
-      /*do nothing*/
-}
-
-inteiro teste2(booleano c){
-      caracter pp;
-      retorne c;
-
-      /*teste2(pp);*/
+prototipo inteiro soma(inteiro,inteiro);
 
 
-/*
-      retorne teste(pp);*/
-}
-
-real pi(booleano p){
-
-}
-
-inteiro AQUIOH(semparam){
-      booleano variableNAME;
-      retorne variableNAME;
-}
-
-semretorno principal(semparam){
-      inteiro num1,num2;
-      booleano x;
-      caracter k;
-      real shit;
-      soma(num1,num1);
-
-      teste(num1);
-
-      
-      
-}
 
 inteiro soma(inteiro a, inteiro b){
       inteiro resultado;
+      booleano x;
       resultado = a + b;
 
-      resultado = 4 +88 +99;
-      resultado = 'k' +88 +99;
-      resultado = 4.90 +88 +999;
+      resultado = 4 +11 ;
+      resultado = 'k'+33;
+      resultado = 1+2+3+4+5+7+8+9;
+      resultado = 43+ 33;
       
+      soma(4,3);
+
 
       resultado = 'k';
 
 
-      retorne 2+2;
+      retorne a+b;
+}
+
+
+semretorno vera(semparam){
+      booleano var1;
+      retorne ;
+}
+
+booleano cap(semparam){
+      retorne;
 }

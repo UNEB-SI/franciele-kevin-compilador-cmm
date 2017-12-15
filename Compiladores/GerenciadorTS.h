@@ -94,7 +94,7 @@ int armazenar_simbolo(int escopo,int categoria, int tipo, char nomeID[20]){
         tabela_de_simbolos[topo_tabela_de_simbolos].zumbi = false;
     }
     topo_tabela_de_simbolos++;
-    printf("armazenado --> ");
+    // printf("armazenado --> ");
     // mostraSimbolo(topo_tabela_de_simbolos-1);
 
     mostraTabela();

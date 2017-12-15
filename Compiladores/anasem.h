@@ -220,7 +220,10 @@ void trocaTipo(int novoTipo){
                 novoTipo == tipoTS_inteiro
             ){
                 printf(">>>Troca de tipo %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
-            }else erroSem("Expresão composta de tipos incompativeis");
+            }else{
+                printf(">>>INCOMPATiVEL %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
+                erroSem("Expresão composta de tipos incompativeis");
+            }
             break;
         case tipoTS_caracter:
             if(
@@ -228,22 +231,89 @@ void trocaTipo(int novoTipo){
                 novoTipo == tipoTS_inteiro
             ){
                 printf(">>>Troca de tipo %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
-            }else erroSem("Expresão composta de tipos incompativeis");
-            break;
+            }else{
+                printf(">>>INCOMPATiVEL %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
+                erroSem("Expresão composta de tipos incompativeis");
+            }break;
         case tipoTS_inteiro:
             if(
                 novoTipo == tipoTS_inteiro ||
                 novoTipo == tipoTS_caracter
             ){
                 printf(">>>Troca de tipo %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
-            }else erroSem("Expresão composta de tipos incompativeis");
-            break;
+            }else{
+                printf(">>>INCOMPATiVEL %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
+                erroSem("Expresão composta de tipos incompativeis");
+            }break;
         case tipoTS_real:
             if(
                 novoTipo == tipoTS_real
             ){
                 printf(">>>Troca de tipo %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
-            }else erroSem("Expresão composta de tipos incompativeis");
+            }else{
+                printf(">>>INCOMPATiVEL %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
+                erroSem("Expresão composta de tipos incompativeis");
+            }break;
+    }
+}
+
+void verificaTipoDeRetorno(){
+    switch(tabela_de_simbolos[id_corpo_de_funcao_atual()].tipo){
+        case tipoTS_semretorno:
+
+            if(
+                tipoAtualUtilizado == -1
+            ){
+            }else{
+                erroSem("tipo de retorno incompativel, Essa função não pode retornar valores");
+            }
+            // printf("RETORNO AEHO : %s\n",tabela_de_simbolos[id_corpo_de_funcao_atual()].nome);
+            // printf("NÂO TEM QUE RETORNAR NADA NESSA BAGAÇA\n");
+            // printf("SEM RETORNO == %s \n", tipoTS_nomes[tipoAtualUtilizado]);
+            break;
+        
+        case tipoTS_inteiro:
+            if(
+                tipoAtualUtilizado == tipoTS_inteiro ||
+                tipoAtualUtilizado == tipoTS_caracter
+            ){
+            }else{
+                erroSem("tipo de retorno incompativel, Esperado inteiro ou caracter");
+            }
+            // printf("RETORNO AEHO : %s\n",tabela_de_simbolos[id_corpo_de_funcao_atual()].nome);
+            // printf("INTEIRO == %s \n", tipoTS_nomes[tipoAtualUtilizado]);
+            break;
+        case tipoTS_real:
+            if(
+                tipoAtualUtilizado == tipoTS_real
+            ){
+            }else{
+                erroSem("tipo de retorno incompativel, Esperado real");
+            }
+            // printf("RETORNO AEHO : %s\n",tabela_de_simbolos[id_corpo_de_funcao_atual()].nome);
+            // printf("REAL == %s \n", tipoTS_nomes[tipoAtualUtilizado]);
+            break;
+        case tipoTS_caracter:
+            if(
+                tipoAtualUtilizado == tipoTS_caracter ||
+                tipoAtualUtilizado == tipoTS_inteiro
+            ){
+            }else{
+                erroSem("tipo de retorno incompativel, Esperado caracter ou inteiro");
+            }
+            // printf("RETORNO AEHO : %s\n",tabela_de_simbolos[id_corpo_de_funcao_atual()].nome);
+            // printf("CARACTER == %s \n", tipoTS_nomes[tipoAtualUtilizado]);
+            break;
+        case tipoTS_booleano:
+            if(
+                tipoAtualUtilizado == tipoTS_booleano ||
+                tipoAtualUtilizado == tipoTS_inteiro
+            ){
+            }else{
+                erroSem("tipo de retorno incompativel, Esperado booleano ou inteiro");
+            }
+            // printf("RETORNO AEHO : %s\n",tabela_de_simbolos[id_corpo_de_funcao_atual()].nome);
+            // printf("BOOLEANO == %s \n", tipoTS_nomes[tipoAtualUtilizado]);
             break;
     }
 }
