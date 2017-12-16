@@ -33,7 +33,7 @@ void verificaIDGlobalDuplicado(int id){
 
 void verificaIDLocalDuplicado(int id_inicio, int id){
     int i;
-    printf("------------------------------------inicio: %d\n",id_inicio);
+    // printf("------------------------------------inicio: %d\n",id_inicio);
     for(i=id_inicio;i<topo_tabela_de_simbolos;i++){
         if(i != id && !tabela_de_simbolos[i].sem_nome){
             if(
@@ -118,11 +118,11 @@ int verificaPosicaoTabelaDeSimbolos(char * nome){
 
 void verificadorDeTipos(token token,int num_param){
     int tipo;
-    printf("---------> %d\n",id_funcao_atual+num_param);
+    // printf("---------> %d\n",id_funcao_atual+num_param);
     mostraTabela();
     switch(token.categoria){
         case CAT_id:
-            printf("********************************ID\n");
+            // printf("********************************ID\n");
             tipo = verificaTipoTabelaDeSimbolos(ID_TABLE[token.codigo]);
             printf("%s :: %s | ",ID_TABLE[token.codigo],tabela_de_simbolos[id_funcao_atual].nome);
             printf("%s == %s?\n",tipoTS_nomes[tipo],tipoTS_nomes[tabela_de_simbolos[id_funcao_atual+num_param].tipo]);
@@ -136,16 +136,17 @@ void verificadorDeTipos(token token,int num_param){
             else{
                 if(
                     (
-                        tipo == tipoTS_inteiro && tabela_de_simbolos[id_funcao_atual+num_param].tipo == tipoTS_caracter ||
-                        tipo == tipoTS_caracter && tabela_de_simbolos[id_funcao_atual+num_param].tipo == tipoTS_inteiro
+                        tipo == tipoTS_inteiro && tabela_de_simbolos[id_funcao_atual+num_param].tipo == tipoTS_inteiro ||
+                        tipo == tipoTS_caracter && tabela_de_simbolos[id_funcao_atual+num_param].tipo == tipoTS_caracter
                     ) ||
                         tipo == tipoTS_inteiro && tabela_de_simbolos[id_funcao_atual+num_param].tipo == tipoTS_booleano
                 ) break;
-                erroSem("Tipo incompativel na chamada da função");
+                
+                erroSem("Tipo incompativel na chamada da função 4");
             }
             break;
         case CAT_constanteInteira:
-            printf("********************************CI\n");
+            // printf("********************************CI\n");
             if(
                 tipoTS_inteiro == tabela_de_simbolos[id_funcao_atual+num_param].tipo  ||
                 tipoTS_caracter == tabela_de_simbolos[id_funcao_atual+num_param].tipo ||
@@ -155,10 +156,10 @@ void verificadorDeTipos(token token,int num_param){
                     tabela_de_simbolos[id_funcao_atual+num_param].categoria == categoriaTS_parametro_prototipo
                 )
             );
-            else erroSem("Tipo incompativel na chamada da função");
+            else erroSem("Tipo incompativel na chamada da função 3");
             break;
         case CAT_constanteReal:
-            printf("********************************CR\n");
+            // printf("********************************CR\n");
             if(
                 tipoTS_real == tabela_de_simbolos[id_funcao_atual+num_param].tipo &&
                 (
@@ -166,10 +167,10 @@ void verificadorDeTipos(token token,int num_param){
                     tabela_de_simbolos[id_funcao_atual+num_param].categoria == categoriaTS_parametro_prototipo
                 )
             );
-            else erroSem("Tipo incompativel na chamada da função");
+            else erroSem("Tipo incompativel na chamada da função 2");
             break;
         case CAT_constanteCaracter:
-            printf("********************************CC\n");
+            // printf("********************************CC\n");
             if(
                 tipoTS_caracter == tabela_de_simbolos[id_funcao_atual+num_param].tipo ||
                 tipoTS_inteiro == tabela_de_simbolos[id_funcao_atual+num_param].tipo  &&
@@ -177,8 +178,8 @@ void verificadorDeTipos(token token,int num_param){
                     tabela_de_simbolos[id_funcao_atual+num_param].categoria == categoriaTS_parametro ||
                     tabela_de_simbolos[id_funcao_atual+num_param].categoria == categoriaTS_parametro_prototipo
                 )
-            );
-            else erroSem("Tipo incompativel na chamada da função");
+            ); 
+            else erroSem("Tipo incompativel na chamada da função 1");
             break;
     }
 }
@@ -190,7 +191,7 @@ void verificaQuantidadeDeParametros(int num_param){
             tabela_de_simbolos[i+1].categoria == categoriaTS_parametro ||
             tabela_de_simbolos[i+1].categoria == categoriaTS_parametro_prototipo
         ){
-        printf("verificando %d...\n",i);
+        // printf("verificando %d...\n",i);
         i++;
         contParam++;
     }

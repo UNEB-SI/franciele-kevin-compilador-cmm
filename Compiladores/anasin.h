@@ -552,7 +552,8 @@ void cmd(){
     }
     if(id(viewNext())){
         if(sinal(viewNextNext(),SN_abreParenteses)){
-            // printf("X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-\n");
+            printf("X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-X-\n");
+            printf("%d\n",numParamFuncao);
             verificaExistenciaDaFuncao(ID_TABLE[viewNext().codigo]);
             id_funcao_atual = verificaPosicaoTabelaDeSimbolos(ID_TABLE[viewNext().codigo]);
             numParamFuncao = 0;
@@ -648,15 +649,15 @@ void cmd(){
     else if(pr(viewNext(),retorne)){
         getToken();
         if(sinal(viewNext(),SN_pontoEVirgula)){
-            printf("<----------------------------------AQUI È RETORNO VAZIO\n");
+            // printf("<----------------------------------AQUI È RETORNO VAZIO\n");
             getToken();
             tipoAtualUtilizado = -1;
             possui_retorno = true;
             verificaTipoDeRetorno();
         }else{
-            printf("<----------------------------------AQUI TEM ALGO NO RETORNO\n");
+            // printf("<----------------------------------AQUI TEM ALGO NO RETORNO\n");
             expr();
-            printf("<----------------------------------AQUI VOLTOU HEIN\n");
+            // printf("<----------------------------------AQUI VOLTOU HEIN\n");
             getToken();
             if(sinal(viewToken(),SN_pontoEVirgula)){
                 possui_retorno = true;
@@ -690,6 +691,7 @@ void atrib(){
     }
     getToken();
     if(id(viewToken())){
+        trocaTipo(verificaTipoTabelaDeSimbolos(ID_TABLE[viewToken().codigo])); 
         getToken();
         if(sinal(viewToken(),SN_atribuicao)){
             expr();
@@ -697,7 +699,7 @@ void atrib(){
             erroSin("Esperado Sinal de igualdade"); // Esperado sinal de igualdade
         }
     }else{
-        erroSin("Esperando Identificador"); // esperado identificador
+        erroSin("Esperado Identificador"); // esperado identificador
     }
 }
 
@@ -783,12 +785,12 @@ void fator(){
 
             verificadorDeTipos(viewToken(),numParamFuncao); 
 
-            printf("-------------------->HERE %s\n",ID_TABLE[viewToken().codigo]);
+            // printf("-------------------->HERE %s\n",ID_TABLE[viewToken().codigo]);
             verificaExistenciaDaFuncao(ID_TABLE[viewToken().codigo]);
             id_funcao_atual = verificaPosicaoTabelaDeSimbolos(ID_TABLE[viewToken().codigo]);
             numParamFuncao = 0;
             // verificadorDeTipos(viewToken(),numParamFuncao); 
-            printf("O TIPO DA FUNÇÂO %s é %s",ID_TABLE[viewToken().codigo],tipoTS_nomes[verificaTipoTabelaDeSimbolos(ID_TABLE[viewToken().codigo])]);
+            // printf("O TIPO DA FUNÇÂO %s é %s",ID_TABLE[viewToken().codigo],tipoTS_nomes[verificaTipoTabelaDeSimbolos(ID_TABLE[viewToken().codigo])]);
             // printf("HERE IS A FUCKING FUNCKTION\n");
 
             // id_funcao_atual = verificaPosicaoTabelaDeSimbolos(ID_TABLE[viewNext().codigo]);
@@ -813,7 +815,7 @@ void fator(){
                 }
             }
             getToken();
-            printf("->->->->->->->-> %d <-<-<-<-<-<-<-<-\n",numParamFuncao);
+            // printf("->->->->->->->-> %d <-<-<-<-<-<-<-<-\n",numParamFuncao);
             verificaQuantidadeDeParametros(numParamFuncao);
             numParamFuncao=0;
             // printf("fim da chamada fim da chamda fim da chamada\n");
@@ -836,7 +838,7 @@ void fator(){
             trocaTipo(tipoTS_inteiro); 
     }else if(categoria(viewToken(),CAT_constanteReal)){
         // all fine
-        printf("||||||||||||||||||||||||||||||||||||||||||||||||||||> %d\n",numParamFuncao);
+        // printf("||||||||||||||||||||||||||||||||||||||||||||||||||||> %d\n",numParamFuncao);
         if(numParamFuncao!=0)            
             verificadorDeTipos(viewToken(),numParamFuncao);
         else

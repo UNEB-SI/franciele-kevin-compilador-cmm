@@ -27,22 +27,38 @@ semretorno minha2(semparam){
 
 
 semretorno soma(semparam) {
-    inteiro a, b;
+    inteiro a, b, x;
     x=a+b;
 }
 
 inteiro contagem(inteiro a, real b, booleano c){
-    retorne a;
+
+      a =b+c;
+      retorne a;
 }
 
 
 semretorno principal(semparam) {
 
       /*contagem(1,2.9,3);*/
+      se (a>4) {
+            a=b / 5;
+      }
+
+
 
       se (a>b) {
-      a=b / 5;
+            a=b / 5;
       }
+
+
+      a = contagem(1,2.33,1);
+      a = soma();
+
+      /*a = 4.3;*/
+
+
+
 /*
     enquanto ((c<=d) && (x>2)) t=t+1;
     para (x=1; x<y+100; x=x+2) i=i+10;
