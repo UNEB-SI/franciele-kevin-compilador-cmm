@@ -142,7 +142,7 @@ void verificadorDeTipos(token token,int num_param){
                         tipo == tipoTS_inteiro && tabela_de_simbolos[id_funcao_atual+num_param].tipo == tipoTS_booleano
                 ) break;
                 
-                erroSem("Tipo incompativel na chamada da função 4");
+                erroSem("Tipo incompativel na chamada da função");
             }
             break;
         case CAT_constanteInteira:
@@ -156,7 +156,7 @@ void verificadorDeTipos(token token,int num_param){
                     tabela_de_simbolos[id_funcao_atual+num_param].categoria == categoriaTS_parametro_prototipo
                 )
             );
-            else erroSem("Tipo incompativel na chamada da função 3");
+            else erroSem("Tipo incompativel na chamada da função");
             break;
         case CAT_constanteReal:
             // printf("********************************CR\n");
@@ -167,7 +167,7 @@ void verificadorDeTipos(token token,int num_param){
                     tabela_de_simbolos[id_funcao_atual+num_param].categoria == categoriaTS_parametro_prototipo
                 )
             );
-            else erroSem("Tipo incompativel na chamada da função 2");
+            else erroSem("Tipo incompativel na chamada da função");
             break;
         case CAT_constanteCaracter:
             // printf("********************************CC\n");
@@ -179,7 +179,7 @@ void verificadorDeTipos(token token,int num_param){
                     tabela_de_simbolos[id_funcao_atual+num_param].categoria == categoriaTS_parametro_prototipo
                 )
             ); 
-            else erroSem("Tipo incompativel na chamada da função 1");
+            else erroSem("Tipo incompativel na chamada da função");
             break;
     }
 }
