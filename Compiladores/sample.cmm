@@ -47,6 +47,12 @@ semretorno principal(semparam) {
             a=b / 5;
       }
 
+      se(
+            (a>b) ||
+            (5.2 == 5.2)
+      ){
+            retorne;
+      }
 
 
       enquanto ((c<=d) && (x>2))

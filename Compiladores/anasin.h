@@ -740,6 +740,10 @@ void expr_simp(){
         sinal(viewNext(),SN_ouCondicional)
     ){
         getToken();
+        if(sinal(viewToken(),SN_ouCondicional)){
+            tipoAtualUtilizado = -1;
+            // printf(" ||  ||  ||  ||  ||  ||  ||  ||  ||  ||  ||  || \n");
+        }
         termo();
     }
     if(debugSin){
@@ -761,6 +765,10 @@ void termo(){
         sinal(viewNext(),SN_eCondicional)
     ){
         getToken();
+        if(sinal(viewToken(),SN_eCondicional)){            
+            tipoAtualUtilizado = -1;
+            // printf(" &&  &&  &&  &&  &&  &&  &&  &&  &&  &&  &&  &&  &&  &&  &&  \n");
+        }
         fator();
     }
     if(debugSin){
