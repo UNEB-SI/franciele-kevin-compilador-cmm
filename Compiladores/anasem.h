@@ -214,16 +214,16 @@ void trocaTipo(int novoTipo){
     switch(tipoAtualUtilizado){
         case -1:
             tipoAtualUtilizado = novoTipo;
-            printf(">>>Definindo primeiro tipo como %s\n",tipoTS_nomes[novoTipo]);
+            // printf(">>>Definindo primeiro tipo como %s\n",tipoTS_nomes[novoTipo]);
             break;
         case tipoTS_booleano:
             if(
                 novoTipo == tipoTS_booleano ||
                 novoTipo == tipoTS_inteiro
             ){
-                printf(">>>Troca de tipo %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
+                // printf(">>>Troca de tipo %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
             }else{
-                printf(">>>INCOMPATiVEL %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
+                // printf(">>>INCOMPATiVEL %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
                 erroSem("Expresão composta de tipos incompativeis");
             }
             break;
@@ -232,9 +232,9 @@ void trocaTipo(int novoTipo){
                 novoTipo == tipoTS_caracter ||
                 novoTipo == tipoTS_inteiro
             ){
-                printf(">>>Troca de tipo %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
+                // printf(">>>Troca de tipo %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
             }else{
-                printf(">>>INCOMPATiVEL %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
+                // printf(">>>INCOMPATiVEL %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
                 erroSem("Expresão composta de tipos incompativeis");
             }break;
         case tipoTS_inteiro:
@@ -242,18 +242,18 @@ void trocaTipo(int novoTipo){
                 novoTipo == tipoTS_inteiro ||
                 novoTipo == tipoTS_caracter
             ){
-                printf(">>>Troca de tipo %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
+                // printf(">>>Troca de tipo %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
             }else{
-                printf(">>>INCOMPATiVEL %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
+                // printf(">>>INCOMPATiVEL %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
                 erroSem("Expresão composta de tipos incompativeis");
             }break;
         case tipoTS_real:
             if(
                 novoTipo == tipoTS_real
             ){
-                printf(">>>Troca de tipo %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
+                // printf(">>>Troca de tipo %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
             }else{
-                printf(">>>INCOMPATiVEL %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
+                // printf(">>>INCOMPATiVEL %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
                 erroSem("Expresão composta de tipos incompativeis");
             }break;
     }
