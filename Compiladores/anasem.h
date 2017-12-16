@@ -33,7 +33,6 @@ void verificaIDGlobalDuplicado(int id){
 
 void verificaIDLocalDuplicado(int id_inicio, int id){
     int i;
-    // printf("------------------------------------inicio: %d\n",id_inicio);
     for(i=id_inicio;i<topo_tabela_de_simbolos;i++){
         if(i != id && !tabela_de_simbolos[i].sem_nome){
             if(
@@ -50,7 +49,6 @@ void verificaIDLocalDuplicado(int id_inicio, int id){
 void verificaExistenciaDaFuncao(char * nomeFunc){
     int i;
     bool encontrado = false;
-    // printf(">>>>>>>>>>>>>>>>>>>>>.%s\n",nomeFunc);
 
     for(i=0;i<topo_tabela_de_simbolos;i++){
         if(
@@ -118,14 +116,10 @@ int verificaPosicaoTabelaDeSimbolos(char * nome){
 
 void verificadorDeTipos(token token,int num_param){
     int tipo;
-    // printf("---------> %d\n",id_funcao_atual+num_param);
     // mostraTabela();
     switch(token.categoria){
         case CAT_id:
-            // printf("********************************ID\n");
             tipo = verificaTipoTabelaDeSimbolos(ID_TABLE[token.codigo]);
-            // printf("%s :: %s | ",ID_TABLE[token.codigo],tabela_de_simbolos[id_funcao_atual].nome);
-            // printf("%s == %s?\n",tipoTS_nomes[tipo],tipoTS_nomes[tabela_de_simbolos[id_funcao_atual+num_param].tipo]);
             if(
                 tipo == tabela_de_simbolos[id_funcao_atual+num_param].tipo &&
                 (
@@ -146,7 +140,6 @@ void verificadorDeTipos(token token,int num_param){
             }
             break;
         case CAT_constanteInteira:
-            // printf("********************************CI\n");
             if(
                 tipoTS_inteiro == tabela_de_simbolos[id_funcao_atual+num_param].tipo  ||
                 tipoTS_caracter == tabela_de_simbolos[id_funcao_atual+num_param].tipo ||
@@ -159,7 +152,6 @@ void verificadorDeTipos(token token,int num_param){
             else erroSem("Tipo incompativel na chamada da função");
             break;
         case CAT_constanteReal:
-            // printf("********************************CR\n");
             if(
                 tipoTS_real == tabela_de_simbolos[id_funcao_atual+num_param].tipo &&
                 (
@@ -170,7 +162,6 @@ void verificadorDeTipos(token token,int num_param){
             else erroSem("Tipo incompativel na chamada da função");
             break;
         case CAT_constanteCaracter:
-            // printf("********************************CC\n");
             if(
                 tipoTS_caracter == tabela_de_simbolos[id_funcao_atual+num_param].tipo ||
                 tipoTS_inteiro == tabela_de_simbolos[id_funcao_atual+num_param].tipo  &&
@@ -191,7 +182,6 @@ void verificaQuantidadeDeParametros(int num_param){
             tabela_de_simbolos[i+1].categoria == categoriaTS_parametro ||
             tabela_de_simbolos[i+1].categoria == categoriaTS_parametro_prototipo
         ){
-        // printf("verificando %d...\n",i);
         i++;
         contParam++;
     }
@@ -214,16 +204,13 @@ void trocaTipo(int novoTipo){
     switch(tipoAtualUtilizado){
         case -1:
             tipoAtualUtilizado = novoTipo;
-            // printf(">>>Definindo primeiro tipo como %s\n",tipoTS_nomes[novoTipo]);
             break;
         case tipoTS_booleano:
             if(
                 novoTipo == tipoTS_booleano ||
                 novoTipo == tipoTS_inteiro
             ){
-                // printf(">>>Troca de tipo %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
             }else{
-                // printf(">>>INCOMPATiVEL %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
                 erroSem("Expresão composta de tipos incompativeis");
             }
             break;
@@ -232,9 +219,7 @@ void trocaTipo(int novoTipo){
                 novoTipo == tipoTS_caracter ||
                 novoTipo == tipoTS_inteiro
             ){
-                // printf(">>>Troca de tipo %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
             }else{
-                // printf(">>>INCOMPATiVEL %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
                 erroSem("Expresão composta de tipos incompativeis");
             }break;
         case tipoTS_inteiro:
@@ -242,18 +227,14 @@ void trocaTipo(int novoTipo){
                 novoTipo == tipoTS_inteiro ||
                 novoTipo == tipoTS_caracter
             ){
-                // printf(">>>Troca de tipo %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
             }else{
-                // printf(">>>INCOMPATiVEL %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
                 erroSem("Expresão composta de tipos incompativeis");
             }break;
         case tipoTS_real:
             if(
                 novoTipo == tipoTS_real
             ){
-                // printf(">>>Troca de tipo %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
             }else{
-                // printf(">>>INCOMPATiVEL %s -> %s\n",tipoTS_nomes[tipoAtualUtilizado],tipoTS_nomes[novoTipo]);
                 erroSem("Expresão composta de tipos incompativeis");
             }break;
     }
@@ -269,8 +250,6 @@ void verificaTipoDeRetorno(){
             }else{
                 erroSem("tipo de retorno incompativel, Essa função não pode retornar valores");
             }
-            // printf("RETORNO AEHO : %s\n",tabela_de_simbolos[id_corpo_de_funcao_atual()].nome);
-            // printf("SEM RETORNO == %s \n", tipoTS_nomes[tipoAtualUtilizado]);
             break;
 
         case tipoTS_inteiro:
@@ -281,8 +260,6 @@ void verificaTipoDeRetorno(){
             }else{
                 erroSem("tipo de retorno incompativel, Esperado inteiro ou caracter");
             }
-            // printf("RETORNO AEHO : %s\n",tabela_de_simbolos[id_corpo_de_funcao_atual()].nome);
-            // printf("INTEIRO == %s \n", tipoTS_nomes[tipoAtualUtilizado]);
             break;
         case tipoTS_real:
             if(
@@ -291,8 +268,6 @@ void verificaTipoDeRetorno(){
             }else{
                 erroSem("tipo de retorno incompativel, Esperado real");
             }
-            // printf("RETORNO AEHO : %s\n",tabela_de_simbolos[id_corpo_de_funcao_atual()].nome);
-            // printf("REAL == %s \n", tipoTS_nomes[tipoAtualUtilizado]);
             break;
         case tipoTS_caracter:
             if(
@@ -302,8 +277,6 @@ void verificaTipoDeRetorno(){
             }else{
                 erroSem("tipo de retorno incompativel, Esperado caracter ou inteiro");
             }
-            // printf("RETORNO AEHO : %s\n",tabela_de_simbolos[id_corpo_de_funcao_atual()].nome);
-            // printf("CARACTER == %s \n", tipoTS_nomes[tipoAtualUtilizado]);
             break;
         case tipoTS_booleano:
             if(
@@ -313,15 +286,12 @@ void verificaTipoDeRetorno(){
             }else{
                 erroSem("tipo de retorno incompativel, Esperado booleano ou inteiro");
             }
-            // printf("RETORNO AEHO : %s\n",tabela_de_simbolos[id_corpo_de_funcao_atual()].nome);
-            // printf("BOOLEANO == %s \n", tipoTS_nomes[tipoAtualUtilizado]);
             break;
     }
 }
 
 
 void verificaRetornoObrigatorio(){
-    // printf("+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+-+%s %s\n",tabela_de_simbolos[id_corpo_de_funcao_atual()].nome, possui_retorno? "SIM": "NÂO");
     if(
         tabela_de_simbolos[id_corpo_de_funcao_atual()].tipo == tipoTS_semretorno
     ){
@@ -361,11 +331,6 @@ void verificaPrototipoCompativelComFuncao(){
                 tabela_de_simbolos[i].categoria == categoriaTS_parametro ||
                 tabela_de_simbolos[j].categoria == categoriaTS_parametro_prototipo 
             ){
-            // printf("verificando %d...\n",i);
-            // printf(" %s:%s == %s:%s ?\n",    tipoTS_nomes[tabela_de_simbolos[i].tipo],
-            //                             categoriaTS_nomes[tabela_de_simbolos[i].categoria],
-            //                             tipoTS_nomes[tabela_de_simbolos[j].tipo],
-            //                             categoriaTS_nomes[tabela_de_simbolos[j].categoria]);
 
             if(
                 tabela_de_simbolos[i].categoria == categoriaTS_parametro &&
@@ -381,17 +346,10 @@ void verificaPrototipoCompativelComFuncao(){
                 erroSin("Conlito entre os tipos dos parametros da assinatura os tipos dos parametros da função");
             }
 
-
-
             i++;
             j++;
-            // contParam++;
         }
     }
-    // printf("f%d p%d\n",fn_id,pro_id);
-    // printf("funcao %s %s prototipo\n",tabela_de_simbolos[fn_id].nome,pro_id == -1? "não tem":"tem");
-
-    // printf("\n");
 }
 
 void erroSem(char * string){

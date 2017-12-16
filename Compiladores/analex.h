@@ -334,36 +334,9 @@ void mostraTokens(){
 
 
 float converteStringParaReal(char string[]){
-    // char parteInteira[100];
-    // char parteDecimal[100];
-    // parteInteira[0] = '\0';
-    // parteDecimal[0] = '\0';
-    // float pi = 0;
-    // float pd = 0;
-    // float retorno=0;
-
-    // bool depoisDoPonto = false;
-    // int i;
-    // for(i=0; string[i]!='\0' ;i++){
-    //     if(string[i]=='.') depoisDoPonto= true;
-    //     else{
-    //         if(depoisDoPonto){
-    //             sprintf(parteDecimal,"%s%c",parteDecimal,string[i]);
-    //         }else{ // antes do ponto
-    //             sprintf(parteInteira,"%s%c",parteInteira,string[i]);
-    //         }
-    //     }
-    // }
-
-    // pi = atof(parteInteira);
-    // pd = atof(parteDecimal);
-    // retorno = pi + ( pd * pow(0.1,strlen(parteDecimal)) );
-
+ 
     printf("-> %f",atof(string));
     return atof(string);
-    //printf("%s %s %f %f %f %d\n", parteInteira, parteDecimal, pi, pd, retorno, strlen(parteDecimal));
-
-    // return retorno;
 }
 
 void mensagemDeErro(FILE* fp,char c,int linha,int coluna){
@@ -395,10 +368,7 @@ token analex(FILE *fp){
     while( !finalDeArquivo ){
         charEntrada = fgetc(fp);
 
-        //printf("%c",charEntrada);
-        //printf("estado atual %d\tlendo char '%c'\n",estado,charEntrada);
-
-        //printf(":%d:%d ->'%c'\n",linha,coluna,charEntrada);
+        
         switch(estado){
             case 0: if(debug){printf("E:%d  B:%s\n",estado,buffer);} //INICIAL
                 // abre chaves
@@ -575,7 +545,7 @@ token analex(FILE *fp){
                 break;
             case 11:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
 
-                // printf("(COMENTARIO)\n");
+                
                 ungetc(charEntrada, fp);
                 coluna--;
                 estado = 0;
@@ -601,7 +571,6 @@ token analex(FILE *fp){
                 break;
             case 14:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
                 if(ehPalavraReservada(buffer)){
-                    // printf("<TOKEN: PR, %s>\n",buffer);
 
                     returnToken.categoria = CAT_palavraReservada;
                     returnToken.codigo = numeroEnumPalavraReservada(buffer);
@@ -633,7 +602,6 @@ token analex(FILE *fp){
                 }
                 break;
             case 16:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
-                // printf("<TOKEN: CI, %s>\n",buffer);
                 CT_I_TABLE[CT_I_TABLE_TOPO]= atoi(buffer);
                 returnToken.categoria = CAT_constanteInteira;
                 returnToken.codigo = CT_I_TABLE_TOPO;
@@ -662,7 +630,6 @@ token analex(FILE *fp){
                 }
                 break;
             case 19:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
-                // printf("<TOKEN: CR, %s>\n",buffer);
                 CT_R_TABLE[CT_R_TABLE_TOPO]=  atof(buffer); // converteStringParaReal(buffer);
                 returnToken.categoria = CAT_constanteReal;
                 returnToken.codigo = CT_R_TABLE_TOPO;
@@ -690,8 +657,7 @@ token analex(FILE *fp){
                 }else mensagemDeErro(fp,charEntrada,linha,coluna);
                 break;
             case 22:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
-                // printf("<TOKEN: LT, \"%s\">\n",buffer);
-                // printf("22->>%s %c\n", buffer, buffer[0]);
+                
                 strcpy(LT[LT_TOPO],buffer);
                 returnToken.categoria = CAT_literal;
                 returnToken.codigo = LT_TOPO;
@@ -717,8 +683,7 @@ token analex(FILE *fp){
                 }else mensagemDeErro(fp,charEntrada,linha,coluna);
                 break;
             case 25:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
-                // printf("<TOKEN: CC, '%s'>\n",buffer);
-                // printf("25->>%s %c\n", buffer, buffer[0]);
+                
                 CT_C_TABLE[CT_C_TABLE_TOPO]= buffer[0];
                 returnToken.categoria = CAT_constanteCaracter;
                 returnToken.codigo = CT_C_TABLE_TOPO;
@@ -876,7 +841,6 @@ token analex(FILE *fp){
             case 42:if(debug){printf("E:%d  B:%s\n",estado,buffer);}
                 //EOF
                 returnToken.categoria = CAT_fimDeArquivo;
-                // printf("((EOF))\n");
 
                 finalDeArquivo = true;
                 return returnToken;
@@ -938,7 +902,7 @@ token analex(FILE *fp){
                 }else mensagemDeErro(fp,charEntrada,linha,coluna);
                 break;
             case 51:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
-                // printf("<TOKEN: CC, '%s'>\n",buffer);
+                
                 buffer[0] = '\0';
 
                 ungetc(charEntrada, fp);
@@ -947,7 +911,7 @@ token analex(FILE *fp){
                 return returnToken;
                 break;
             case 52:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
-                // printf("<TOKEN: CC, '%s'>\n",buffer);
+                
                 buffer[0] = '\0';
 
                 ungetc(charEntrada, fp);
@@ -956,7 +920,7 @@ token analex(FILE *fp){
                 return returnToken;
                 break;
             case 53:if(debug){printf("E:%d  B:%s\n",estado,buffer);} //FINAL
-                // printf("<TOKEN: CC, '%s'>\n",buffer);
+                
                 buffer[0] = '\0';
 
                 ungetc(charEntrada, fp);

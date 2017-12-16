@@ -92,8 +92,7 @@ int armazenar_simbolo(int escopo,int categoria, int tipo, char nomeID[20]){
     }
     
     topo_tabela_de_simbolos++;
-    // printf("armazenado --> ");
-    // mostraSimbolo(topo_tabela_de_simbolos-1);
+    
 
     // mostraTabela();
     if(escopo == escopoTS_global){
@@ -102,9 +101,7 @@ int armazenar_simbolo(int escopo,int categoria, int tipo, char nomeID[20]){
         verificaIDLocalDuplicado(inicio_escopo_funcao,topo_tabela_de_simbolos-1);
     }
 
-    // if(escopo == escopoTS_global && categoria == categoriaTS_funcao)
-        // id_funcao_atual = topo_tabela_de_simbolos-1;
-
+  
 
     return topo_tabela_de_simbolos-1;
 }
@@ -136,13 +133,13 @@ void mostraTabela(){
 
 
 void limparSimbolosLocais(int i){
-    // printf("LIMPANDO OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO %d\n",i);
-    // printf("%d\n",id_corpo_de_funcao_atual());
+    
+    
     topo_tabela_de_simbolos = i;
 
     i = id_corpo_de_funcao_atual() +1;
     while(i!=topo_tabela_de_simbolos){
-        // printf(">>%d\n",i);
+        
         tabela_de_simbolos[i].zumbi = true;
         i++;
     }

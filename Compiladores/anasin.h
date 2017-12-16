@@ -42,18 +42,10 @@ void getToken(){
         // tokenProx = analex(fp);
         tokenNaoInicializados = false;
     }else{
-        // printf("não é a primeira chamada\n");
         tokenAtual = tokenProx;
         tokenProx = tokenProxProx;
         tokenProxProx = analex(fp);
     }
-    // tokenAtual = analex(fp);
-
-    // printf("TOKEN ATUAL");mostraToken(viewToken());
-    // printf("TOKEN PROX");mostraToken(viewNext());
-    // printf("TOKEN PROXPROX");mostraToken(viewNextNext());
-
-    // mostraTokens();
 }
 
 token viewToken(){
@@ -92,8 +84,6 @@ bool sinal(token token, int sinal){
 // ok
 bool id(token token){
     if( token.categoria == CAT_id){
-        // printf("HEEEEY");
-        // mostraToken(token);
         return true;
     }else{
         return false;
@@ -177,13 +167,13 @@ void prog(){
     int temp_tipo = 0;
     int temp_id = -1;
     do{
-        // printf("------------------------------------------------------------------------------------\n");
+        
         getToken();
         if(pr(viewToken(),prototipo)){
-            // printf("Prototipo\n");
+            
             getToken();
             if(tipo(viewToken())){
-                // printf("XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX\n");
+                
                 armazenar_simbolo(escopoTS_global,categoriaTS_prototipo,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
                 temp_tipo = checar_tipoTS(viewToken());
                 getToken();
@@ -197,7 +187,7 @@ void prog(){
                                 getToken();
                                 armazenar_simbolo(escopoTS_global,categoriaTS_prototipo,temp_tipo, ID_TABLE[viewNext().codigo]);
 
-                                // printf("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP\n");
+                                
 
                                 if(id(viewNext())){
                                     getToken();
@@ -221,8 +211,8 @@ void prog(){
                     }else erroSin("Esperado abre parenteses");
                 }else erroSin("Esperado identificador");
             }else if(pr(viewToken(),semretorno)){
-                // printf("sem retorno");
-                // printf("LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLll\n");
+                
+                
                 armazenar_simbolo(escopoTS_global,categoriaTS_prototipo,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
                 temp_tipo = checar_tipoTS(viewToken());
                 getToken();
@@ -234,7 +224,7 @@ void prog(){
                             getToken();
                             while(sinal(viewNext(),SN_virgula)){
                                 getToken();
-                                // printf("PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP\n");
+                                
                                 armazenar_simbolo(escopoTS_global,categoriaTS_prototipo,temp_tipo, ID_TABLE[viewNext().codigo]);
                                 if(id(viewNext())){
                                     getToken();
@@ -262,39 +252,36 @@ void prog(){
             }
 
         }else if(tipo(viewToken())){
-            // printf("TIPO\n");
-            // printf("1->"); mostraTokens();
-            // printf("HALOO WOrLD\n");
-            // if( tipo(viewToken()) && id(viewNext()) ){
-            //     armazenar_simbolo(escopoTS_global,categoriaTS_funcao,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
-            // }
+            
+            
+            
             temp_tipo = checar_tipoTS(viewToken());
 
             getToken();
-            // printf("Franciele\n");
+            
             if(id(viewToken())){
-                // printf("franciele 2\n");
-                // printf("2->"); mostraTokens();
-                // printf("KKKKKKKKKkkKKKKKKKKkkkkkkkkkkkkkkkkkkkkkkkkkkkkkkk\n");
+                
+                
+                
                 if(sinal(viewNext(),SN_abreParenteses)){
 
                     armazenar_simbolo(escopoTS_global,categoriaTS_funcao,temp_tipo , ID_TABLE[viewToken().codigo]);
 
                     getToken();
-                    // printf("3->"); mostraTokens();
-                    // printf("HERE=>"); mostraTokens();
+                    
+                    
                     tipos_param();
-                    // printf("4->"); mostraTokens();
-                    // printf("OUTT=>"); mostraTokens();
+                    
+                    
                     getToken();
                     if(sinal(viewToken(),SN_fechaParenteses)){
                     }else erroSin("Esperado Fecha Parenteses");
-                    // printf("5->"); mostraTokens();
+                    
                     getToken();
                     if(sinal(viewToken(),SN_abreChaves)){
                     }else erroSin("Esperado Abre Chaves");
 
-                    // printf("6->"); mostraTokens();
+                    
                     // mostraTokens();
                     temp_id = topo_tabela_de_simbolos;
                     while(tipo(viewNext())){
@@ -303,46 +290,46 @@ void prog(){
                             armazenar_simbolo(escopoTS_local,categoriaTS_variavel,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
                             temp_tipo = checar_tipoTS(viewToken());
                         }
-                        // printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n");
+                        
                         if(id(viewNext())){
                             getToken();
                         }else erroSin("Esperado identificador");
-                        // printf("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB\n");
+                        
 
                         while(sinal(viewNext(),SN_virgula)){
                             getToken();
                             if( id(viewNext() ) ){
                                 armazenar_simbolo(escopoTS_local,categoriaTS_variavel,temp_tipo , ID_TABLE[viewNext().codigo]);
                             }
-                            // printf("AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA\n");
+                            
                             if(id(viewNext())){
                                 getToken();
                             }else erroSin("Esperaro identificador");
-                            // printf("BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB\n");
+                            
                         }
-                        // printf("=>"); mostraTokens();
+                        
                         if(sinal(viewNext(),SN_pontoEVirgula)){
                             getToken();
                         }else erroSin("Esperado ponto e virgula");
                     }
-                    // printf("7->"); mostraTokens();
+                    
 
                     while(!sinal(viewNext(),SN_fechaChaves)){
-                        // printf("7.1->"); mostraTokens();
+                        
                         cmd();
                         tipoAtualUtilizado = -1;
-                        // printf("7.2->"); mostraTokens();
+                        
                         // getToken();
-                        // printf("7.3->"); mostraTokens();
+                        
                     }
                     limparSimbolosLocais(temp_id);
                     verificaRetornoObrigatorio();
                     possui_retorno = false;
-                    // printf("THE END FOLKS\n");
+                    
                     
                     // mostraTabela();
                     getToken();
-                    // printf("8->"); mostraTokens();
+                    
 
 
                     // if(sinal(viewNext(),SN_fechaChaves)){
@@ -359,24 +346,24 @@ void prog(){
                     armazenar_simbolo(escopoTS_global,categoriaTS_variavel,temp_tipo , ID_TABLE[viewToken().codigo]);
                     while(sinal(viewNext(),SN_virgula)){
                         getToken();
-                        // printf("HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH\n");
+                        
                         if(id(viewNext())){
                             getToken();
                             armazenar_simbolo(escopoTS_global,categoriaTS_variavel,temp_tipo , ID_TABLE[viewToken().codigo]);
                         }else erroSin("Esperado identificador");
-                        // printf("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY\n");
+                        
                     }
                     if(sinal(viewNext(),SN_pontoEVirgula)){
                         getToken();
                     }else erroSin("Esperado Ponto e virgula");
                 }
-                // printf("FFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFFF\n");
+                
 
             }else erroSin("Esperado identificador");
 
         }else if(pr(viewToken(),semretorno)){
-            // printf("Sem Retorno\n");
-            // printf("ssssssssssssssssssssssssssssssssssssssss\n");
+            
+            
             if(pr(viewToken(),semretorno) && id(viewNext())){
                 armazenar_simbolo(escopoTS_global,categoriaTS_funcao,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
             }
@@ -394,7 +381,7 @@ void prog(){
                             temp_id = topo_tabela_de_simbolos;
                             while(tipo(viewNext())){
                                 getToken(); // no need to check, because the while will do for you
-                                // printf("IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\n");
+                                
                                 armazenar_simbolo(escopoTS_local,categoriaTS_variavel,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
                                 temp_tipo = checar_tipoTS(viewToken());
                                 if(id(viewNext())){
@@ -402,14 +389,14 @@ void prog(){
                                 }else erroSin("Esperado identificador");
                                 while(sinal(viewNext(),SN_virgula)){
                                     getToken();
-                                    // printf("QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ\n");
+                                    
                                     armazenar_simbolo(escopoTS_local,categoriaTS_variavel,temp_tipo , ID_TABLE[viewNext().codigo]);
 
                                     if(id(viewNext())){
                                         getToken();
                                     }else erroSin("Esperaro identificador");
                                 }
-                                // printf("=>"); mostraTokens();
+                                
                                 if(sinal(viewNext(),SN_pontoEVirgula)){
                                     getToken();
                                 }else erroSin("Esperado ponto e virgula");
@@ -419,7 +406,7 @@ void prog(){
                                 cmd();
                                 tipoAtualUtilizado = -1;
                             }
-                            // printf("THERE IS ANOTHER END\n");
+                            
 
                             verificaRetornoObrigatorio();
                             possui_retorno = false;
@@ -453,7 +440,7 @@ void tipos_param(){
     if(pr(viewToken(),semparam)){
         // ALL FINE DUDE
     }else if(tipo(viewToken())){
-        // printf("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY\n");
+        
         // verificaPrototipoCompativelComFuncao();
         inicio_escopo_funcao=topo_tabela_de_simbolos;
         armazenar_simbolo(escopoTS_local,categoriaTS_parametro,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
@@ -465,7 +452,7 @@ void tipos_param(){
                     if(sinal(viewNext(),SN_virgula)) getToken();
                     getToken();
                     if(tipo(viewToken())){
-                        // printf("CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC\n");
+                        
                         armazenar_simbolo(escopoTS_local,categoriaTS_parametro,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
                         getToken();
                         if(id(viewToken())){
@@ -501,9 +488,9 @@ void tipos_p_opc(){
     if(pr(viewToken(),semparam)){
         //all fine
     }else if(tipo(viewToken())){
-        // printf("1=>"); mostraTokens();
+        
         // getToken();
-        // printf("121233333333333333333333333333333333333333333333333333\n");
+        
         // verificaPrototipoCompativelComFuncao();
         inicio_escopo_funcao=topo_tabela_de_simbolos;
         if(id(viewNext())){
@@ -511,26 +498,26 @@ void tipos_p_opc(){
             getToken();
         }else{
             armazenar_simbolo(escopoTS_local,categoriaTS_parametro_prototipo,checar_tipoTS(viewToken()) , "");
-            // printf("111111111111111111111111111111111111111111111111111111111111");
+            
         }
-        // printf("444444444444444444444444444444444444444444444444444\n");
-        // printf("2\n");
+        
+        
         if(sinal(viewNext(),SN_virgula)){
             do{
                 getToken();
-                // printf("4\n");
+                
                 if(sinal(viewNext(),SN_virgula)) getToken();
 
                 if(tipo(viewNext())){
-                    // printf("3\n");
+                    
                     getToken();
-                    // printf("-> -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> -> \n");
+                    
                     if(id(viewNext())){
                         armazenar_simbolo(escopoTS_local,categoriaTS_parametro_prototipo,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
                         getToken();
                     }else{
                         armazenar_simbolo(escopoTS_local,categoriaTS_parametro_prototipo,checar_tipoTS(viewToken()) , "");
-                        // printf("222222222222222222222222222222222222222222222222222222");
+                        
                     }
 
 
@@ -590,9 +577,9 @@ void cmd(){
         getToken();
         getToken();
         if(sinal(viewToken(),SN_abreParenteses)){
-            // printf("ENTER==>"); mostraTokens();
+            
             expr();
-            // printf("EXIT==>"); mostraTokens();
+            
             getToken();
             if(sinal(viewToken(),SN_fechaParenteses)){
                 // all fine
@@ -610,9 +597,9 @@ void cmd(){
         getToken();
         getToken();
         if(sinal(viewToken(),SN_abreParenteses)){
-            // printf("ENTER==>"); mostraTokens();
+            
             expr();
-            // printf("EXIT==>"); mostraTokens();
+            
             getToken();
             if(sinal(viewToken(),SN_fechaParenteses)){
                 // all fine
@@ -651,15 +638,15 @@ void cmd(){
     else if(pr(viewNext(),retorne)){
         getToken();
         if(sinal(viewNext(),SN_pontoEVirgula)){
-            // printf("<----------------------------------AQUI È RETORNO VAZIO\n");
+            
             getToken();
             tipoAtualUtilizado = -1;
             possui_retorno = true;
             verificaTipoDeRetorno();
         }else{
-            // printf("<----------------------------------AQUI TEM ALGO NO RETORNO\n");
+            
             expr();
-            // printf("<----------------------------------AQUI VOLTOU HEIN\n");
+            
             getToken();
             if(sinal(viewToken(),SN_pontoEVirgula)){
                 possui_retorno = true;
@@ -744,7 +731,7 @@ void expr_simp(){
         getToken();
         if(sinal(viewToken(),SN_ouCondicional)){
             tipoAtualUtilizado = -1;
-            // printf(" ||  ||  ||  ||  ||  ||  ||  ||  ||  ||  ||  || \n");
+            
         }
         termo();
     }
@@ -769,7 +756,7 @@ void termo(){
         getToken();
         if(sinal(viewToken(),SN_eCondicional)){            
             tipoAtualUtilizado = -1;
-            // printf(" &&  &&  &&  &&  &&  &&  &&  &&  &&  &&  &&  &&  &&  &&  &&  \n");
+            
         }
         fator();
     }
@@ -795,13 +782,13 @@ void fator(){
 
             verificadorDeTipos(viewToken(),numParamFuncao); 
 
-            // printf("-------------------->HERE %s\n",ID_TABLE[viewToken().codigo]);
+            
             verificaExistenciaDaFuncao(ID_TABLE[viewToken().codigo]);
             id_funcao_atual = verificaPosicaoTabelaDeSimbolos(ID_TABLE[viewToken().codigo]);
             numParamFuncao = 0;
             // verificadorDeTipos(viewToken(),numParamFuncao); 
-            // printf("O TIPO DA FUNÇÂO %s é %s",ID_TABLE[viewToken().codigo],tipoTS_nomes[verificaTipoTabelaDeSimbolos(ID_TABLE[viewToken().codigo])]);
-            // printf("HERE IS A FUCKING FUNCKTION\n");
+            
+            
 
             // id_funcao_atual = verificaPosicaoTabelaDeSimbolos(ID_TABLE[viewNext().codigo]);
             // verificadorDeTipos(viewToken(),numParamFuncao);
@@ -813,7 +800,7 @@ void fator(){
             }else{
                 // expr
                 // NOT TESTED     
-                // printf(">%s<\n",viewToken())           
+                
                 // verificadorDeTipos(viewToken(),numParamFuncao); 
                 numParamFuncao=1;               
                 expr();
@@ -821,34 +808,34 @@ void fator(){
                     getToken();
                     numParamFuncao++;
                     expr();
-                    // printf("HEHEHHEHEHHEHEHE");                    
+                    
                 }
             }
             getToken();
-            // printf("->->->->->->->-> %d <-<-<-<-<-<-<-<-\n",numParamFuncao);
+            
             verificaQuantidadeDeParametros(numParamFuncao);
             numParamFuncao=0;
-            // printf("fim da chamada fim da chamda fim da chamada\n");
-            // printf("HEY IM HERE! => "); mostraTokens();
+            
+            
         }else{
             // all fine
-            // printf("++++++++++++++++++++++++++++++++++++++++> %d\n",numParamFuncao);
+            
             if(numParamFuncao!=0)
                 verificadorDeTipos(viewToken(),numParamFuncao);
             else
                 trocaTipo(verificaTipoTabelaDeSimbolos(ID_TABLE[viewToken().codigo])); 
-            // printf("NÂO È FUNÇÂO");
+            
         }
     }else if(categoria(viewToken(),CAT_constanteInteira)){
         // all fine
-        // printf("++++++++++++++++++++++++++++++++++++++++> %d\n",numParamFuncao);
+        
         if(numParamFuncao!=0)
             verificadorDeTipos(viewToken(),numParamFuncao);
         else
             trocaTipo(tipoTS_inteiro); 
     }else if(categoria(viewToken(),CAT_constanteReal)){
         // all fine
-        // printf("||||||||||||||||||||||||||||||||||||||||||||||||||||> %d\n",numParamFuncao);
+        
         if(numParamFuncao!=0)            
             verificadorDeTipos(viewToken(),numParamFuncao);
         else
@@ -856,7 +843,7 @@ void fator(){
 
     }else if(categoria(viewToken(),CAT_constanteCaracter)){
         // all fine
-        // printf("++++++++++++++++++++++++++++++++++++++++> %d\n",numParamFuncao);
+        
         if(numParamFuncao!=0)
             verificadorDeTipos(viewToken(),numParamFuncao);
         else
