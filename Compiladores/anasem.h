@@ -119,7 +119,7 @@ int verificaPosicaoTabelaDeSimbolos(char * nome){
 void verificadorDeTipos(token token,int num_param){
     int tipo;
     // printf("---------> %d\n",id_funcao_atual+num_param);
-    mostraTabela();
+    // mostraTabela();
     switch(token.categoria){
         case CAT_id:
             // printf("********************************ID\n");
@@ -270,7 +270,6 @@ void verificaTipoDeRetorno(){
                 erroSem("tipo de retorno incompativel, Essa função não pode retornar valores");
             }
             // printf("RETORNO AEHO : %s\n",tabela_de_simbolos[id_corpo_de_funcao_atual()].nome);
-            // printf("NÂO TEM QUE RETORNAR NADA NESSA BAGAÇA\n");
             // printf("SEM RETORNO == %s \n", tipoTS_nomes[tipoAtualUtilizado]);
             break;
 
@@ -330,8 +329,69 @@ void verificaRetornoObrigatorio(){
     }else if(!possui_retorno){
         erroSem("Faltado retorno na função");
     }
+}
+
+void verificaPrototipoCompativelComFuncao(){
+
+    int fn_id = id_corpo_de_funcao_atual();
+    if(fn_id == -1) return;
+    int pro_id = -1;
+    int i,j;
+
+    for(i=0;i<topo_tabela_de_simbolos;i++){
+        if(
+            tabela_de_simbolos[i].escopo == escopoTS_global &&
+            tabela_de_simbolos[i].categoria == categoriaTS_prototipo &&
+            !strcmp(tabela_de_simbolos[i].nome,tabela_de_simbolos[fn_id].nome)
+        ){
+            pro_id = i;
+        }
+    }
+
+    if(pro_id != -1){
+
+        if(
+            tabela_de_simbolos[fn_id].tipo != tabela_de_simbolos[pro_id].tipo
+        ) erroSin("Conlito entre o retorno da assinatura e o retorno da função");
 
 
+        i = fn_id+1;
+        j = pro_id+1;
+        while(
+                tabela_de_simbolos[i].categoria == categoriaTS_parametro ||
+                tabela_de_simbolos[j].categoria == categoriaTS_parametro_prototipo 
+            ){
+            // printf("verificando %d...\n",i);
+            // printf(" %s:%s == %s:%s ?\n",    tipoTS_nomes[tabela_de_simbolos[i].tipo],
+            //                             categoriaTS_nomes[tabela_de_simbolos[i].categoria],
+            //                             tipoTS_nomes[tabela_de_simbolos[j].tipo],
+            //                             categoriaTS_nomes[tabela_de_simbolos[j].categoria]);
+
+            if(
+                tabela_de_simbolos[i].categoria == categoriaTS_parametro &&
+                tabela_de_simbolos[j].categoria == categoriaTS_parametro_prototipo &&
+                tabela_de_simbolos[i].tipo == tabela_de_simbolos[j].tipo
+            ){
+                // allmost fine
+                if(
+                    tabela_de_simbolos[j].sem_nome == false &&
+                     strcmp(tabela_de_simbolos[i].nome,tabela_de_simbolos[j].nome)
+                )erroSin("Conlito entre os nomes dos parametros da assinatura os nomes dos parametros da função");
+            }else{
+                erroSin("Conlito entre os tipos dos parametros da assinatura os tipos dos parametros da função");
+            }
+
+
+
+            i++;
+            j++;
+            // contParam++;
+        }
+    }
+    // printf("f%d p%d\n",fn_id,pro_id);
+    // printf("funcao %s %s prototipo\n",tabela_de_simbolos[fn_id].nome,pro_id == -1? "não tem":"tem");
+
+    // printf("\n");
 }
 
 void erroSem(char * string){

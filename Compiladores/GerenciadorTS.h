@@ -79,6 +79,7 @@ int armazenar_simbolo(int escopo,int categoria, int tipo, char nomeID[20]){
     switch(escopo){
             case escopoTS_global:
                 tabela_de_simbolos[topo_tabela_de_simbolos].enderecoRelativo = contador_simbolos_globais;
+                if(categoria == categoriaTS_funcao) verificaPrototipoCompativelComFuncao();
                 contador_simbolos_globais++;
                 break;
             case escopoTS_local:
@@ -94,7 +95,7 @@ int armazenar_simbolo(int escopo,int categoria, int tipo, char nomeID[20]){
     // printf("armazenado --> ");
     // mostraSimbolo(topo_tabela_de_simbolos-1);
 
-    mostraTabela();
+    // mostraTabela();
     if(escopo == escopoTS_global){
         verificaIDGlobalDuplicado(topo_tabela_de_simbolos-1);
     }else{

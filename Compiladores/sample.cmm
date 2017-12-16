@@ -13,16 +13,13 @@ prototipo inteiro contagem(inteiro, real, booleano);
 
 prototipo semretorno soma(semparam);
 
+inteiro sqrt(inteiro a){
+      retorne a;
+}
 semretorno minhaFUNC(inteiro a, real b, booleano c){
       caracter varaiabel1, varaiabel2, varaiabel3;
       retorne ;
 }
-
-semretorno minha2(semparam){
-      caracter varaiabel1, varaiabel2, varaiabel3;
-}
-
-
 
 
 
@@ -36,9 +33,7 @@ inteiro contagem(inteiro a, real b, booleano c){
       retorne a;
 }
 
-inteiro sqrt(inteiro a){
-      retorne a;
-}
+
 
 semretorno principal(semparam) {
       inteiro t,x,y,i,x1,x2,x3;

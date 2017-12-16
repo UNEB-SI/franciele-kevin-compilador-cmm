@@ -53,7 +53,7 @@ void getToken(){
     // printf("TOKEN PROX");mostraToken(viewNext());
     // printf("TOKEN PROXPROX");mostraToken(viewNextNext());
 
-    mostraTokens();
+    // mostraTokens();
 }
 
 token viewToken(){
@@ -340,7 +340,7 @@ void prog(){
                     possui_retorno = false;
                     // printf("THE END FOLKS\n");
                     
-                    mostraTabela();
+                    // mostraTabela();
                     getToken();
                     // printf("8->"); mostraTokens();
 
@@ -390,7 +390,7 @@ void prog(){
                     if(sinal(viewToken(),SN_fechaParenteses)){
                         getToken();
                         if(sinal(viewToken(),SN_abreChaves)){
-                            mostraTokens();
+                            // mostraTokens();
                             temp_id = topo_tabela_de_simbolos;
                             while(tipo(viewNext())){
                                 getToken(); // no need to check, because the while will do for you
@@ -424,7 +424,7 @@ void prog(){
                             verificaRetornoObrigatorio();
                             possui_retorno = false;
                             limparSimbolosLocais(temp_id);
-                            mostraTabela();
+                            // mostraTabela();
                             getToken();
 
                         }else erroSin("Esperado abre chaves");
@@ -454,6 +454,7 @@ void tipos_param(){
         // ALL FINE DUDE
     }else if(tipo(viewToken())){
         // printf("YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY\n");
+        // verificaPrototipoCompativelComFuncao();
         inicio_escopo_funcao=topo_tabela_de_simbolos;
         armazenar_simbolo(escopoTS_local,categoriaTS_parametro,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
         getToken();
@@ -503,6 +504,7 @@ void tipos_p_opc(){
         // printf("1=>"); mostraTokens();
         // getToken();
         // printf("121233333333333333333333333333333333333333333333333333\n");
+        // verificaPrototipoCompativelComFuncao();
         inicio_escopo_funcao=topo_tabela_de_simbolos;
         if(id(viewNext())){
             armazenar_simbolo(escopoTS_local,categoriaTS_parametro_prototipo,checar_tipoTS(viewToken()) , ID_TABLE[viewNext().codigo]);
