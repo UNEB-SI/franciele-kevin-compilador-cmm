@@ -124,8 +124,8 @@ void verificadorDeTipos(token token,int num_param){
         case CAT_id:
             // printf("********************************ID\n");
             tipo = verificaTipoTabelaDeSimbolos(ID_TABLE[token.codigo]);
-            printf("%s :: %s | ",ID_TABLE[token.codigo],tabela_de_simbolos[id_funcao_atual].nome);
-            printf("%s == %s?\n",tipoTS_nomes[tipo],tipoTS_nomes[tabela_de_simbolos[id_funcao_atual+num_param].tipo]);
+            // printf("%s :: %s | ",ID_TABLE[token.codigo],tabela_de_simbolos[id_funcao_atual].nome);
+            // printf("%s == %s?\n",tipoTS_nomes[tipo],tipoTS_nomes[tabela_de_simbolos[id_funcao_atual+num_param].tipo]);
             if(
                 tipo == tabela_de_simbolos[id_funcao_atual+num_param].tipo &&
                 (
