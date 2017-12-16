@@ -8,10 +8,10 @@ compilador de cmm para disciplina de compiladores
 Etapas Concluídas
 ----------
 
- - [x] Lexico
- - [x] Sintatico 
- - [x] Gerenciador da tabelas de simbolos
- - [x] Semantico
- - [ ] Maquina de pilha
+ - [x] léxico
+ - [x] Sintático 
+ - [x] Gerenciador de tabela de simbolos
+ - [x] Semântico
+ - [ ] Máquina de pilha
  
  
