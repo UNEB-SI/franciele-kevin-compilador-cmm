@@ -15,31 +15,7 @@
 int main(void){
     fp = fopen("sample.cmm","r");
     
-    
-
-
-
-    
-    
-    
-    
-    
-
-
-    
-    
-    
-
-    
-    
-    
-    
-    
-    
-    
-    
-    
-
+  
     prog();
     printf("Nenhum erro encontrado\n");
     
