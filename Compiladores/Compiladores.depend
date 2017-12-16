@@ -30,29 +30,29 @@
 1512911283 /home/franciele/Documentos/5º Semestre/Fundamentos de Compiladores/Compiladores/analex_funcoes.h
 	<stdbool.h>
 
-1513390310 source:/home/kevin/Documents/projects/franciele-kevin-compilador-cmm/Compiladores/main.c
+1513390970 source:/home/kevin/Documents/projects/franciele-kevin-compilador-cmm/Compiladores/main.c
 	<stdlib.h>
 	<string.h>
 	<math.h>
 	<ctype.h>
 	"anasin.h"
 
-1513388293 /home/kevin/Documents/projects/franciele-kevin-compilador-cmm/Compiladores/anasin.h
+1513390890 /home/kevin/Documents/projects/franciele-kevin-compilador-cmm/Compiladores/anasin.h
 	"analex.h"
 	"anasem.h"
 	"GerenciadorTS.h"
 	<stdbool.h>
 
-1513090513 /home/kevin/Documents/projects/franciele-kevin-compilador-cmm/Compiladores/analex.h
+1513391106 /home/kevin/Documents/projects/franciele-kevin-compilador-cmm/Compiladores/analex.h
 	<stdio.h>
 	<stdbool.h>
 
-1513388375 /home/kevin/Documents/projects/franciele-kevin-compilador-cmm/Compiladores/GerenciadorTS.h
+1513391146 /home/kevin/Documents/projects/franciele-kevin-compilador-cmm/Compiladores/GerenciadorTS.h
 	"anasin.h"
 	"anasem.h"
 	<stdbool.h>
 
-1513390181 /home/kevin/Documents/projects/franciele-kevin-compilador-cmm/Compiladores/anasem.h
+1513390714 /home/kevin/Documents/projects/franciele-kevin-compilador-cmm/Compiladores/anasem.h
 	"analex.h"
 	"anasin.h"
 	"GerenciadorTS.h"
